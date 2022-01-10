@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">  
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">    
+		<meta name="generator" content="PSPad editor, www.pspad.com">    
+		<meta name="author" content="Michael Vodák">
+		<title>SGC Countdown SVG</title>
+		<style type="text/css">
+			
+			@font-face {
+				font-family: digit-7;
+				src: url(../fonts/digital-7.mono.ttf);
+			}
+		  
+			* {
+				margin: 0;
+				padding: 0;
+				font-family: arial;
+			}
+			
+			body {
+				background-color: #000000;
+				color: #EBD594;
+				font-size: 30px;
+				overflow: hidden;
+			}
+			
+			.time {
+				font-family: digit-7, monospace;
+			}
+			
+			svg {
+				width: 0;
+				height: 0;
+				transform-origin: 0 0;
+			}
+			
+			#fps {
+				display: none;
+			}
+			   
+		</style>
+		<script src="sgc_countdown.js"></script>
+		<script type="text/javascript">
+			  
+			  window.addEventListener("load", function() {
+			  
+				const days = document.getElementById("days");
+				const hours = document.getElementById("hours");
+				const minutes = document.getElementById("minutes");
+				const seconds = document.getElementById("seconds");
+				const time = days.parentNode.parentNode;
+				const currentDate = document.getElementById("date");
+				const currentTime = document.getElementById("time");
+				const timerMover = document.getElementById("stargate-timer-mover");
+				const fps = document.getElementById("fps");
+				const countdownBase = new SGCCountdownBase(
+					document.getElementsByTagName("svg")[0],
+					info => {
+						seconds.innerHTML = info.countdownSeconds;
+						minutes.innerHTML = info.countdownMinutes;
+						hours.innerHTML = info.countdownHours;
+						days.innerHTML = info.countdownDays;
+						
+						currentDate.innerHTML = info.fullYear + "-" + info.month + "-" + info.date;
+						currentTime.innerHTML = info.hours + ":" + info.minutes + ":" + info.seconds;
+						
+						time.setAttribute("fill", info.countdownFill);
+						timerMover.setAttribute("transform", "translate(0 " + info.timerY + ")");
+						
+						if(info.viewFps) {
+							fps.innerHTML = info.fps;
+							fps.style.display = "inline";
+						} else
+							fps.style.display = "";
+					}
+				);
+				countdownBase.start();
+			});
+		</script>
+	</head>  
+	<body>    
+		<svg>
+			<g>
+				<g>
+					<g id="stargate-timer" transform="translate(158.5 220)">
+						
+						<g id="stargate-timer-mover" transform="translate(0 22)">
+							<rect x="0" y="0" width="1005px" height="285px" fill="black" stroke="#339999" stroke-width="5px" />
+							<rect x="10" y="5" width="985px" height="265px" fill="black" stroke="#339999" stroke-width="5px" />
+							  
+							<line x1="35.256410256410255" y1="5" x2="35.256410256410255" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="60.51282051282051" y1="5" x2="60.51282051282051" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="85.76923076923077" y1="5" x2="85.76923076923077" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="111.02564102564102" y1="5" x2="111.02564102564102" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="136.28205128205127" y1="5" x2="136.28205128205127" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="161.53846153846152" y1="5" x2="161.53846153846152" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="186.79487179487177" y1="5" x2="186.79487179487177" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="212.05128205128202" y1="5" x2="212.05128205128202" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="237.30769230769226" y1="5" x2="237.30769230769226" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="262.56410256410254" y1="5" x2="262.56410256410254" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="287.8205128205128" y1="5" x2="287.8205128205128" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="313.0769230769231" y1="5" x2="313.0769230769231" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="338.33333333333337" y1="5" x2="338.33333333333337" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="363.58974358974365" y1="5" x2="363.58974358974365" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="388.8461538461539" y1="5" x2="388.8461538461539" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="414.1025641025642" y1="5" x2="414.1025641025642" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="439.3589743589745" y1="5" x2="439.3589743589745" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="464.61538461538476" y1="5" x2="464.61538461538476" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="489.87179487179503" y1="5" x2="489.87179487179503" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="515.1282051282053" y1="5" x2="515.1282051282053" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="540.3846153846156" y1="5" x2="540.3846153846156" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="565.6410256410259" y1="5" x2="565.6410256410259" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="590.8974358974361" y1="5" x2="590.8974358974361" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="616.1538461538464" y1="5" x2="616.1538461538464" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="641.4102564102567" y1="5" x2="641.4102564102567" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="666.666666666667" y1="5" x2="666.666666666667" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="691.9230769230772" y1="5" x2="691.9230769230772" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="717.1794871794875" y1="5" x2="717.1794871794875" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="742.4358974358978" y1="5" x2="742.4358974358978" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="767.6923076923081" y1="5" x2="767.6923076923081" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="792.9487179487184" y1="5" x2="792.9487179487184" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="818.2051282051286" y1="5" x2="818.2051282051286" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="843.4615384615389" y1="5" x2="843.4615384615389" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="868.7179487179492" y1="5" x2="868.7179487179492" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="893.9743589743595" y1="5" x2="893.9743589743595" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="919.2307692307697" y1="5" x2="919.2307692307697" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="944.48717948718" y1="5" x2="944.48717948718" y2="40" stroke="#339999" stroke-width="3px" />
+							<line x1="969.7435897435903" y1="5" x2="969.7435897435903" y2="40" stroke="#339999" stroke-width="3px" />
+
+							<line x1="10" y1="40" x2="995" y2="40" stroke="#339999" stroke-width="3px" />
+							<text id="stargate-timer-mover-status" x="502.5" y="120" font-size="90px" fill="rgb(172, 0, 0)" text-anchor="middle"><tspan>U</tspan><tspan dx="5px">N</tspan><tspan dx="5px">L</tspan><tspan dx="5px">O</tspan><tspan dx="5px">C</tspan><tspan dx="5px">K</tspan><tspan dx="5px">I</tspan><tspan dx="5px">N</tspan><tspan dx="5px">G</tspan></text>
+							<text x="502.5" y="165" fill="#EBD594" font-size="42.5px" text-anchor="middle"><tspan>C</tspan><tspan dx="2.5px">o</tspan><tspan dx="2.5px">m</tspan><tspan dx="2.5px">m</tspan><tspan dx="2.5px">e</tspan><tspan dx="2.5px">n</tspan><tspan dx="2.5px">c</tspan><tspan dx="2.5px">i</tspan><tspan dx="2.5px">n</tspan><tspan dx="2.5px">g</tspan><tspan dx="2.5px"> </tspan><tspan dx="2.5px">E</tspan><tspan dx="2.5px">p</tspan><tspan dx="2.5px">i</tspan><tspan dx="2.5px">s</tspan><tspan dx="2.5px">o</tspan><tspan dx="2.5px">d</tspan><tspan dx="2.5px">e</tspan></text>
+							<text x="502.5" y="220" fill="#EBD594" font-size="42.5px" text-anchor="middle"><tspan>U</tspan><tspan dx="2.5px">N</tspan><tspan dx="2.5px">L</tspan><tspan dx="2.5px">O</tspan><tspan dx="2.5px">C</tspan><tspan dx="2.5px">K</tspan><tspan dx="2.5px">E</tspan><tspan dx="2.5px">D</tspan></text>
+							<line x1="10" y1="235" x2="995" y2="235" stroke="#339999" stroke-width="3px" />
+
+							<line x1="35.256410256410255" y1="270" x2="35.256410256410255" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="60.51282051282051" y1="270" x2="60.51282051282051" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="85.76923076923077" y1="270" x2="85.76923076923077" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="111.02564102564102" y1="270" x2="111.02564102564102" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="136.28205128205127" y1="270" x2="136.28205128205127" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="161.53846153846152" y1="270" x2="161.53846153846152" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="186.79487179487177" y1="270" x2="186.79487179487177" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="212.05128205128202" y1="270" x2="212.05128205128202" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="237.30769230769226" y1="270" x2="237.30769230769226" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="262.56410256410254" y1="270" x2="262.56410256410254" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="287.8205128205128" y1="270" x2="287.8205128205128" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="313.0769230769231" y1="270" x2="313.0769230769231" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="338.33333333333337" y1="270" x2="338.33333333333337" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="363.58974358974365" y1="270" x2="363.58974358974365" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="388.8461538461539" y1="270" x2="388.8461538461539" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="414.1025641025642" y1="270" x2="414.1025641025642" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="439.3589743589745" y1="270" x2="439.3589743589745" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="464.61538461538476" y1="270" x2="464.61538461538476" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="489.87179487179503" y1="270" x2="489.87179487179503" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="515.1282051282053" y1="270" x2="515.1282051282053" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="540.3846153846156" y1="270" x2="540.3846153846156" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="565.6410256410259" y1="270" x2="565.6410256410259" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="590.8974358974361" y1="270" x2="590.8974358974361" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="616.1538461538464" y1="270" x2="616.1538461538464" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="641.4102564102567" y1="270" x2="641.4102564102567" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="666.666666666667" y1="270" x2="666.666666666667" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="691.9230769230772" y1="270" x2="691.9230769230772" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="717.1794871794875" y1="270" x2="717.1794871794875" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="742.4358974358978" y1="270" x2="742.4358974358978" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="767.6923076923081" y1="270" x2="767.6923076923081" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="792.9487179487184" y1="270" x2="792.9487179487184" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="818.2051282051286" y1="270" x2="818.2051282051286" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="843.4615384615389" y1="270" x2="843.4615384615389" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="868.7179487179492" y1="270" x2="868.7179487179492" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="893.9743589743595" y1="270" x2="893.9743589743595" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="919.2307692307697" y1="270" x2="919.2307692307697" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="944.48717948718" y1="270" x2="944.48717948718" y2="235" stroke="#339999" stroke-width="3px" />
+							<line x1="969.7435897435903" y1="270" x2="969.7435897435903" y2="235" stroke="#339999" stroke-width="3px" />
+
+						</g>
+                  
+						<rect x="0" y="0" width="1005px" height="315px" fill="black" stroke="#339999" stroke-width="5px" />
+						<text x="10" y="35" font-size="36">
+							<tspan fill="#339999"><tspan>E</tspan><tspan dx="2.5px">n</tspan><tspan dx="2.5px">c</tspan><tspan dx="2.5px">o</tspan><tspan dx="2.5px">d</tspan><tspan dx="2.5px">i</tspan><tspan dx="2.5px">n</tspan><tspan dx="2.5px">g</tspan><tspan dx="2.5px">:</tspan><tspan dx="2.5px"> </tspan> </tspan>
+							<tspan fill="#EBD594"><tspan>C</tspan><tspan dx="2.5px">o</tspan><tspan dx="2.5px">u</tspan><tspan dx="2.5px">n</tspan><tspan dx="2.5px">t</tspan><tspan dx="2.5px">d</tspan><tspan dx="2.5px">o</tspan><tspan dx="2.5px">w</tspan><tspan dx="2.5px">n</tspan><tspan dx="2.5px"> </tspan><tspan dx="2.5px">T</tspan><tspan dx="2.5px">o</tspan><tspan dx="2.5px"> </tspan><tspan dx="2.5px">T</tspan><tspan dx="2.5px">h</tspan><tspan dx="2.5px">e</tspan><tspan dx="2.5px"> </tspan><tspan dx="2.5px">F</tspan><tspan dx="2.5px">i</tspan><tspan dx="2.5px">r</tspan><tspan dx="2.5px">s</tspan><tspan dx="2.5px">t</tspan><tspan dx="2.5px"> </tspan><tspan dx="2.5px">E</tspan><tspan dx="2.5px">p</tspan><tspan dx="2.5px">i</tspan><tspan dx="2.5px">s</tspan><tspan dx="2.5px">o</tspan><tspan dx="2.5px">d</tspan><tspan dx="2.5px">e</tspan> </tspan>
+						</text>
+						<line x1="0px" y1="45px" x2="1005px" y2="45px" stroke="#339999" stroke-width="5px" />
+						<line x1="135px" y1="45px" x2="135px" y2="72.5px" stroke="#339999" stroke-width="5px" />
+						<line x1="250px" y1="45px" x2="250px" y2="72.5px" stroke="#339999" stroke-width="5px" />
+						<line x1="555px" y1="45px" x2="555px" y2="72.5px" stroke="#339999" stroke-width="5px" />
+						<line x1="740px" y1="45px" x2="740px" y2="72.5px" stroke="#339999" stroke-width="5px" />
+						<line x1="875px" y1="45px" x2="875px" y2="72.5px" stroke="#339999" stroke-width="5px" />
+						<rect x="50" y="72.5" width="900px" height="195px" fill="black" stroke="#339999" stroke-width="5px" />
+      
+						<line x1="12px" y1="77.5px" x2="19px" y2="77.5px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="12px" y1="90.71428571428571px" x2="19px" y2="90.71428571428571px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="12px" y1="103.92857142857141px" x2="19px" y2="103.92857142857141px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="12px" y1="117.14285714285712px" x2="19px" y2="117.14285714285712px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="12px" y1="130.35714285714283px" x2="19px" y2="130.35714285714283px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="12px" y1="143.57142857142855px" x2="19px" y2="143.57142857142855px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="12px" y1="156.78571428571428px" x2="19px" y2="156.78571428571428px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="12px" y1="170px" x2="19px" y2="170px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="12px" y1="183.21428571428572px" x2="19px" y2="183.21428571428572px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="12px" y1="196.42857142857144px" x2="19px" y2="196.42857142857144px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="12px" y1="209.64285714285717px" x2="19px" y2="209.64285714285717px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="12px" y1="222.8571428571429px" x2="19px" y2="222.8571428571429px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="12px" y1="236.0714285714286px" x2="19px" y2="236.0714285714286px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="12px" y1="249.28571428571433px" x2="19px" y2="249.28571428571433px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="12px" y1="262.50000000000005px" x2="19px" y2="262.50000000000005px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+      
+						<g transform="translate(50 72.5)" fill="#cc3333">
+							<g transform="translate(20 15)">
+								<rect x="0" y="0" width="200px" height="165px" fill="black" stroke="#339999" stroke-width="5px" />
+								<text id="days" class="time" x="100" y="142.5" font-size="180px" text-anchor="middle">00</text>
+							</g>
+							<g transform="translate(240 15)">
+								<rect x="0" y="0" width="200px" height="165px" fill="black" stroke="#339999" stroke-width="5px" />
+								<text id="hours" class="time" x="100" y="142.5" font-size="180px" text-anchor="middle">00</text>
+							</g>
+							<g transform="translate(460 15)">
+								<rect x="0" y="0" width="200px" height="165px" fill="black" stroke="#339999" stroke-width="5px" />
+								<text id="minutes" class="time" x="100" y="142.5" font-size="180px" text-anchor="middle">00</text>
+							</g>
+							<g transform="translate(680 15)">
+							  <rect x="0" y="0" width="200px" height="165px" fill="black" stroke="#339999" stroke-width="5px" />
+							  <text id="seconds" class="time" x="100" y="142.5" font-size="180px" text-anchor="middle">00</text>
+							</g>
+						</g>
+						
+						<line x1="993px" y1="77.5px" x2="986px" y2="77.5px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="993px" y1="90.71428571428571px" x2="986px" y2="90.71428571428571px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="993px" y1="103.92857142857141px" x2="986px" y2="103.92857142857141px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="993px" y1="117.14285714285712px" x2="986px" y2="117.14285714285712px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="993px" y1="130.35714285714283px" x2="986px" y2="130.35714285714283px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="993px" y1="143.57142857142855px" x2="986px" y2="143.57142857142855px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="993px" y1="156.78571428571428px" x2="986px" y2="156.78571428571428px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="993px" y1="170px" x2="986px" y2="170px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="993px" y1="183.21428571428572px" x2="986px" y2="183.21428571428572px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="993px" y1="196.42857142857144px" x2="986px" y2="196.42857142857144px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="993px" y1="209.64285714285717px" x2="986px" y2="209.64285714285717px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="993px" y1="222.8571428571429px" x2="986px" y2="222.8571428571429px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="993px" y1="236.0714285714286px" x2="986px" y2="236.0714285714286px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="993px" y1="249.28571428571433px" x2="986px" y2="249.28571428571433px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						<line x1="993px" y1="262.50000000000005px" x2="986px" y2="262.50000000000005px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+						
+						<line x1="0px" y1="285px" x2="1005px" y2="285px" stroke="#339999" stroke-width="5px" />
+						<line x1="170px" y1="285px" x2="170px" y2="315px" stroke="#339999" stroke-width="5px" />
+						<line x1="390px" y1="285px" x2="390px" y2="315px" stroke="#339999" stroke-width="5px" />
+						<line x1="460px" y1="285px" x2="460px" y2="315px" stroke="#339999" stroke-width="5px" />
+						<line x1="600px" y1="285px" x2="600px" y2="315px" stroke="#339999" stroke-width="5px" />
+						<line x1="690px" y1="285px" x2="690px" y2="315px" stroke="#339999" stroke-width="5px" />
+						<line x1="900px" y1="285px" x2="900px" y2="315px" stroke="#339999" stroke-width="5px" />
+                      
+					</g>
+                </g>
+				<text id="date" class="time" x="100" y="142.5" font-size="25px" text-anchor="middle" fill="#ffffff">00</text>
+				<text id="time" class="time" x="100" y="172.5" font-size="25px" text-anchor="middle" fill="#ffffff">00</text>
+				<text id="fps" x="1222" y="142.5" font-size="25px" fill="#ffffff"></text>
+            </g>
+		</svg>
+	</body>
+</html>

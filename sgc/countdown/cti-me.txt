@@ -1,0 +1,2 @@
+Klávesa
+	f - zobrazí/schová výpis FPS

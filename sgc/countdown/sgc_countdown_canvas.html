@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">  
+	<head>    
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">    
+		<meta name="generator" content="PSPad editor, www.pspad.com">
+		<meta name="author" content="Michael Vodák">
+		<title>SGC Countdown Canvas</title>
+		<style type="text/css">
+		
+			@font-face {
+				font-family: digit-7;
+				src: url("../fonts/digital-7.mono.ttf");
+			}
+		  
+			* {
+				margin: 0;
+				padding: 0;
+				font-family: arial;
+			}
+			
+			body {
+				background-color: #000000;
+				color: #EBD594;
+				font-size: 30px;
+				overflow: hidden;
+			}
+			
+			canvas {
+				transform-origin: 0 0;
+				font-family: digit-7, monoscope;
+			}
+			
+		</style>
+		<script src="sgc_countdown.js"></script>
+		<script type="text/javascript">
+		
+			window.addEventListener("load", function() {
+				
+				const canvas = document.getElementsByTagName("canvas")[0];
+				const context2D = canvas.getContext("2d");
+				const countdownBase = new SGCCountdownBase(
+					canvas,
+					info => {
+						
+						context2D.scale(info.ratio, info.ratio);
+						
+						context2D.strokeStyle = "#339999";
+						context2D.translate(158.5, 220);
+						
+						//movable part
+						context2D.translate(0, info.timerY);
+						context2D.lineWidth = 5;
+						context2D.strokeRect(0, 0, 1005, 285);
+						context2D.strokeRect(10, 5, 985, 265);
+						
+						context2D.lineWidth = 3;
+						context2D.beginPath();
+						context2D.moveTo(35.256410256410255, 5);
+						context2D.lineTo(35.256410256410255, 40);
+						context2D.moveTo(60.51282051282051, 5);
+						context2D.lineTo(60.51282051282051, 40);
+						context2D.moveTo(85.76923076923077, 5);
+						context2D.lineTo(85.76923076923077, 40);
+						context2D.moveTo(111.02564102564102, 5);
+						context2D.lineTo(111.02564102564102, 40);
+						context2D.moveTo(136.28205128205127, 5);
+						context2D.lineTo(136.28205128205127, 40);
+						context2D.moveTo(161.53846153846152, 5);
+						context2D.lineTo(161.53846153846152, 40);
+						context2D.moveTo(186.79487179487177, 5);
+						context2D.lineTo(186.79487179487177, 40);
+						context2D.moveTo(212.05128205128202, 5);
+						context2D.lineTo(212.05128205128202, 40);
+						context2D.moveTo(237.30769230769226, 5);
+						context2D.lineTo(237.30769230769226, 40);
+						context2D.moveTo(262.56410256410254, 5);
+						context2D.lineTo(262.56410256410254, 40);
+						context2D.moveTo(287.8205128205128, 5);
+						context2D.lineTo(287.8205128205128, 40);
+						context2D.moveTo(313.0769230769231, 5);
+						context2D.lineTo(313.0769230769231, 40);
+						context2D.moveTo(338.33333333333337, 5);
+						context2D.lineTo(338.33333333333337, 40);
+						context2D.moveTo(363.58974358974365, 5);
+						context2D.lineTo(363.58974358974365, 40);
+						context2D.moveTo(388.8461538461539, 5);
+						context2D.lineTo(388.8461538461539, 40);
+						context2D.moveTo(414.1025641025642, 5);
+						context2D.lineTo(414.1025641025642, 40);
+						context2D.moveTo(439.3589743589745, 5);
+						context2D.lineTo(439.3589743589745, 40);
+						context2D.moveTo(464.61538461538476, 5);
+						context2D.lineTo(464.61538461538476, 40);
+						context2D.moveTo(489.87179487179503, 5);
+						context2D.lineTo(489.87179487179503, 40);
+						context2D.moveTo(515.1282051282053, 5);
+						context2D.lineTo(515.1282051282053, 40);
+						context2D.moveTo(540.3846153846156, 5);
+						context2D.lineTo(540.3846153846156, 40);
+						context2D.moveTo(565.6410256410259, 5);
+						context2D.lineTo(565.6410256410259, 40);
+						context2D.moveTo(590.8974358974361, 5);
+						context2D.lineTo(590.8974358974361, 40);
+						context2D.moveTo(616.1538461538464, 5);
+						context2D.lineTo(616.1538461538464, 40);
+						context2D.moveTo(641.4102564102567, 5);
+						context2D.lineTo(641.4102564102567, 40);
+						context2D.moveTo(666.666666666667, 5);
+						context2D.lineTo(666.666666666667, 40);
+						context2D.moveTo(691.9230769230772, 5);
+						context2D.lineTo(691.9230769230772, 40);
+						context2D.moveTo(717.1794871794875, 5);
+						context2D.lineTo(717.1794871794875, 40);
+						context2D.moveTo(742.4358974358978, 5);
+						context2D.lineTo(742.4358974358978, 40);
+						context2D.moveTo(767.6923076923081, 5);
+						context2D.lineTo(767.6923076923081, 40);
+						context2D.moveTo(792.9487179487184, 5);
+						context2D.lineTo(792.9487179487184, 40);
+						context2D.moveTo(818.2051282051286, 5);
+						context2D.lineTo(818.2051282051286, 40);
+						context2D.moveTo(843.4615384615389, 5);
+						context2D.lineTo(843.4615384615389, 40);
+						context2D.moveTo(868.7179487179492, 5);
+						context2D.lineTo(868.7179487179492, 40);
+						context2D.moveTo(893.9743589743595, 5);
+						context2D.lineTo(893.9743589743595, 40);
+						context2D.moveTo(919.2307692307697, 5);
+						context2D.lineTo(919.2307692307697, 40);
+						context2D.moveTo(944.48717948718, 5);
+						context2D.lineTo(944.48717948718, 40);
+						context2D.moveTo(969.7435897435903, 5);
+						context2D.lineTo(969.7435897435903, 40);
+						
+						context2D.moveTo(10, 40);
+						context2D.lineTo(995, 40);
+						context2D.closePath();
+						context2D.stroke();
+						
+						//0 - "UNLOCKING":
+						context2D.font = "normal 90px arial";
+						context2D.textAlign = "left";
+						context2D.fillStyle = "rgb(172, 0, 0)";
+						context2D.fillText("U", 214.95834350585938, 120);
+						context2D.fillText("N", 284.9583435058594, 120);
+						context2D.fillText("L", 354.9583435058594, 120);
+						context2D.fillText("O", 410.0208435058594, 120);
+						context2D.fillText("C", 485.0208435058594, 120);
+						context2D.fillText("K", 555.0208435058594, 120);
+						context2D.fillText("I", 620.041675567627, 120);
+						context2D.fillText("N", 650.041675567627, 120);
+						context2D.fillText("G", 720.041675567627, 120);
+
+						//1 - "Commencing Episode":
+						context2D.font = "normal 42.5px arial";
+						context2D.textAlign = "left";
+						context2D.fillStyle = "#ebd594";
+						context2D.fillText("C", 273.3333282470703, 165);
+						context2D.fillText("o", 306.5208282470703, 165);
+						context2D.fillText("m", 332.6666622161865, 165);
+						context2D.fillText("m", 370.5624942779541, 165);
+						context2D.fillText("e", 408.4583263397217, 165);
+						context2D.fillText("n", 434.6041603088379, 165);
+						context2D.fillText("c", 460.7499942779541, 165);
+						context2D.fillText("i", 484.4999942779541, 165);
+						context2D.fillText("n", 496.4374942779541, 165);
+						context2D.fillText("g", 522.5833282470703, 165);
+						context2D.fillText(" ", 548.7291622161865, 165);
+						context2D.fillText("E", 563.0416622161865, 165);
+						context2D.fillText("p", 593.8958282470703, 165);
+						context2D.fillText("i", 620.0416622161865, 165);
+						context2D.fillText("s", 631.9791622161865, 165);
+						context2D.fillText("o", 655.7291622161865, 165);
+						context2D.fillText("d", 681.8749961853027, 165);
+						context2D.fillText("e", 708.020830154419, 165);
+
+						//2 - "UNLOCKED":
+						context2D.font = "normal 42.5px arial";
+						context2D.textAlign = "left";
+						context2D.fillStyle = "#ebd594";
+						context2D.fillText("U", 375.66666412353516, 220);
+						context2D.fillText("N", 408.85416412353516, 220);
+						context2D.fillText("L", 442.04166412353516, 220);
+						context2D.fillText("O", 468.18749809265137, 220);
+						context2D.fillText("C", 503.74999809265137, 220);
+						context2D.fillText("K", 536.9374980926514, 220);
+						context2D.fillText("E", 567.7916641235352, 220);
+						context2D.fillText("D", 598.645830154419, 220);
+						
+						context2D.beginPath();
+						context2D.moveTo(10, 235);
+						context2D.lineTo(995, 235);
+						
+						context2D.moveTo(35.256410256410255, 270);
+						context2D.lineTo(35.256410256410255, 235);
+						context2D.moveTo(60.51282051282051, 270);
+						context2D.lineTo(60.51282051282051, 235);
+						context2D.moveTo(85.76923076923077, 270);
+						context2D.lineTo(85.76923076923077, 235);
+						context2D.moveTo(111.02564102564102, 270);
+						context2D.lineTo(111.02564102564102, 235);
+						context2D.moveTo(136.28205128205127, 270);
+						context2D.lineTo(136.28205128205127, 235);
+						context2D.moveTo(161.53846153846152, 270);
+						context2D.lineTo(161.53846153846152, 235);
+						context2D.moveTo(186.79487179487177, 270);
+						context2D.lineTo(186.79487179487177, 235);
+						context2D.moveTo(212.05128205128202, 270);
+						context2D.lineTo(212.05128205128202, 235);
+						context2D.moveTo(237.30769230769226, 270);
+						context2D.lineTo(237.30769230769226, 235);
+						context2D.moveTo(262.56410256410254, 270);
+						context2D.lineTo(262.56410256410254, 235);
+						context2D.moveTo(287.8205128205128, 270);
+						context2D.lineTo(287.8205128205128, 235);
+						context2D.moveTo(313.0769230769231, 270);
+						context2D.lineTo(313.0769230769231, 235);
+						context2D.moveTo(338.33333333333337, 270);
+						context2D.lineTo(338.33333333333337, 235);
+						context2D.moveTo(363.58974358974365, 270);
+						context2D.lineTo(363.58974358974365, 235);
+						context2D.moveTo(388.8461538461539, 270);
+						context2D.lineTo(388.8461538461539, 235);
+						context2D.moveTo(414.1025641025642, 270);
+						context2D.lineTo(414.1025641025642, 235);
+						context2D.moveTo(439.3589743589745, 270);
+						context2D.lineTo(439.3589743589745, 235);
+						context2D.moveTo(464.61538461538476, 270);
+						context2D.lineTo(464.61538461538476, 235);
+						context2D.moveTo(489.87179487179503, 270);
+						context2D.lineTo(489.87179487179503, 235);
+						context2D.moveTo(515.1282051282053, 270);
+						context2D.lineTo(515.1282051282053, 235);
+						context2D.moveTo(540.3846153846156, 270);
+						context2D.lineTo(540.3846153846156, 235);
+						context2D.moveTo(565.6410256410259, 270);
+						context2D.lineTo(565.6410256410259, 235);
+						context2D.moveTo(590.8974358974361, 270);
+						context2D.lineTo(590.8974358974361, 235);
+						context2D.moveTo(616.1538461538464, 270);
+						context2D.lineTo(616.1538461538464, 235);
+						context2D.moveTo(641.4102564102567, 270);
+						context2D.lineTo(641.4102564102567, 235);
+						context2D.moveTo(666.666666666667, 270);
+						context2D.lineTo(666.666666666667, 235);
+						context2D.moveTo(691.9230769230772, 270);
+						context2D.lineTo(691.9230769230772, 235);
+						context2D.moveTo(717.1794871794875, 270);
+						context2D.lineTo(717.1794871794875, 235);
+						context2D.moveTo(742.4358974358978, 270);
+						context2D.lineTo(742.4358974358978, 235);
+						context2D.moveTo(767.6923076923081, 270);
+						context2D.lineTo(767.6923076923081, 235);
+						context2D.moveTo(792.9487179487184, 270);
+						context2D.lineTo(792.9487179487184, 235);
+						context2D.moveTo(818.2051282051286, 270);
+						context2D.lineTo(818.2051282051286, 235);
+						context2D.moveTo(843.4615384615389, 270);
+						context2D.lineTo(843.4615384615389, 235);
+						context2D.moveTo(868.7179487179492, 270);
+						context2D.lineTo(868.7179487179492, 235);
+						context2D.moveTo(893.9743589743595, 270);
+						context2D.lineTo(893.9743589743595, 235);
+						context2D.moveTo(919.2307692307697, 270);
+						context2D.lineTo(919.2307692307697, 235);
+						context2D.moveTo(944.48717948718, 270);
+						context2D.lineTo(944.48717948718, 235);
+						context2D.moveTo(969.7435897435903, 270);
+						context2D.lineTo(969.7435897435903, 235);
+						context2D.closePath();
+						
+						context2D.stroke();
+						
+						context2D.translate(0, -info.timerY);
+						//end movable part
+						
+						//static part
+						context2D.fillStyle = "#000";
+						context2D.lineWidth = 5;
+						context2D.beginPath();
+						context2D.moveTo(0, 0);
+						context2D.lineTo(1005, 0);
+						context2D.lineTo(1005, 315);
+						context2D.lineTo(0, 315);
+						context2D.closePath();
+						context2D.fill();
+						context2D.stroke();
+						
+						//3 - "Encoding: Countdown To The First Episode":
+						context2D.font = "normal 36px arial";
+						context2D.textAlign = "left";
+						context2D.fillStyle = "#339999";
+						context2D.fillText("E", 10, 35);
+						context2D.fillText("n", 36.52083396911621, 35);
+						context2D.fillText("c", 59.04166793823242, 35);
+						context2D.fillText("o", 79.54166793823242, 35);
+						context2D.fillText("d", 102.06250190734863, 35);
+						context2D.fillText("i", 124.58333587646484, 35);
+						context2D.fillText("n", 135.08333587646484, 35);
+						context2D.fillText("g", 157.60416984558105, 35);
+						context2D.fillText(":", 180.12500381469727, 35);
+						context2D.fillText(" ", 192.62500381469727, 35);
+						context2D.fillStyle = "#ebd594";
+						context2D.fillText("C", 202.62500381469727, 35);
+						context2D.fillText("o", 231.12500381469727, 35);
+						context2D.fillText("u", 253.64583778381348, 35);
+						context2D.fillText("n", 276.1666717529297, 35);
+						context2D.fillText("t", 298.6875057220459, 35);
+						context2D.fillText("d", 311.1875057220459, 35);
+						context2D.fillText("o", 333.7083396911621, 35);
+						context2D.fillText("w", 356.2291736602783, 35);
+						context2D.fillText("n", 384.7291736602783, 35);
+						context2D.fillText(" ", 407.25000762939453, 35);
+						context2D.fillText("T", 419.75000762939453, 35);
+						context2D.fillText("o", 444.25000762939453, 35);
+						context2D.fillText(" ", 466.77084159851074, 35);
+						context2D.fillText("T", 479.27084159851074, 35);
+						context2D.fillText("h", 503.77084159851074, 35);
+						context2D.fillText("e", 526.291675567627, 35);
+						context2D.fillText(" ", 548.8125095367432, 35);
+						context2D.fillText("F", 561.3125095367432, 35);
+						context2D.fillText("i", 585.8125095367432, 35);
+						context2D.fillText("r", 596.3125095367432, 35);
+						context2D.fillText("s", 610.7916765213013, 35);
+						context2D.fillText("t", 631.2916765213013, 35);
+						context2D.fillText(" ", 643.7916765213013, 35);
+						context2D.fillText("E", 656.2916765213013, 35);
+						context2D.fillText("p", 682.8125104904175, 35);
+						context2D.fillText("i", 705.3333444595337, 35);
+						context2D.fillText("s", 715.8333444595337, 35);
+						context2D.fillText("o", 736.3333444595337, 35);
+						context2D.fillText("d", 758.8541784286499, 35);
+						context2D.fillText("e", 781.3750123977661, 35);
+						context2D.beginPath();
+						context2D.moveTo(0, 45);
+						context2D.lineTo(1005, 45);
+						context2D.moveTo(135, 45);
+						context2D.lineTo(135, 72.5);
+						context2D.moveTo(250, 45);
+						context2D.lineTo(250, 72.5);
+						context2D.moveTo(555, 45);
+						context2D.lineTo(555, 72.5);
+						context2D.moveTo(740, 45);
+						context2D.lineTo(740, 72.5);
+						context2D.moveTo(875, 45);
+						context2D.lineTo(875, 72.5);
+						context2D.closePath();
+						context2D.stroke();
+
+						context2D.fillStyle = "#000";
+						context2D.beginPath();
+						context2D.moveTo(50, 72.5);
+						context2D.lineTo(950, 72.5);
+						context2D.lineTo(950, 267.5);
+						context2D.lineTo(50, 267.5);
+						context2D.closePath();
+						context2D.fill();
+						context2D.stroke();
+						
+						context2D.lineWidth = 3;
+						context2D.lineCap = "round";
+						context2D.beginPath();
+						context2D.moveTo(12, 77.5);
+						context2D.lineTo(19, 77.5);
+						context2D.moveTo(12, 90.71428571428571);
+						context2D.lineTo(19, 90.71428571428571);
+						context2D.moveTo(12, 103.92857142857141);
+						context2D.lineTo(19, 103.92857142857141);
+						context2D.moveTo(12, 117.14285714285712);
+						context2D.lineTo(19, 117.14285714285712);
+						context2D.moveTo(12, 130.35714285714283);
+						context2D.lineTo(19, 130.35714285714283);
+						context2D.moveTo(12, 143.57142857142855);
+						context2D.lineTo(19, 143.57142857142855);
+						context2D.moveTo(12, 156.78571428571428);
+						context2D.lineTo(19, 156.78571428571428);
+						context2D.moveTo(12, 170);
+						context2D.lineTo(19, 170);
+						context2D.moveTo(12, 183.21428571428572);
+						context2D.lineTo(19, 183.21428571428572);
+						context2D.moveTo(12, 196.42857142857144);
+						context2D.lineTo(19, 196.42857142857144);
+						context2D.moveTo(12, 209.64285714285717);
+						context2D.lineTo(19, 209.64285714285717);
+						context2D.moveTo(12, 222.8571428571429);
+						context2D.lineTo(19, 222.8571428571429);
+						context2D.moveTo(12, 236.0714285714286);
+						context2D.lineTo(19, 236.0714285714286);
+						context2D.moveTo(12, 249.28571428571433);
+						context2D.lineTo(19, 249.28571428571433);
+						context2D.moveTo(12, 262.50000000000005);
+						context2D.lineTo(19, 262.50000000000005);
+						context2D.closePath();
+						context2D.stroke();
+						
+						context2D.font = "normal 180px digit-7, monospace";
+						context2D.textAlign = "center";
+						context2D.lineCap = "butt";
+						context2D.lineWidth = 5;
+						context2D.translate(50, 87.5);
+						context2D.translate(680, 0);
+						context2D.beginPath();
+						context2D.moveTo(0, 0);
+						context2D.lineTo(200, 0);
+						context2D.lineTo(200, 165);
+						context2D.lineTo(0, 165);
+						context2D.closePath();
+						context2D.fill();
+						context2D.stroke();
+						context2D.fillStyle = info.countdownFill;
+						context2D.fillText(info.countdownSeconds, 100, 142.5);
+						context2D.translate(-680, 0);
+						context2D.translate(460, 0);
+						context2D.fillStyle = "#000";
+						context2D.beginPath();
+						context2D.moveTo(0, 0);
+						context2D.lineTo(200, 0);
+						context2D.lineTo(200, 165);
+						context2D.lineTo(0, 165);
+						context2D.closePath();
+						context2D.fill();
+						context2D.stroke();
+						context2D.fillStyle = info.countdownFill;
+						context2D.fillText(info.countdownMinutes, 100, 142.5);
+						context2D.translate(-460, 0);
+						context2D.translate(240, 0);
+						context2D.fillStyle = "#000";
+						context2D.beginPath();
+						context2D.moveTo(0, 0);
+						context2D.lineTo(200, 0);
+						context2D.lineTo(200, 165);
+						context2D.lineTo(0, 165);
+						context2D.closePath();
+						context2D.fill();
+						context2D.stroke();
+						context2D.fillStyle = info.countdownFill;
+						context2D.fillText(info.countdownHours, 100, 142.5);
+						context2D.translate(-240, 0);
+						context2D.fillStyle = "#000";
+						context2D.translate(20, 0);
+						context2D.beginPath();
+						context2D.moveTo(0, 0);
+						context2D.lineTo(200, 0);
+						context2D.lineTo(200, 165);
+						context2D.lineTo(0, 165);
+						context2D.closePath();
+						context2D.fill();
+						context2D.stroke();
+						context2D.fillStyle = info.countdownFill;
+						context2D.fillText(info.countdownDays, 100, 142.5);
+						context2D.translate(-20, 0);
+						
+						context2D.translate(-50, -87.5);
+						
+						context2D.lineCap = "round";
+						context2D.lineWidth = 3;
+						context2D.beginPath();
+						context2D.moveTo(993, 77.5);
+						context2D.lineTo(986, 77.5);
+						context2D.moveTo(993, 90.71428571428571);
+						context2D.lineTo(986, 90.71428571428571);
+						context2D.moveTo(993, 103.92857142857141);
+						context2D.lineTo(986, 103.92857142857141);
+						context2D.moveTo(993, 117.14285714285712);
+						context2D.lineTo(986, 117.14285714285712);
+						context2D.moveTo(993, 130.35714285714283);
+						context2D.lineTo(986, 130.35714285714283);
+						context2D.moveTo(993, 143.57142857142855);
+						context2D.lineTo(986, 143.57142857142855);
+						context2D.moveTo(993, 156.78571428571428);
+						context2D.lineTo(986, 156.78571428571428);
+						context2D.moveTo(993, 170);
+						context2D.lineTo(986, 170);
+						context2D.moveTo(993, 183.21428571428572);
+						context2D.lineTo(986, 183.21428571428572);
+						context2D.moveTo(993, 196.42857142857144);
+						context2D.lineTo(986, 196.42857142857144);
+						context2D.moveTo(993, 209.64285714285717);
+						context2D.lineTo(986, 209.64285714285717);
+						context2D.moveTo(993, 222.8571428571429);
+						context2D.lineTo(986, 222.8571428571429);
+						context2D.moveTo(993, 236.0714285714286);
+						context2D.lineTo(986, 236.0714285714286);
+						context2D.moveTo(993, 249.28571428571433);
+						context2D.lineTo(986, 249.28571428571433);
+						context2D.moveTo(993, 262.50000000000005);
+						context2D.lineTo(986, 262.50000000000005);
+						context2D.closePath();
+						context2D.stroke();
+						
+						context2D.lineCap = "butt";
+						context2D.lineWidth = 5;
+						context2D.beginPath();
+						context2D.moveTo(0, 285);
+						context2D.lineTo(1005, 285);
+						context2D.moveTo(170, 285);
+						context2D.lineTo(170, 315);
+						context2D.moveTo(390, 285);
+						context2D.lineTo(390, 315);
+						context2D.moveTo(460, 285);
+						context2D.lineTo(460, 315);
+						context2D.moveTo(600, 285);
+						context2D.lineTo(600, 315);
+						context2D.moveTo(690, 285);
+						context2D.lineTo(690, 315);
+						context2D.moveTo(900, 285);
+						context2D.lineTo(900, 315);
+						context2D.closePath();
+						context2D.stroke();
+						context2D.translate(-158.5, -220);
+						//end static part
+						
+						//date and time
+						context2D.fillStyle = "#fff";
+						context2D.font = "normal 25px digit-7, monospace";
+						context2D.fillText(info.fullYear + "-" + info.month + "-" + info.date, 100, 142.5);
+						context2D.fillText(info.hours + ":" + info.minutes + ":" + info.seconds, 100, 172.5);
+						//end date and time
+						
+						//fps
+						if(info.viewFps) {
+							context2D.font = "normal 25px arial";
+							context2D.textAlign = "start";
+							context2D.fillText(info.fps + "", 1222, 142.5);
+						}
+						//end fps
+					}
+				);
+				countdownBase.start();
+				
+			});
+			
+		</script>
+	</head>  
+	<body>
+		<canvas></canvas>
+	</body>
+</html>

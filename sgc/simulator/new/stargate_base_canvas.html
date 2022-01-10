@@ -1,0 +1,515 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="generator" content="PSPad editor, www.pspad.com">
+		<meta name="author" content="Michael Vodák">
+		<title>SGCSim - base - Canvas</title>
+		<link rel="stylesheet" href="../../../styles/style.css">
+		<script src="../../../scripts/media.js"></script>
+		<style>
+
+			body {
+				background-color: #000000;
+				color: #EBD594;
+				font-size: 30px;
+				overflow: hidden;
+			}
+			
+			body > * {
+				display: unset;
+			}
+        
+		</style>
+		<script src="simulator_base.js"></script>
+		<script type="text/javascript">
+			window.addEventListener("load", function() {
+				const canvas = document.getElementsByTagName("canvas")[0];
+				const context2D = canvas.getContext("2d");
+				const simulator = new SGCSimulatorBase(
+					canvas,
+					info => {
+						context2D.clearRect(0, 0, 1100, 1000);
+						context2D.scale(info.ratio, info.ratio);
+						context2D.strokeStyle = "#009999";
+						context2D.lineCap = "butt";
+						context2D.lineWidth = 6;
+						context2D.beginPath();
+						context2D.moveTo(3, 976);
+						context2D.lineTo(3, 13);
+						context2D.arcTo(3, 3, 13, 3, 10);
+						context2D.lineTo(1301, 3);
+						
+						context2D.moveTo(3, 1006);
+						context2D.lineTo(1291, 1006);
+						context2D.arcTo(1301, 1006, 1301, 996, 10);
+						context2D.lineTo(1301, 33);
+						context2D.stroke();
+						
+						context2D.translate(15, 170);
+						context2D.strokeStyle = "#267272";
+						context2D.lineWidth = 2;
+						context2D.strokeRect(0, 0, 165, 205);
+						context2D.translate(0, 215);
+						context2D.strokeRect(0, 0, 165, 165);
+						context2D.translate(0, 175);
+						context2D.strokeRect(0, 0, 230, 375);
+						context2D.font = "25px Arial";
+						context2D.lineWidth = 3;
+						context2D.strokeStyle = "#399";
+						for(var i = 0; i < 7; i++) {
+							const y = 25 + 40*i;
+							context2D.fillStyle = "rgb(250, 0, 0)";
+							context2D.fillRect(20, y, 45, 12);
+							context2D.strokeRect(20, y, 45, 12);
+							context2D.strokeRect(82.5, y, 45, 12);
+							context2D.fillStyle = "#ffffff";
+							context2D.fillText("" + (i+1), 147.5, y + 15);
+						}
+						context2D.translate(255, -540);
+						context2D.strokeStyle = "#66cccc";
+						context2D.lineWidth = 5;
+						context2D.beginPath();
+						context2D.arc(400, 400, 350, 0, 2*Math.PI);
+						context2D.closePath();
+						context2D.stroke();
+						context2D.strokeStyle = "#669999";
+						context2D.lineWidth = 1;
+						context2D.beginPath();
+						context2D.arc(400, 400, 340, 0, 2*Math.PI);
+						context2D.closePath();
+						context2D.stroke();
+						context2D.beginPath();
+						context2D.arc(400, 400, 310, 0, 2*Math.PI);
+						context2D.closePath();
+						context2D.stroke();
+						context2D.lineWidth = 3;
+						context2D.beginPath();
+						context2D.arc(400, 400, 300, 0, 2*Math.PI);
+						context2D.closePath();
+						context2D.stroke();
+						context2D.beginPath();
+						context2D.arc(400, 400, 260, 0, 2*Math.PI);
+						context2D.closePath();
+						context2D.stroke();
+						const blink = context2D.createRadialGradient(400, 400, 0, 400, 400, 250);
+						blink.addColorStop(0, "#fff");
+						blink.addColorStop(info.percent/100, "#ff60007f");
+						blink.addColorStop(info.percent/100*2, "transparent");
+						context2D.fillStyle = blink;
+						context2D.beginPath();
+						context2D.arc(400, 400, 250, 0, 2*Math.PI);
+						context2D.closePath();
+						context2D.fill();
+						context2D.stroke();
+						const number = 39;
+						const angle = 2*Math.PI/number;
+						context2D.translate(400, 400);
+						for(var i = 0; i < number; i++) {
+							context2D.beginPath();
+							context2D.moveTo(0, -260);
+							context2D.lineTo(0, -300);
+							context2D.stroke();
+							context2D.rotate(angle);
+						}
+						context2D.translate(-400, -400);
+						context2D.lineWidth = 2;
+						context2D.beginPath();
+						context2D.moveTo(628.18960143872146084453841051708, 128.05422269276279750315060905283);
+						context2D.lineTo(676.35622418031582491557161695208, 75);
+						context2D.lineTo(840, 75);
+						context2D.stroke();
+						context2D.beginPath();
+						context2D.moveTo(749.60675231933386107519377372928, 336.6184151515704226691234312292);
+						context2D.lineTo(782.10540816873672703429629354073, 330.88802528856172115701678254581);
+						context2D.lineTo(807, 165);
+						context2D.lineTo(840, 165);
+						context2D.stroke();
+						context2D.beginPath();
+						context2D.moveTo(707.43901834347571960112172561729, 577.5);
+						context2D.lineTo(757.43901834347571960112172561729, 577.5);
+						context2D.lineTo(820, 255);
+						context2D.lineTo(840, 255);
+						context2D.stroke();
+						context2D.beginPath();
+						context2D.moveTo(92.56098165652428039887827438271, 577.5);
+						context2D.lineTo(2.56098165652428039887827438271, 577.5);
+						context2D.lineTo(2.56098165652428039887827438271, 110);
+						context2D.lineTo(162.56098165652428039887827438271, 2);
+						context2D.lineTo(1012.5609816565242803988782743827, 2);
+						context2D.lineTo(1012.56098165652428039887827438271, 346);
+						context2D.lineTo(960, 345);
+						context2D.stroke();
+						context2D.beginPath();
+						context2D.moveTo(50.39324768066613892480622627072, 336.6184151515704226691234312292);
+						context2D.lineTo(15.39324768066613892480622627072, 336.6184151515704226691234312292);
+						context2D.lineTo(15.39324768066613892480622627072, 109.1184151515704226691234312292);
+						context2D.lineTo(165.39324768066613892480622627072, 11.1184151515704226691234312292);
+						context2D.lineTo(1005.39324768066613892480622627072, 11.1184151515704226691234312292);
+						context2D.lineTo(1005.39324768066613892480622627072, 435);
+						context2D.lineTo(960, 435);
+						context2D.stroke();
+						context2D.beginPath();
+						context2D.moveTo(171.81039856127853915546158948292, 128.05422269276279750315060905283);
+						context2D.lineTo(144.81039856127853915546158948292, 103.05422269276279750315060905283);
+						context2D.lineTo(144.81039856127853915546158948292, 52.94577730723720249684939094717);
+						context2D.lineTo(184.81039856127853915546158948292, 21.94577730723720249684939094717);
+						context2D.lineTo(994.81039856127853915546158948292, 21.94577730723720249684939094717);
+						context2D.lineTo(994.81039856127853915546158948292, 525);
+						context2D.lineTo(960, 525);
+						context2D.stroke();
+						context2D.beginPath();
+						context2D.moveTo(400, 45);
+						context2D.lineTo(400, 30);
+						context2D.lineTo(987, 30);
+						context2D.lineTo(987, 615);
+						context2D.lineTo(960, 615);
+						context2D.stroke();
+						context2D.translate(400, 400);
+						context2D.strokeStyle = "#ac0000";
+						context2D.fillStyle = "#000000";
+						context2D.lineWidth = 3;
+						const angleChevron = 2*Math.PI/9;
+						for(var i = 0; i < 9; i++) {
+							context2D.strokeStyle = i == 3 || i == 4 ? "#216363" : "#ac0000";
+							context2D.rotate(angleChevron);
+							context2D.beginPath();
+							context2D.moveTo(-28, -355);
+							context2D.lineTo(-8, -292);
+							context2D.lineTo(8, -292);
+							context2D.lineTo(28, -355);
+							context2D.lineTo(43, -355);
+							context2D.lineTo(18, -282);
+							context2D.lineTo(-18, -282);
+							context2D.lineTo(-43, -355);
+							context2D.closePath();
+							context2D.fill();
+							context2D.stroke();
+							
+							
+							context2D.beginPath();
+							context2D.moveTo(-40.26027397260276, -347);
+							context2D.lineTo(-25.46031746031747, -347);
+							context2D.lineTo(-22.92063492063494, -339);
+							context2D.lineTo(-37.52054794520547, -339);
+							context2D.closePath();
+							context2D.fill();
+							context2D.stroke();
+							context2D.beginPath();
+							context2D.moveTo(-34.7808219178082, -331);
+							context2D.lineTo(-20.3809523809524, -331);
+							context2D.lineTo(-17.8412698412698, -323);
+							context2D.lineTo(-32.041095890411, -323);
+							context2D.closePath();
+							context2D.fill();
+							context2D.stroke();
+							context2D.beginPath();
+							context2D.moveTo(-29.3013698630137, -315);
+							context2D.lineTo(-15.3015873015873, -315);
+							context2D.lineTo(-12.76190476190476, -307);
+							context2D.lineTo(-26.56164383561645, -307);
+							context2D.closePath();
+							context2D.fill();
+							context2D.stroke();
+							
+							context2D.beginPath();
+							context2D.moveTo(40.26027397260276, -347);
+							context2D.lineTo(25.46031746031747, -347);
+							context2D.lineTo(22.92063492063494, -339);
+							context2D.lineTo(37.52054794520547, -339);
+							context2D.closePath();
+							context2D.fill();
+							context2D.stroke();
+							context2D.beginPath();
+							context2D.moveTo(34.7808219178082, -331);
+							context2D.lineTo(20.3809523809524, -331);
+							context2D.lineTo(17.8412698412698, -323);
+							context2D.lineTo(32.041095890411, -323);
+							context2D.closePath();
+							context2D.fill();
+							context2D.stroke();
+							context2D.beginPath();
+							context2D.moveTo(29.3013698630137, -315);
+							context2D.lineTo(15.3015873015873, -315);
+							context2D.lineTo(12.76190476190476, -307);
+							context2D.lineTo(26.56164383561645, -307);
+							context2D.closePath();
+							context2D.fill();
+							context2D.stroke();
+							
+							
+							context2D.beginPath();
+							context2D.moveTo(-18, -355);
+							context2D.lineTo(18, -355);
+							context2D.lineTo(18, -347);
+							context2D.lineTo(8, -307);
+							context2D.lineTo(-8, -307);
+							context2D.lineTo(-18, -347);
+							context2D.closePath();
+							context2D.fill();
+							context2D.stroke();
+						}
+						context2D.translate(-400, -400);
+						context2D.strokeStyle = "#669999";
+						context2D.lineWidth = 2;
+						for(var i = 0; i < 7; i++) {
+							context2D.strokeRect(840, 35 + i*90, 120, 80);
+						}
+						context2D.strokeStyle = "#e2e9c0";
+						context2D.translate(400, 400);
+						context2D.rotate(0.34906585039886591538473815369772);
+						context2D.beginPath();
+						context2D.moveTo(-30, -342);
+						context2D.arcTo(-30, -347, -25, -347, 5);
+						context2D.lineTo(25, -347);
+						context2D.arcTo(30, -347, 30, -342, 5);
+						context2D.lineTo(30, -329.5);
+						context2D.arcTo(30, -324.5, 25, -324.5, 5);
+						context2D.lineTo(-25, -324.5);
+						context2D.arcTo(-30, -324.5, -30, -329.5, 5);
+						context2D.closePath();
+						context2D.fill();
+						context2D.stroke();
+						context2D.beginPath();
+						context2D.moveTo(-12, -357);
+						context2D.lineTo(-12, -332);
+						context2D.arcTo(-12, -324, -4, -324, 8);
+						context2D.lineTo(4, -324);
+						context2D.arcTo(12, -324, 12, -332, 8);
+						context2D.lineTo(12, -357);
+						context2D.stroke();
+						
+						context2D.rotate(2.0943951023931954923084289221863);
+						context2D.beginPath();
+						context2D.moveTo(-30, -342);
+						context2D.arcTo(-30, -347, -25, -347, 5);
+						context2D.lineTo(25, -347);
+						context2D.arcTo(30, -347, 30, -342, 5);
+						context2D.lineTo(30, -329.5);
+						context2D.arcTo(30, -324.5, 25, -324.5, 5);
+						context2D.lineTo(-25, -324.5);
+						context2D.arcTo(-30, -324.5, -30, -329.5, 5);
+						context2D.closePath();
+						context2D.fill();
+						context2D.stroke();
+						context2D.beginPath();
+						context2D.moveTo(-12, -357);
+						context2D.lineTo(-12, -332);
+						context2D.arcTo(-12, -324, -4, -324, 8);
+						context2D.lineTo(4, -324);
+						context2D.arcTo(12, -324, 12, -332, 8);
+						context2D.lineTo(12, -357);
+						context2D.stroke();
+						
+						context2D.rotate(0.69813170079773183076947630739545);
+						context2D.beginPath();
+						context2D.moveTo(-30, -342);
+						context2D.arcTo(-30, -347, -25, -347, 5);
+						context2D.lineTo(25, -347);
+						context2D.arcTo(30, -347, 30, -342, 5);
+						context2D.lineTo(30, -329.5);
+						context2D.arcTo(30, -324.5, 25, -324.5, 5);
+						context2D.lineTo(-25, -324.5);
+						context2D.arcTo(-30, -324.5, -30, -329.5, 5);
+						context2D.closePath();
+						context2D.fill();
+						context2D.stroke();
+						context2D.beginPath();
+						context2D.moveTo(-12, -357);
+						context2D.lineTo(-12, -332);
+						context2D.arcTo(-12, -324, -4, -324, 8);
+						context2D.lineTo(4, -324);
+						context2D.arcTo(12, -324, 12, -332, 8);
+						context2D.lineTo(12, -357);
+						context2D.stroke();
+						
+						context2D.rotate(0.69813170079773183076947630739545);
+						context2D.beginPath();
+						context2D.moveTo(-30, -342);
+						context2D.arcTo(-30, -347, -25, -347, 5);
+						context2D.lineTo(25, -347);
+						context2D.arcTo(30, -347, 30, -342, 5);
+						context2D.lineTo(30, -329.5);
+						context2D.arcTo(30, -324.5, 25, -324.5, 5);
+						context2D.lineTo(-25, -324.5);
+						context2D.arcTo(-30, -324.5, -30, -329.5, 5);
+						context2D.closePath();
+						context2D.fill();
+						context2D.stroke();
+						context2D.beginPath();
+						context2D.moveTo(-12, -357);
+						context2D.lineTo(-12, -332);
+						context2D.arcTo(-12, -324, -4, -324, 8);
+						context2D.lineTo(4, -324);
+						context2D.arcTo(12, -324, 12, -332, 8);
+						context2D.lineTo(12, -357);
+						context2D.stroke();
+						
+						context2D.rotate(2.0943951023931954923084289221863);
+						context2D.beginPath();
+						context2D.moveTo(-30, -342);
+						context2D.arcTo(-30, -347, -25, -347, 5);
+						context2D.lineTo(25, -347);
+						context2D.arcTo(30, -347, 30, -342, 5);
+						context2D.lineTo(30, -329.5);
+						context2D.arcTo(30, -324.5, 25, -324.5, 5);
+						context2D.lineTo(-25, -324.5);
+						context2D.arcTo(-30, -324.5, -30, -329.5, 5);
+						context2D.closePath();
+						context2D.fill();
+						context2D.stroke();
+						context2D.beginPath();
+						context2D.moveTo(-12, -357);
+						context2D.lineTo(-12, -332);
+						context2D.arcTo(-12, -324, -4, -324, 8);
+						context2D.lineTo(4, -324);
+						context2D.arcTo(12, -324, 12, -332, 8);
+						context2D.lineTo(12, -357);
+						context2D.stroke();
+						
+						context2D.rotate(1.3962634015954636615389526147909);
+						context2D.lineWidth = 5;
+						context2D.lineCap = "round";
+						context2D.strokeStyle = "#e2e9c0";
+						for(var i = 0; i < 4; i++) {
+							context2D.beginPath();
+							context2D.moveTo(-20, -385);
+							context2D.lineTo(20, -385);
+							context2D.stroke();
+							context2D.rotate(1.3962634015954636615389526147909);
+						}
+						context2D.rotate(-0.34906585039886591538473815369772);
+						context2D.translate(-400, -400);
+						context2D.fillStyle = "#e2e9c0";
+						context2D.font = "20px Arial";
+						context2D.fillText("LST CODE #1", 52.5, 780);
+						context2D.textAlign = "end";
+						context2D.fillText("LST CODE #2", 752.5, 780);
+						context2D.textAlign = "start";
+						context2D.lineWidth = 3;
+						context2D.strokeStyle = "#66cccc";
+						context2D.beginPath();
+						context2D.moveTo(50, 830);
+						context2D.lineTo(50, 805);
+						context2D.arcTo(50, 800, 55, 800, 5);
+						context2D.lineTo(750, 800);
+						context2D.arcTo(755, 800, 755, 805, 5);
+						context2D.lineTo(755, 830);
+						context2D.moveTo(79.41666666666667, 800);
+						context2D.lineTo(79.41666666666667, 815);
+						context2D.moveTo(108.83333333333334, 800);
+						context2D.lineTo(108.83333333333334, 815);
+						context2D.moveTo(138.25, 800);
+						context2D.lineTo(138.25, 815);
+						context2D.moveTo(167.66666666666669, 800);
+						context2D.lineTo(167.66666666666669, 815);
+						context2D.moveTo(197.08333333333334, 800);
+						context2D.lineTo(197.08333333333334, 815);
+						context2D.moveTo(226.5, 800);
+						context2D.lineTo(226.5, 815);
+						context2D.moveTo(255.91666666666669, 800);
+						context2D.lineTo(255.91666666666669, 815);
+						context2D.moveTo(285.33333333333337, 800);
+						context2D.lineTo(285.33333333333337, 815);
+						context2D.moveTo(314.75, 800);
+						context2D.lineTo(314.75, 815);
+						context2D.moveTo(344.1666666666667, 800);
+						context2D.lineTo(344.1666666666667, 815);
+						context2D.moveTo(373.58333333333337, 800);
+						context2D.lineTo(373.58333333333337, 815);
+						context2D.moveTo(403, 800);
+						context2D.lineTo(403, 815);
+						context2D.moveTo(432.4166666666667, 800);
+						context2D.lineTo(432.4166666666667, 815);
+						context2D.moveTo(461.83333333333337, 800);
+						context2D.lineTo(461.83333333333337, 815);
+						context2D.moveTo(491.25, 800);
+						context2D.lineTo(491.25, 815);
+						context2D.moveTo(520.6666666666667, 800);
+						context2D.lineTo(520.6666666666667, 815);
+						context2D.moveTo(550.0833333333334, 800);
+						context2D.lineTo(550.0833333333334, 815);
+						context2D.moveTo(579.5, 800);
+						context2D.lineTo(579.5, 815);
+						context2D.moveTo(608.9166666666667, 800);
+						context2D.lineTo(608.9166666666667, 815);
+						context2D.moveTo(638.3333333333334, 800);
+						context2D.lineTo(638.3333333333334, 815);
+						context2D.moveTo(667.75, 800);
+						context2D.lineTo(667.75, 815);
+						context2D.moveTo(697.1666666666667, 800);
+						context2D.lineTo(697.1666666666667, 815);
+						context2D.moveTo(726.5833333333334, 800);
+						context2D.lineTo(726.5833333333334, 815);
+						
+						context2D.moveTo(50, 890);
+						context2D.lineTo(50, 915);
+						context2D.arcTo(50, 920, 55, 920, 5);
+						context2D.lineTo(750, 920);
+						context2D.arcTo(755, 920, 755, 915, 5);
+						context2D.lineTo(755, 890);
+						context2D.moveTo(79.41666666666667, 920);
+						context2D.lineTo(79.41666666666667, 905);
+						context2D.moveTo(108.83333333333334, 920);
+						context2D.lineTo(108.83333333333334, 905);
+						context2D.moveTo(138.25, 920);
+						context2D.lineTo(138.25, 905);
+						context2D.moveTo(167.66666666666669, 920);
+						context2D.lineTo(167.66666666666669, 905);
+						context2D.moveTo(197.08333333333334, 920);
+						context2D.lineTo(197.08333333333334, 905);
+						context2D.moveTo(226.5, 920);
+						context2D.lineTo(226.5, 905);
+						context2D.moveTo(255.91666666666669, 920);
+						context2D.lineTo(255.91666666666669, 905);
+						context2D.moveTo(285.33333333333337, 920);
+						context2D.lineTo(285.33333333333337, 905);
+						context2D.moveTo(314.75, 920);
+						context2D.lineTo(314.75, 905);
+						context2D.moveTo(344.1666666666667, 920);
+						context2D.lineTo(344.1666666666667, 905);
+						context2D.moveTo(373.58333333333337, 920);
+						context2D.lineTo(373.58333333333337, 905);
+						context2D.moveTo(403, 920);
+						context2D.lineTo(403, 905);
+						context2D.moveTo(432.4166666666667, 920);
+						context2D.lineTo(432.4166666666667, 905);
+						context2D.moveTo(461.83333333333337, 920);
+						context2D.lineTo(461.83333333333337, 905);
+						context2D.moveTo(491.25, 920);
+						context2D.lineTo(491.25, 905);
+						context2D.moveTo(520.6666666666667, 920);
+						context2D.lineTo(520.6666666666667, 905);
+						context2D.moveTo(550.0833333333334, 920);
+						context2D.lineTo(550.0833333333334, 905);
+						context2D.moveTo(579.5, 920);
+						context2D.lineTo(579.5, 905);
+						context2D.moveTo(608.9166666666667, 920);
+						context2D.lineTo(608.9166666666667, 905);
+						context2D.moveTo(638.3333333333334, 920);
+						context2D.lineTo(638.3333333333334, 905);
+						context2D.moveTo(667.75, 920);
+						context2D.lineTo(667.75, 905);
+						context2D.moveTo(697.1666666666667, 920);
+						context2D.lineTo(697.1666666666667, 905);
+						context2D.moveTo(726.5833333333334, 920);
+						context2D.lineTo(726.5833333333334, 905);
+						context2D.stroke();
+						context2D.globalAlpha = info.opacity;
+						context2D.font = "normal 90px arial";
+						context2D.textAlign = "left";
+						context2D.fillStyle = "rgb(226, 233, 192)";
+						context2D.fillText("I", 285, 890);
+						context2D.fillText("D", 320, 890);
+						context2D.fillText("L", 395, 890);
+						context2D.fillText("E", 459.9791679382324, 890);
+					}
+				);
+				simulator.start();
+			});
+		</script>
+	</head>
+	<body>
+		<canvas width="0" height="0"></canvas>
+	</body>
+</html>

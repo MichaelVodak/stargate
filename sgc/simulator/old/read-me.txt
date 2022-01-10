@@ -1,0 +1,27 @@
+Shift + I        - displays/closes the planet database 
+Shift + R        - displays/hides the gateway activity duration countdown
+Shift + O        - starts offworld activation
+Mezerník         - displays/hides base alarm Code 9
+Shift + Mezerník - displays/hides modified base alarm Covid-19
+Esc				 - displays/hides a call to evacuate the base
+Shift + Esc		 - displays/hides the modified base evacuation call
+Shift + S		 - displays/hides the listing of the last key pressed or keyboard shortcut
+
+Arrow keys
+    Up 		- starts/pauses the input sequence
+    Down   	- interrupts the input sequence or closes the outgoing wormhole 
+    Right  	- opens/closes Iris gates 
+    
+Addresses with status 
+    Active   - the normal sequence of entering the symbol sequence only after the creation of a stable wormhole interface
+    Inactive - quite normal procedure of entering the symbol sequence with the exception of the last starting point with an error message
+    Locked   - cannot enter
+    
+Browse the planet database using
+    the up and down buttons located on the scroll bar for status, 
+    status bar slider,
+    mouse wheels
+    and the PageUp and PageDown keys
+    
+Good luck playing with the simulator Michael Vodák.
+P.S.: The program may contain bugs that must be debugged.

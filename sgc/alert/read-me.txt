@@ -1,0 +1,2 @@
+start the alert in Stargate Command by pressing the spacebar key
+when you press the spacebar and Shift key together, the label will change

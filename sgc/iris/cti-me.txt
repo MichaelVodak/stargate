@@ -1,0 +1,3 @@
+Klávesové zkratky
+	Shift + → - otočení dílků iris po směru hodinových ručiček
+	Shift + ← - otočení dílků iris proti směru hodinových ručiček

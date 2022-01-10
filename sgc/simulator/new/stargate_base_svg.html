@@ -1,0 +1,1274 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="generator" content="PSPad editor, www.pspad.com">
+		<meta name="author" content="Michael Vodák">
+		<title>SGCSim - base - SVG</title>
+		<link rel="stylesheet" href="../../../styles/style.css">
+		<script src="../../../scripts/media.js"></script>
+		<style>
+
+			body {
+				background-color: #000000;
+				color: #EBD594;
+				font-size: 30px;
+				overflow: hidden;
+			}
+			
+			body > * {
+				display: unset;
+			}
+
+			.time {
+				font-family: digit-7, monospace;
+			}
+
+			#database-screen-container {
+				width: 100vw;
+				height: 100vh;
+				top: 0;
+				left: 0;
+				position: absolute;
+				background-color: #000000;
+			}
+
+			#database-screen {
+				width: calc(100vw - 12px);
+				height: calc(100vh - 12px);
+				border: 6px solid #009999;
+				color: #009999;
+				border-radius: 10px;
+			}
+
+			#database-screen-table tr.log, #database-screen tr.log td.border {
+				width: 120px;
+				height: 90px;
+				text-align: center;
+				vertical-align: middle;
+			}
+
+			tr.log svg.glyph > path {
+				fill: none;
+				stroke-width: 1;
+				transform: scale(1.7,1.7);
+			}
+
+			.database-item-active svg.glyph > path {
+				stroke: #E2E9C0;
+			}
+
+			.database-item-inactive svg.glyph > path, .database-item-locked svg.glyph > path {
+				stroke: #ff0000;
+			}
+
+			.database-glyph-name, .database-item td.border {
+				border: 4px solid #009999;
+			}
+
+			.database-glyph-name {
+				margin: -2px;
+			}
+
+			.database-item-inactive .database-glyph-name,
+			#database-screen-scrollable .database-item-inactive .border,
+			.database-item-locked .database-glyph-name,
+			#database-screen-scrollable .database-item-locked .border {
+				border-color: #ff0000;
+			}
+
+			.database-item-inactive .database-glyph-name, .database-item-locked .database-glyph-name {
+				color: #ff0000;
+			}
+
+			tr.log svg.glyph {
+				width: 86.4px;
+				height: 90px;
+			}
+
+			.database-glyph-name {
+				color: #E2E9C0;
+				font-size: 20px;
+				text-align: center;
+				vertical-align: middle;
+				height: 30px;
+			}
+
+			.database-alphabethic {
+				width: 65px;
+				border-left: 0;
+				border-right: 0;
+			}
+
+			#database-screen-scrollable td[colspan="2"] {
+				width: 100%;
+			}
+
+			#database-screen-scrollable {
+				overflow: hidden;
+				height: calc(100% - 200px);
+			}
+
+			#database-screen-table, #database-screen-scrollable table {
+			   border-collapse: collapse; 
+			}
+
+			#database-scrollable-content > table {
+				margin-top: 15px;
+				margin-bottom: 15px;
+			}
+
+			.profile-detail {
+				padding: 0px 5px;
+			}
+
+			.profile-detail .planet-name, .profile-detail .status {
+				color: #E2E9C0;
+			}
+
+			.profile-detail .planet-name {
+				font-size: 30px;
+			}
+
+			.profile-detail .status {
+				font-size: 24px;
+			}
+
+			.profile-detail .planet-info {
+				margin-top: 5px;
+				font-size: 16px;
+			}
+
+			.profile-detail > table > tr > table td {
+				padding: 0 5px;
+			}
+
+			.database-item {
+				margin-left: 5px;
+				border-left: 4px solid black;
+			}
+
+			.database-item-active:hover, .database-item-inactive:hover {
+				outline: 4px solid #00ff00;
+			}
+
+			.profile-detail table {
+				font-size: 20px;
+			}
+
+			.profile-detail > table > tr > th {
+				text-align: left;
+			}
+			 
+			.database-none {
+				border: 0;
+			}
+
+			#database-screen table th.same-width {
+				width: 124px;
+			}
+
+			.scrollable-content, .scroller-box {
+				float: left;
+			} 
+				   
+			.scroller-box {
+				border: 2px solid #009999;
+				width: 20px;
+				height: calc(100% - 212px);
+				position: fixed;
+				right: 10px;
+			}
+
+			#database-scrollbar {
+				background-color: #999999;
+				width: 100%;
+				height: 20%;
+				position: absolute;
+			}
+
+			.scrollable-content {
+				width: calc(100% - 30px);
+			}
+
+			.scroller-box > * {
+				position: absolute;
+			}
+
+			.scroller {
+				width: 100%;
+				height: calc(100% - 48px);
+				top: 24px;  
+			}
+					
+			.scroller-button {
+				font-size: 20px;
+				font-weight: bold;
+				color: #009999;
+				background-color: #000000;
+				border: 2px solid #009999;
+				line-height: 20px;
+				padding: 0;
+			}
+
+			.scroller-button-up {
+				top: 0;
+			}
+
+			.scroller-button-down {
+				bottom: 0;
+			}
+
+			.show {
+				display: block;
+			}
+
+			.hide {
+				display: none;
+			}
+
+			.chevron {
+				stroke: #AC0000;
+				stroke-width:3;
+			}
+
+			.chevron-off {
+				stroke: #216363;
+				stroke-width: 3;
+			}
+
+			.apply, .pause, .cancel {
+				color: white;
+				background-color: black;
+				padding: 10px;
+				font-size: 20px;
+				margin: 5px;
+				position: absolute;
+				left: 1050px;
+			}
+
+			.apply {
+				border: 3px solid #00CC00;
+			}
+
+			.apply:hover {
+				background: radial-gradient(black, #00CC00);
+			}
+
+			.apply:active {
+				background: radial-gradient(#00CC00, black);
+			}
+
+			.pause {
+				border: 3px solid #ffcc66;
+			}
+
+			.pause:hover {
+				background: radial-gradient(black, #ffcc66);
+			}
+
+			.pause:active {
+				background: radial-gradient(#ffcc66, black);
+			}
+
+			.cancel {
+				border: 3px solid #AC0000;
+			}
+
+			.cancel:hover {
+				background: radial-gradient(black, #AC0000);
+			}
+
+			.cancel:active {
+				background: radial-gradient(#AC0000, black);
+			}
+
+			input[type=button]:disabled {
+				background-color: #e0e0e0;
+				color: #505050;
+				border-color: white;   
+			}
+
+			.line-chev-sym {
+				stroke-width: 2px;
+				stroke: #669999;
+				fill: none;
+			}
+
+			.chev-sym {
+				stroke: #669999;
+				stroke-width: 2;
+			}
+
+			.text-chev {
+				font-weight: bold;
+			}
+
+			#dail-on {
+				top: 10px;
+			}
+
+			#dail-off {
+				top: 80px;
+			}
+
+			#dail-hold {
+				top: 160px;          
+			}
+
+			#shutdown {
+				top: 240px;
+			}
+
+			#stargate-timer {
+				visibility: hidden;
+			}
+
+			#base-alert, #base-evac, #iris-center {
+				display: none;
+			}
+        
+		</style>
+		<script src="simulator_base.js"></script>
+		<script type="text/javascript">
+			window.addEventListener("load", function() {
+				const stargateStatus = document.getElementById("stargate-status");
+				const stargateBlinkFillStops = document.getElementById("stargate-blink-fill").getElementsByTagName("stop");
+				const simulator = new SGCSimulatorBase(
+					document.getElementsByTagName("svg")[0],
+					info => {
+						stargateStatus.style.opacity = info.opacity;
+						stargateBlinkFillStops[1].setAttribute("offset", info.percent + "%");
+						stargateBlinkFillStops[2].setAttribute("offset", (info.percent*2) + "%");
+					}
+				);
+				simulator.start();
+			});
+		</script>
+	</head>
+	<body>
+		<svg width="0" height="0">
+			<defs>
+				<linearGradient id="chart-line" x2="0" y2="50%" spreadMethod="reflect"><!-- 304,761904761904766-->
+					<stop offset="0%" stop-color="#f00" />
+					<stop offset="50%" stop-color="#ff0" />
+					<stop offset="100%" stop-color="#447e56" />
+				</linearGradient>
+				<radialGradient id="light-red-1" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="4.545454545454546%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-2" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="9.090909090909091%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-3" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="13.636363636363636%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-4" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="18.181818181818183%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-5" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="22.72727272727273%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-6" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="27.272727272727277%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-7" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="31.818181818181823%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-8" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="36.36363636363637%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-9" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="40.909090909090914%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-10" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="45.45454545454546%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-11" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="50.00000000000001%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-12" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="54.545454545454554%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-13" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="59.0909090909091%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-14" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="63.63636363636365%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-15" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="68.18181818181818%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-16" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="72.72727272727273%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-17" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="77.27272727272728%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-18" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="81.81818181818183%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-19" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="86.36363636363637%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-20" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="90.90909090909092%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-21" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="95.45454545454547%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="light-red-22" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(254,0,0);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-1" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="10%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-2" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="11%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-3" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="12%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-4" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="13%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-5" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="14%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-6" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="15%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-7" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="16%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-8" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="17%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-9" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="18%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-10" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="19%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-11" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="20%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-12" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="21%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-13" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="22%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-14" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="23%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-15" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="24%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-16" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="25%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-17" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="26%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-18" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="27%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-19" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="28%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-20" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="29%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="wormhole-active-21" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color:rgb(207,222,229);stop-opacity:1" />
+					<stop offset="30%" style="stop-color:rgb(96,157,211);stop-opacity:1" />
+					<stop offset="100%" style="stop-color:rgb(33,51,99);stop-opacity:1" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-fill" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="0%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="0%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-0" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="0%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="0%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-1" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="1.2%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="2.4%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-2" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="2.4%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="4.8%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-3" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="3.5999999999999996%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="7.199999999999999%" style="stop-color: #000000; stop-opacity:1;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-4" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="4.8%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="9.6%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-5" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="6%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="12%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-6" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="7.2%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="14.4%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-7" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="8.4%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="16.8%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-8" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="9.6%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="19.2%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-9" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="10.799999999999999%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="21.599999999999998%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-10" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="11.999999999999998%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="23.999999999999996%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-11" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="13.199999999999997%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="26.399999999999995%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-12" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="14.399999999999996%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="28.799999999999993%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-13" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="15.599999999999996%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="31.199999999999992%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-14" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="16.799999999999997%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="33.599999999999994%" style="stop-color: #000000; stop-opacity:1;" />
+				</radialGradient>
+				<radialGradient id="stargate-blink-15" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" style="stop-color: #ffffff; stop-opacity:1;" />
+					<stop offset="17.999999999999996%" style="stop-color: #ff6000; stop-opacity:0.5;" />
+					<stop offset="35.99999999999999%" style="stop-color: #000000; stop-opacity:0;" />
+				</radialGradient>
+				<clipPath id="clip-path" transform="rotate(-61 477.25424859373686 162.23587092621162)">
+					<circle cx="400" cy="400" r="248.5px" stroke-width="0" />
+				</clipPath>
+				<clipPath id="clip-path-2" transform="rotate(-61 477.25424859373686 162.23587092621162)">
+					<path id="clip-path-2-segment" d="M 399.25055831420207 148.5011166284041 A 251.5 251.5 0 0 0 448.9614346645643 501.0960014058293 L 451.03866340761937 498.9039220342613 A 239.95142874054397 239.95142874054397 0 0 1 480.2522068646372 161.64766983862842 A 251.5 251.5 0 1 1 399.25055831420207 148.5011166284041 Z" transform="rotate(18 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="none" stroke-width="0" fill="none" stroke-linecap="butt" />
+				</clipPath>
+				<clipPath id="clip-path-3" transform="rotate(-61 477.25424859373686 162.23587092621162)">
+					<path id="clip-path-3-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 1 1 400 150 Z" transform="rotate(18 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="none" stroke-width="0" fill="none" stroke-linecap="butt" />
+				</clipPath>
+				<clipPath id="clip-path-4">
+					<circle cx="400" cy="400" r="248.5px" stroke-width="0" />
+				</clipPath>
+				<clipPath id="clip-path-end" transform="rotate(-61 477.25424859373686 162.23587092621162)">
+					<path id="clip-path-end-segment" d="M 1000 0 L 1000 1000 L 451.03866340761937 498.9039220342613 A 239.95142874054397 239.95142874054397 0 0 1 480.2522068646372 161.64766983862842" transform="rotate(18 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="none" stroke-width="0" fill="none" stroke-linecap="butt" />
+				</clipPath>
+				<clipPath id="clip-path-end-2" transform="rotate(-61 477.25424859373686 162.23587092621162)">
+					<path id="clip-path-end-segment-2" d="M 1000 0 L 1000 1000 L 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162" transform="rotate(18 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="none" stroke-width="0" fill="none" stroke-linecap="butt" />
+				</clipPath>
+			</defs>
+			<g id="graphics">
+				<g>
+					<g>
+						<g transform="translate(15 170)">
+							<g>
+								<rect x="0" y="0" width="165" height="205" fill="black" stroke="#267272" stroke-width="2" />
+							</g>
+							<g transform="translate(0 215)">
+								<rect x="0" y="0" width="165" height="165" fill="black" stroke="#267272" stroke-width="2" />
+							</g>
+							<g id="stargate-error-side-container" transform="translate(0 0)"><!-- class="hide" -->
+								<rect id="stargate-error-side-rectangle" x="0" y="0" width="230" height="0" fill="black" stroke="#267272" stroke-width="4"/>
+								<text class="hide" x="115" y="47.5" font-size="45px" font-weight="bold" text-anchor="middle" fill="#ff0000">ERROR</text>
+								<text class="hide" x="10" y="72.5" font-size="15px" fill="#ffffff">>>SYS15 EXP 32 GET 14</text>
+								<text class="hide" x="10" y="92.5" font-size="15px" fill="#ffffff">>>INOP SET 32-18 BAS</text>
+								<text class="hide" x="10" y="112.5" font-size="15px" fill="#ffffff">>>SGT INTFC GEN ER 91</text>
+								<text class="hide" x="10" y="132.5" font-size="15px" fill="#ffffff">>>CALL 14 GENRNTM 3</text>
+								<text class="hide" x="10" y="152.5" font-size="15px" fill="#ffffff">//SYSTEM15 EXCEPTION</text>
+								<text class="hide" x="10" y="172.5" font-size="15px" fill="#ffffff">>>DUMPING TO LOG</text>
+								<text class="hide" x="10" y="192.5" font-size="15px" fill="#ffffff">>>RESET SYSTEM</text>
+								<text class="hide" x="10" y="212.5" font-size="15px" fill="#ffffff">>>RESET ...</text>
+							</g>
+						</g>
+						<g id="locks" transform="translate(15 560)">
+							<rect x="0" y="0" width="230" height="375" fill="black" stroke="#267272" stroke-width="2" />
+							<g transform="translate(20 25)">
+								<rect x="0" y="0" width="45" height="12" fill="rgb(250, 0, 0)" stroke="#339999" stroke-width="3" />
+								<rect x="62.5" y="0" width="45" height="12" fill="none" stroke="#339999" stroke-width="3" />
+								<text x="127.5" y="15" font-size="25px" text-anchor="start" fill="#ffffff">1</text>
+								<text class="hide" x="152.5" y="12" font-size="15px" text-anchor="start" fill="rgb(0, 225, 0)" font-weight="bold">OK</text>
+							</g>
+							<g transform="translate(20 65)">
+								<rect x="0" y="0" width="45" height="12" fill="rgb(250, 0, 0)" stroke="#339999" stroke-width="3" />
+								<rect x="62.5" y="0" width="45" height="12" fill="none" stroke="#339999" stroke-width="3" />
+								<text x="127.5" y="15" font-size="25px" text-anchor="start" fill="#ffffff">2</text>
+								<text class="hide" x="152.5" y="12" font-size="15px" text-anchor="start" fill="rgb(0, 225, 0)" font-weight="bold">OK</text>
+							</g>
+							<g transform="translate(20 105)">
+								<rect x="0" y="0" width="45" height="12" fill="rgb(250, 0, 0)" stroke="#339999" stroke-width="3" />
+								<rect x="62.5" y="0" width="45" height="12" fill="black" stroke="#339999" stroke-width="3" />
+								<text x="127.5" y="15" font-size="25px" text-anchor="start" fill="#ffffff">3</text>
+								<text class="hide" x="152.5" y="12" font-size="15px" text-anchor="start" fill="rgb(0, 225, 0)" font-weight="bold">OK</text>
+							</g>
+							<g transform="translate(20 145)">
+								<rect x="0" y="0" width="45" height="12" fill="rgb(250, 0, 0)" stroke="#339999" stroke-width="3" />
+								<rect x="62.5" y="0" width="45" height="12" fill="black" stroke="#339999" stroke-width="3" />
+								<text x="127.5" y="15" font-size="25px" text-anchor="start" fill="#ffffff">4</text>
+								<text class="hide" x="152.5" y="12" font-size="15px" text-anchor="start" fill="rgb(0, 225, 0)" font-weight="bold">OK</text>
+							</g>
+							<g transform="translate(20 185)">
+								<rect x="0" y="0" width="45" height="12" fill="rgb(250, 0, 0)" stroke="#339999" stroke-width="3" />
+								<rect x="62.5" y="0" width="45" height="12" fill="black" stroke="#339999" stroke-width="3" />
+								<text x="127.5" y="15" font-size="25px" text-anchor="start" fill="#ffffff">5</text>
+								<text class="hide" x="152.5" y="12" font-size="15px" text-anchor="start" fill="rgb(0, 225, 0)" font-weight="bold">OK</text>
+							</g>
+							<g transform="translate(20 225)">
+								<rect x="0" y="0" width="45" height="12" fill="rgb(250, 0, 0)" stroke="#339999" stroke-width="3" />
+								<rect x="62.5" y="0" width="45" height="12" fill="black" stroke="#339999" stroke-width="3" />
+								<text x="127.5" y="15" font-size="25px" text-anchor="start" fill="#ffffff">6</text>
+								<text class="hide" x="152.5" y="12" font-size="15px" text-anchor="start" fill="rgb(0, 225, 0)" font-weight="bold">OK</text>
+							</g>
+							<g transform="translate(20 265)">
+								<rect x="0" y="0" width="45" height="12" fill="rgb(250, 0, 0)" stroke="#339999" stroke-width="3" />
+								<rect x="62.5" y="0" width="45" height="12" fill="black" stroke="#339999" stroke-width="3" />
+								<text x="127.5" y="15" font-size="25px" text-anchor="start" fill="#ffffff">7</text>
+								<text class="hide" x="152.5" y="12" font-size="15px" text-anchor="start" fill="rgb(0, 225, 0)" font-weight="bold">OK</text>
+							</g>
+							<g class="hide" transform="translate(20 305)">
+								<rect x="0" y="0" width="45" height="12" fill="rgb(250, 0, 0)" stroke="#339999" stroke-width="3" />
+								<rect x="62.5" y="0" width="45" height="12" fill="black" stroke="#339999" stroke-width="3" />
+								<text x="127.5" y="15" font-size="25px" text-anchor="start" fill="#ffffff">8</text>
+								<text class="hide" x="152.5" y="12" font-size="15px" text-anchor="start" fill="rgb(0, 225, 0)" font-weight="bold">OK</text>
+							</g>
+							<g class="hide" transform="translate(20 345)">
+								<rect x="0" y="0" width="45" height="12" fill="rgb(250, 0, 0)" stroke="#339999" stroke-width="3" />
+								<rect x="62.5" y="0" width="45" height="12" fill="black" stroke="#339999" stroke-width="3" />
+								<text x="127.5" y="15" font-size="25px" text-anchor="start" fill="#ffffff">9</text>
+								<text class="hide" x="152.5" y="12" font-size="15px" text-anchor="start" fill="rgb(0, 225, 0)" font-weight="bold">OK</text>
+							</g>
+						</g>
+					</g>
+					<g id="stargate-container" transform="translate(270 20)">
+						<circle cx="400" cy="400" r="350px" stroke="#66CCCC" stroke-width="5" fill="none" />
+						
+						<circle id="stargate-blink" cx="400" cy="400" r="250px" stroke="none" fill="url(#stargate-blink-fill)" />
+						 
+						<circle id="inner-circle" cx="400" cy="400" r="250px" stroke="none" stroke-width="3" fill="none" />
+						<g id="iris-segments" clip-path="url(#clip-path-4)">
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(342 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(0 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(18 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(36 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(54 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(72 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(90 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(108 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(126 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(144 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(162 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(180 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(198 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(216 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(234 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(252 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(270 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(288 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-3)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(306 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-3)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(324 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-3)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(342 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-3)" />
+							<path class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500" transform="rotate(0 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="none" stroke-width="3" clip-path="url(#clip-path)" />
+							<path class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(0 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end-2)" />
+							<path class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(18 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end-2)" />
+							<path class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(36 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end-2)" />
+							<path class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(54 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end-2)" />
+							<path class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(72 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end-2)" />
+							<path class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(90 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end-2)" />
+							<path class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(108 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end-2)" />
+							<path class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(126 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end-2)" />
+							<path class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(144 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end-2)" />
+							<path class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(162 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end)" />
+							<path class="iris-segment-end" d="M 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162" transform="rotate(162 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="none" stroke-width="3" clip-path="url(#clip-path-end-2)" />
+							<rect id="iris-center" x="399.5" y="399.5" width="1px" height="1px" stroke="none" fill="#50A2A9" />
+						</g>
+						<path d="M 60 400 A 340 340 0 0 0 740 400 A 340 340 0 0 0 60 400 Z M 90 400 A 310 310 0 0 0 710 400 A 310 310 0 0 0 90 400 Z" stroke="#669999" stroke-width="1" fill="black" fill-rule="evenodd" />
+						<path d="M 90 400 A 310 310 0 0 0 710 400 A 310 310 0 0 0 90 400 Z M 100 400 A 300 300 0 0 0 700 400 A 300 300 0 0 0 100 400 Z" fill="black" fill-rule="evenodd" />
+						<circle cx="400" cy="400" r="310px" stroke="#669999" stroke-width="1" fill="none" />        
+						<path d="M 140 400 A 260 260 0 0 0 660 400 A 260 260 0 0 0 140 400 Z M 150 400 A 250 250 0 0 0 650 400 A 250 250 0 0 0 150 400 Z" fill="black" fill-rule="evenodd" />
+						<circle cx="400" cy="400" r="250px" stroke="#669999" stroke-width="3" fill="none" />
+						<g id="stargate-ring">
+							<path d="M 100 400 A 300 300 0 0 0 700 400 A 300 300 0 0 0 100 400 Z M 140 400 A 260 260 0 0 0 660 400 A 260 260 0 0 0 140 400 Z" stroke="#669999" stroke-width="3" fill="black" fill-rule="evenodd" />
+							<polygon points="400,140 400,100" style="stroke:#669999;stroke-width:3" />
+							<polygon points="441.70693302301765,143.36693171414265 448.12338425732804,103.88492120862614" style="stroke:#669999;stroke-width:3" />
+							<polygon points="482.33367838838285,153.38052509374214 495.00039814044174,115.43906741585631" style="stroke:#669999;stroke-width:3" />
+							<polygon points="520.8280247313797,169.7814333301654 539.4169516131304,134.363192304037" style="stroke:#669999;stroke-width:3" />
+							<polygon points="556.1929887018745,192.14488151508965 580.2226792713936,160.1671709789496" style="stroke:#669999;stroke-width:3" />
+							<polygon points="587.5126363093917,219.89166808750411 616.3607342031443,192.18269394712013" style="stroke:#669999;stroke-width:3" />
+							<polygon points="613.9758051323506,252.30316584989941 646.8951597680968,229.58057598065318" style="stroke:#669999;stroke-width:3" />
+							<polygon points="634.8971129986994,288.5399340352058 671.0351303831147,271.3922315790836" style="stroke:#669999;stroke-width:3" />
+							<polygon points="649.7347090241568,327.6634593817222 688.1554334894117,316.5347608250641" style="stroke:#669999;stroke-width:3" />
+							<polygon points="658.1043072654941,368.6604631336159 697.8126622294162,363.838995923403" style="stroke:#669999;stroke-width:3" />
+							<polygon points="659.7891395246081,410.4691444284478 699.7566994514709,412.07978203282437" style="stroke:#669999;stroke-width:3" />
+							<polygon points="654.7455695309896,452.00668038177144 693.9371956126804,460.0077081328132" style="stroke:#669999;stroke-width:3" />
+							<polygon points="643.1042230982078,492.19727063105915 680.5048728056245,506.38146611276056" style="stroke:#669999;stroke-width:3" />
+							<polygon points="625.1666049839541,529.9999999999999 659.8076211353317,549.9999999999999" style="stroke:#669999;stroke-width:3" />
+							<polygon points="601.3972900751903,564.435797654798 632.3814885482965,589.733612678613" style="stroke:#669999;stroke-width:3" />
+							<polygon points="572.4118911426069,594.6127945244862 598.9367974722387,624.5532244513301" style="stroke:#669999;stroke-width:3" />
+							<polygon points="538.9611147932284,619.7494222413866 560.3397478383405,653.5570256631383" style="stroke:#669999;stroke-width:3" />
+							<polygon points="501.9113185636197,639.1946553512942 517.5899829580228,675.9938330976471" style="stroke:#669999;stroke-width:3" />
+							<polygon points="462.2220727147652,652.4448725307735 471.79469928626753,691.2825452278156" style="stroke:#669999;stroke-width:3" />
+							<polygon points="420.9213078663489,659.1569001148946 424.139970615018,699.027192440263" style="stroke:#669999;stroke-width:3" />
+							<polygon points="379.0786921336515,659.1569001148946 375.8600293849825,699.027192440263" style="stroke:#669999;stroke-width:3" />
+							<polygon points="337.77792728523525,652.4448725307736 328.205300713733,691.2825452278157" style="stroke:#669999;stroke-width:3" />
+							<polygon points="298.08868143638074,639.1946553512944 282.41001704197776,675.9938330976473" style="stroke:#669999;stroke-width:3" />
+							<polygon points="261.0388852067719,619.7494222413868 239.66025216165988,653.5570256631386" style="stroke:#669999;stroke-width:3" />
+							<polygon points="227.5881088573934,594.6127945244864 201.0632025277616,624.5532244513305" style="stroke:#669999;stroke-width:3" />
+							<polygon points="198.6027099248099,564.4357976547982 167.6185114517037,589.7336126786133" style="stroke:#669999;stroke-width:3" />
+							<polygon points="174.83339501604598,530.0000000000001 140.19237886466845,550.0000000000001" style="stroke:#669999;stroke-width:3" />
+							<polygon points="156.89577690179217,492.1972706310593 119.49512719437558,506.38146611276073" style="stroke:#669999;stroke-width:3" />
+							<polygon points="145.2544304690104,452.00668038177156 106.06280438731969,460.0077081328133" style="stroke:#669999;stroke-width:3" />
+							<polygon points="140.21086047539188,410.4691444284479 100.2433005485291,412.07978203282454" style="stroke:#669999;stroke-width:3" />
+							<polygon points="141.89569273450598,368.66046313361596 102.18733777058382,363.83899592340304" style="stroke:#669999;stroke-width:3" />
+							<polygon points="150.26529097584321,327.66345938172224 111.84456651058832,316.53476082506415" style="stroke:#669999;stroke-width:3" />
+							<polygon points="165.10288700130064,288.53993403520576 128.96486961688535,271.39223157908355" style="stroke:#669999;stroke-width:3" />
+							<polygon points="186.02419486764944,252.30316584989936 153.1048402319032,229.5805759806531" style="stroke:#669999;stroke-width:3" />
+							<polygon points="212.48736369060836,219.891668087504 183.6392657968558,192.18269394712001" style="stroke:#669999;stroke-width:3" />
+							<polygon points="243.80701129812567,192.14488151508954 219.77732072860655,160.16717097894946" style="stroke:#669999;stroke-width:3" />
+							<polygon points="279.17197526862043,169.78143333016527 260.58304838686973,134.36319230403686" style="stroke:#669999;stroke-width:3" />
+							<polygon points="317.6663216116175,153.38052509374205 304.99960185955865,115.43906741585621" style="stroke:#669999;stroke-width:3" />
+							<polygon points="358.2930669769827,143.3669317141426 351.87661574267235,103.88492120862608" style="stroke:#669999;stroke-width:3" />
+						</g>
+						<g stroke-width="0" transform="">
+							<path d="M 400 150 A 250 250 0 0 0 400 400 A 250 250 0 0 1 470.43313921035746 160.12675659637566 A 250 250 0 0 0 400 150 Z" stroke="white" fill="none" />
+							<path d="M 470.43313921035746 160.12675659637566 A 250 250 0 0 0 400 400 A 250 250 0 0 1 535.1602043638994 189.68661679220472 A 250 250 0 0 0 470.43313921035746 160.12675659637566 Z" stroke="green" fill="none" />
+							<path d="M 535.1602043638994 189.68661679220472 A 250 250 0 0 0 400 400 A 250 250 0 0 1 588.9373935885646 236.28481651367878 A 250 250 0 0 0 535.1602043638994 189.68661679220472 Z" stroke="yellow" fill="none" />
+							<path d="M 588.9373935885646 236.28481651367878 A 250 250 0 0 0 400 400 A 250 250 0 0 1 627.4079988386296 296.1462467495285 A 250 250 0 0 0 588.9373935885646 236.28481651367878 Z" stroke="orange" fill="none" />
+						</g>
+						<g id="line-chev-syms">
+							<polygon points="400,400 400,400" style="stroke:#ff0000;stroke-width:0;" />
+							<path class="line-chev-sym" d="M 628.18960143872146084453841051708 128.05422269276279750315060905283 L 676.35622418031582491557161695208 75 L 840 75" />
+							<path id="line-chev-sym-1" class="line-chev-sym" d="M 628.18960143872146084453841051708 128.05422269276279750315060905283 L 676.35622418031582491557161695208 75 L 840 75" />
+							<path class="line-chev-sym" d="M 749.60675231933386107519377372928 336.6184151515704226691234312292 l 32.498655849402865959102519811454 -5.7303898630087015121066486833874 L 807 165 L 840 165" />
+							<path id="line-chev-sym-2" class="line-chev-sym" d="M 749.60675231933386107519377372928 336.6184151515704226691234312292 l 32.498655849402865959102519811454 -5.7303898630087015121066486833874 L 807 165 L 840 165" />
+							<path class="line-chev-sym" d="M 707.43901834347571960112172561729 577.5 l 50 0 L 820 255 L 840 255" />
+							<path id="line-chev-sym-3" class="line-chev-sym" d="M 707.43901834347571960112172561729 577.5 l 50 0 L 820 255 L 840 255" />
+							<path class="line-chev-sym" d="M 92.56098165652428039887827438271 577.5 l -90 0 l 0 -467.5 l 160 -108 l 850 0 l 0 345 L 960 345" />
+							<path id="line-chev-sym-4" class="line-chev-sym" d="M 92.56098165652428039887827438271 577.5 l -90 0 l 0 -467.5 l 160 -108 l 850 0 l 0 345 L 960 345" />
+							<path class="line-chev-sym" d="M 50.39324768066613892480622627072 336.6184151515704226691234312292 l -35 0 l 0 -227.5 l 150 -98 l 840 0 l 0 424 L 960 435" />
+							<path id="line-chev-sym-5" class="line-chev-sym" d="M 50.39324768066613892480622627072 336.6184151515704226691234312292 l -35 0 l 0 -227.5 l 150 -98 l 840 0 l 0 424 L 960 435" />
+							<path class="line-chev-sym" d="M 171.81039856127853915546158948292 128.05422269276279750315060905283 l -25 -25 l 0 -50.5 l 40 -31 l 810 0 l 0 504 L 960 525" />
+							<path id="line-chev-sym-6" class="line-chev-sym" d="M 171.81039856127853915546158948292 128.05422269276279750315060905283 l -25 -25 l 0 -50.5 l 40 -31 l 810 0 l 0 504 L 960 525" />
+							<g id="line-chev-syms-end">
+								<path class="line-chev-sym" d="M 400 45 l 0 -15 l 587 0 l 0 585 L 960 615"></path>
+								<path id="line-chev-sym-9" class="line-chev-sym" d="M 400 45 l 0 -15 l 587 0 l 0 585 L 960 615"></path>
+							</g>
+						</g>
+						<g id="ch9">
+							<polygon id="ch9-move1" class="chevron" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+							<g id="ch9-move2">
+								<polygon class="chevron" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+								<polygon class="chevron ch9-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+								<polygon class="chevron ch9-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+								<polygon class="chevron ch9-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+								<polygon class="chevron ch9-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+								<polygon class="chevron ch9-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+								<polygon class="chevron ch9-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+							</g>
+						</g>
+						<g id="ch1" transform="rotate(40 400 400)" >
+							<polygon id="ch1-move1" class="chevron" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+							<g id="ch1-move2">
+								<polygon class="chevron" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+								<polygon class="chevron ch1-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+								<polygon class="chevron ch1-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+								<polygon class="chevron ch1-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+								<polygon class="chevron ch1-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+								<polygon class="chevron ch1-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+								<polygon class="chevron ch1-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+							</g>
+						</g>
+						<g id="ch2" transform="rotate(80 400 400)" >
+							<polygon id="ch2-move1" class="chevron" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+							<g id="ch2-move2">
+								<polygon class="chevron" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+								<polygon class="chevron ch2-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+								<polygon class="chevron ch2-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+								<polygon class="chevron ch2-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+								<polygon class="chevron ch2-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+								<polygon class="chevron ch2-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+								<polygon class="chevron ch2-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+							</g>
+						</g>
+						<g id="ch3" transform="rotate(120 400 400)" >
+							<polygon id="ch3-move1" class="chevron" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+							<g id="ch3-move2">
+								<polygon class="chevron" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+								<polygon class="chevron ch3-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+								<polygon class="chevron ch3-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+								<polygon class="chevron ch3-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+								<polygon class="chevron ch3-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+								<polygon class="chevron ch3-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+								<polygon class="chevron ch3-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+							</g>
+						</g>
+						<g id="ch7" transform="rotate(160 400 400)" >
+							<polygon id="ch7-move1" class="chevron-off" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+							<g id="ch7-move2">
+								<polygon class="chevron-off" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+								<polygon class="chevron-off ch7-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+								<polygon class="chevron-off ch7-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+								<polygon class="chevron-off ch7-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+								<polygon class="chevron-off ch7-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+								<polygon class="chevron-off ch7-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+								<polygon class="chevron-off ch7-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+							</g>
+						</g>
+						<g id="ch8" transform="rotate(200 400 400)" >
+							<polygon id="ch8-move1" class="chevron-off" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+							<g id="ch8-move2">
+								<polygon class="chevron-off" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+								<polygon class="chevron-off ch8-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+								<polygon class="chevron-off ch8-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+								<polygon class="chevron-off ch8-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+								<polygon class="chevron-off ch8-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+								<polygon class="chevron-off ch8-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+								<polygon class="chevron-off ch8-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+							</g>
+						</g>
+						<g id="ch4" transform="rotate(240 400 400)" >
+							<polygon id="ch4-move1" class="chevron" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+							<g id="ch4-move2">
+								<polygon class="chevron" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+								<polygon class="chevron ch4-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+								<polygon class="chevron ch4-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+								<polygon class="chevron ch4-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+								<polygon class="chevron ch4-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+								<polygon class="chevron ch4-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+								<polygon class="chevron ch4-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+							</g>
+						</g>
+						<g id="ch5" transform="rotate(280 400 400)" >
+							<polygon id="ch5-move1" class="chevron" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+							<g id="ch5-move2">
+								<polygon class="chevron" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+								<polygon class="chevron ch5-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+								<polygon class="chevron ch5-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+								<polygon class="chevron ch5-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+								<polygon class="chevron ch5-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+								<polygon class="chevron ch5-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+								<polygon class="chevron ch5-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+							</g>
+						</g>
+						<g id="ch6" transform="rotate(320 400 400)" >
+							<polygon id="ch6-move1" class="chevron" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+							<g id="ch6-move2">
+								<polygon class="chevron" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+								<polygon class="chevron ch6-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+								<polygon class="chevron ch6-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+								<polygon class="chevron ch6-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+								<polygon class="chevron ch6-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+								<polygon class="chevron ch6-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+								<polygon class="chevron ch6-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+							</g>
+						</g>
+						<g id="chev-syms" fill="none">
+							<rect class="chev-sym" x="840" y="35" width="120" height="80" />
+							<rect id="chev-sym-1" class="chev-sym" x="840" y="35" width="120" height="80" />
+							<rect class="chev-sym" x="840" y="125" width="120" height="80" />
+							<rect id="chev-sym-2" class="chev-sym" x="840" y="125" width="120" height="80" />
+							<rect class="chev-sym" x="840" y="215" width="120" height="80" />
+							<rect id="chev-sym-3" class="chev-sym" x="840" y="215" width="120" height="80" />
+							<rect class="chev-sym" x="840" y="305" width="120" height="80" />
+							<rect id="chev-sym-4" class="chev-sym" x="840" y="305" width="120" height="80" />
+							<rect class="chev-sym" x="840" y="395" width="120" height="80" />
+							<rect id="chev-sym-5" class="chev-sym" x="840" y="395" width="120" height="80" />
+							<rect class="chev-sym" x="840" y="485" width="120" height="80" />
+							<rect id="chev-sym-6" class="chev-sym" x="840" y="485" width="120" height="80" />
+							<g id="chev-syms-end">
+								<rect id="chev-sym-9" class="chev-sym" x="840" y="575" width="120" height="80"></rect>
+								<rect class="chev-sym" x="840" y="575" width="120" height="80"></rect>
+							</g>
+						</g>
+						<g id="text-chevs">
+							<text id="text-chev-1" class="text-chev" x="820" y="110">1</text>
+							<text id="text-chev-2" class="text-chev" x="820" y="200">2</text>
+							<text id="text-chev-3" class="text-chev" x="820" y="290">3</text>
+							<text id="text-chev-4" class="text-chev" x="820" y="380">4</text>
+							<text id="text-chev-5" class="text-chev" x="820" y="470">5</text>
+							<text id="text-chev-6" class="text-chev" x="820" y="560">6</text>
+							<g id="text-chevs-end">
+								<text id="text-chev-9" class="text-chev" x="820" y="650">7</text>
+							</g>
+						</g>
+						<g transform="rotate(20 400 400)">
+							<rect x="370" y="53" rx="5" ry="5" width="60" height="22.5" style="fill:black;stroke:#E2E9C0;stroke-width:2;" />
+							<path d="M 388 43 l 0 25 q 0 8 8 8 l 8 0 q 8 0 8 -8 l 0 -25" style="fill:none;stroke:#E2E9C0;stroke-width:2;" />
+						</g>
+						<g transform="rotate(-20 400 400)">
+							<rect x="370" y="53" rx="5" ry="5" width="60" height="22.5" style="fill:black;stroke:#E2E9C0;stroke-width:2;" />
+							<path d="M 388 43 l 0 25 q 0 8 8 8 l 8 0 q 8 0 8 -8 l 0 -25" style="fill:none;stroke:#E2E9C0;stroke-width:2;" />
+						</g>
+						<g transform="rotate(140 400 400)">
+							<rect x="370" y="53" rx="5" ry="5" width="60" height="22.5" style="fill:black;stroke:#E2E9C0;stroke-width:2;" />
+							<path d="M 388 43 l 0 25 q 0 8 8 8 l 8 0 q 8 0 8 -8 l 0 -25" style="fill:none;stroke:#E2E9C0;stroke-width:2;" />
+						</g>
+						<g transform="rotate(-140 400 400)">
+							<rect x="370" y="53" rx="5" ry="5" width="60" height="22.5" style="fill:black;stroke:#E2E9C0;stroke-width:2;" />
+							<path d="M 388 43 l 0 25 q 0 8 8 8 l 8 0 q 8 0 8 -8 l 0 -25" style="fill:none;stroke:#E2E9C0;stroke-width:2;" />
+						</g>
+						<g transform="rotate(180 400 400)">
+							<rect x="370" y="53" rx="5" ry="5" width="60" height="22.5" style="fill:black;stroke:#E2E9C0;stroke-width:2;" />
+							<path d="M 388 43 l 0 25 q 0 8 8 8 l 8 0 q 8 0 8 -8 l 0 -25" style="fill:none;stroke:#E2E9C0;stroke-width:2;" />
+						</g>
+						<polygon stroke-linejoin="round" points="380 15 420 15" transform="rotate(60 400 400)" style="fill:none;stroke:#E2E9C0;stroke-width:5;" />
+						<polygon stroke-linejoin="round" points="380 15 420 15" transform="rotate(-60 400 400)" style="fill:none;stroke:#E2E9C0;stroke-width:5;" />
+						<polygon stroke-linejoin="round" points="380 15 420 15" transform="rotate(140 400 400)" style="fill:none;stroke:#E2E9C0;stroke-width:5;" />
+						<polygon stroke-linejoin="round" points="380 15 420 15" transform="rotate(-140 400 400)" style="fill:none;stroke:#E2E9C0;stroke-width:5;" />
+						<g transform="translate(220.72330470336311889978890947379 223.22330470336311889978890947379)" stroke="none">
+							<path stroke-linejoin="round" d="m 179.7669529663688110021109052621 100 l -163.56601717798212866012665431573 227.56601717798212866012665431573 l 120 0 l -30 -45 l 73.56601717798212866012665431573 -117.56601717798212866012665431573 l 73.56601717798212866012665431573 117.56601717798212866012665431573 l -30 45 l 120 0 Z" style="fill:none;stroke-width:5;" />
+							<circle cx="179.7669529663688110021109052621" cy="14.7669529663688110021109052621" r="50px" stroke-width="5" fill="none" />
+							<circle cx="179.7669529663688110021109052621" cy="14.7669529663688110021109052621" r="22.5px" stroke-width="5" fill="none" />
+						</g>
+						<rect x="2.5" y="2.5" width="353.55339059327376220042218105242" height="353.55339059327376220042218105242" style="fill:none;stroke:white;stroke-width:0;" />
+						<g id="glyphs"></g>
+				
+						<text x="52.5" y="780" font-size="20px" fill="#E2E9C0" text-anchor="start">LST CODE #1</text>
+						<text x="752.5" y="780" font-size="20px" fill="#E2E9C0" text-anchor="end">LST CODE #2</text>
+				
+						<g> 
+							<path d="M 50 830 l 0 -25 a 5 5 0 0 1 5 -5 l 695 0 a 5 5 0 0 1 5 5 l 0 25 M 79.41666666666667 800 l 0 15 M 108.83333333333334 800 l 0 15 M 138.25 800 l 0 15 M 167.66666666666666 800 l 0 15 M 197.08333333333331 800 l 0 15 M 226.49999999999997 800 l 0 15 M 255.91666666666663 800 l 0 15 M 285.3333333333333 800 l 0 15 M 314.75 800 l 0 15 M 344.1666666666667 800 l 0 15 M 373.58333333333337 800 l 0 15 M 403.00000000000005 800 l 0 15 M 432.41666666666674 800 l 0 15 M 461.8333333333334 800 l 0 15 M 491.2500000000001 800 l 0 15 M 520.6666666666667 800 l 0 15 M 550.0833333333334 800 l 0 15 M 579.5 800 l 0 15 M 608.9166666666666 800 l 0 15 M 638.3333333333333 800 l 0 15 M 667.7499999999999 800 l 0 15 M 697.1666666666665 800 l 0 15 M 726.5833333333331 800 l 0 15" stroke="#66CCCC" stroke-width="3" />
+							<path d="M 50 890 l 0 25 a 5 5 0 0 0 5 5 l 695 0 a 5 5 0 0 0 5 -5 l 0 -25 M 79.41666666666667 920 l 0 -15 M 108.83333333333334 920 l 0 -15 M 138.25 920 l 0 -15 M 167.66666666666666 920 l 0 -15 M 197.08333333333331 920 l 0 -15 M 226.49999999999997 920 l 0 -15 M 255.91666666666663 920 l 0 -15 M 285.3333333333333 920 l 0 -15 M 314.75 920 l 0 -15 M 344.1666666666667 920 l 0 -15 M 373.58333333333337 920 l 0 -15 M 403.00000000000005 920 l 0 -15 M 432.41666666666674 920 l 0 -15 M 461.8333333333334 920 l 0 -15 M 491.2500000000001 920 l 0 -15 M 520.6666666666667 920 l 0 -15 M 550.0833333333334 920 l 0 -15 M 579.5 920 l 0 -15 M 608.9166666666666 920 l 0 -15 M 638.3333333333333 920 l 0 -15 M 667.7499999999999 920 l 0 -15 M 697.1666666666665 920 l 0 -15 M 726.5833333333331 920 l 0 -15" stroke="#66CCCC" stroke-width="3" />
+							<text id="stargate-status" x="402.5" y="890" text-anchor="middle" font-size="90px" style="fill: #E2E9C0;">
+								<tspan>I</tspan><tspan dx="10px">D</tspan><tspan dx="10px">L</tspan><tspan dx="10px">E</tspan>
+							</text>
+						</g>
+						<g id="stargate-timer" transform="translate(10 220)">
+							<g id="stargate-timer-mover" transform="translate(0 22)">
+								<rect x="0" y="0" width="780px" height="285px" fill="black" stroke="#339999" stroke-width="5px" />
+								<rect x="10" y="5" width="760px" height="265px" fill="black" stroke="#339999" stroke-width="5px" />
+								  
+								<line x1="36.20689655172414" y1="5" x2="36.20689655172414" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="62.413793103448285" y1="5" x2="62.413793103448285" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="88.62068965517242" y1="5" x2="88.62068965517242" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="114.82758620689657" y1="5" x2="114.82758620689657" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="141.0344827586207" y1="5" x2="141.0344827586207" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="167.24137931034482" y1="5" x2="167.24137931034482" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="193.44827586206895" y1="5" x2="193.44827586206895" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="219.65517241379308" y1="5" x2="219.65517241379308" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="245.8620689655172" y1="5" x2="245.8620689655172" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="272.06896551724133" y1="5" x2="272.06896551724133" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="298.27586206896546" y1="5" x2="298.27586206896546" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="324.4827586206896" y1="5" x2="324.4827586206896" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="350.6896551724137" y1="5" x2="350.6896551724137" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="376.89655172413785" y1="5" x2="376.89655172413785" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="403.103448275862" y1="5" x2="403.103448275862" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="429.3103448275861" y1="5" x2="429.3103448275861" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="455.51724137931023" y1="5" x2="455.51724137931023" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="481.72413793103436" y1="5" x2="481.72413793103436" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="507.9310344827585" y1="5" x2="507.9310344827585" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="534.1379310344827" y1="5" x2="534.1379310344827" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="560.3448275862069" y1="5" x2="560.3448275862069" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="586.551724137931" y1="5" x2="586.551724137931" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="612.7586206896552" y1="5" x2="612.7586206896552" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="638.9655172413794" y1="5" x2="638.9655172413794" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="665.1724137931036" y1="5" x2="665.1724137931036" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="691.3793103448278" y1="5" x2="691.3793103448278" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="717.586206896552" y1="5" x2="717.586206896552" y2="40" stroke="#339999" stroke-width="3px" />
+								<line x1="743.7931034482761" y1="5" x2="743.7931034482761" y2="40" stroke="#339999" stroke-width="3px" />
+
+								  
+								<line x1="10" y1="40" x2="770" y2="40" stroke="#339999" stroke-width="3px" />
+								<text id="stargate-timer-mover-status" x="390" y="120" font-size="90px" fill="rgb(172, 0, 0)" text-anchor="middle" style="opacity: 0;"><tspan>D</tspan><tspan dx="5px">E</tspan><tspan dx="5px">A</tspan><tspan dx="5px">C</tspan><tspan dx="5px">T</tspan><tspan dx="5px">I</tspan><tspan dx="5px">V</tspan><tspan dx="5px">A</tspan><tspan dx="5px">T</tspan><tspan dx="5px">I</tspan><tspan dx="5px">N</tspan><tspan dx="5px">G</tspan> </text>
+								<text x="390" y="165" fill="#EBD594" font-size="42.5px" text-anchor="middle"><tspan>C</tspan><tspan dx="2.5px">o</tspan><tspan dx="2.5px">m</tspan><tspan dx="2.5px">m</tspan><tspan dx="2.5px">e</tspan><tspan dx="2.5px">n</tspan><tspan dx="2.5px">c</tspan><tspan dx="2.5px">i</tspan><tspan dx="2.5px">n</tspan><tspan dx="2.5px">g</tspan><tspan dx="2.5px"> </tspan><tspan dx="2.5px">W</tspan><tspan dx="2.5px">o</tspan><tspan dx="2.5px">r</tspan><tspan dx="2.5px">m</tspan><tspan dx="2.5px"> </tspan><tspan dx="2.5px">H</tspan><tspan dx="2.5px">o</tspan><tspan dx="2.5px">l</tspan><tspan dx="2.5px">e</tspan> </text>
+								<text x="390" y="220" fill="#EBD594" font-size="42.5px" text-anchor="middle"><tspan>D</tspan><tspan dx="2.5px">E</tspan><tspan dx="2.5px">A</tspan><tspan dx="2.5px">C</tspan><tspan dx="2.5px">T</tspan><tspan dx="2.5px">I</tspan><tspan dx="2.5px">V</tspan><tspan dx="2.5px">A</tspan><tspan dx="2.5px">T</tspan><tspan dx="2.5px">I</tspan><tspan dx="2.5px">O</tspan><tspan dx="2.5px">N</tspan> </text>
+								<line x1="10" y1="235" x2="770" y2="235" stroke="#339999" stroke-width="3px" />
+
+
+								<line x1="36.20689655172414" y1="270" x2="36.20689655172414" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="62.413793103448285" y1="270" x2="62.413793103448285" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="88.62068965517242" y1="270" x2="88.62068965517242" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="114.82758620689657" y1="270" x2="114.82758620689657" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="141.0344827586207" y1="270" x2="141.0344827586207" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="167.24137931034482" y1="270" x2="167.24137931034482" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="193.44827586206895" y1="270" x2="193.44827586206895" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="219.65517241379308" y1="270" x2="219.65517241379308" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="245.8620689655172" y1="270" x2="245.8620689655172" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="272.06896551724133" y1="270" x2="272.06896551724133" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="298.27586206896546" y1="270" x2="298.27586206896546" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="324.4827586206896" y1="270" x2="324.4827586206896" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="350.6896551724137" y1="270" x2="350.6896551724137" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="376.89655172413785" y1="270" x2="376.89655172413785" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="403.103448275862" y1="270" x2="403.103448275862" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="429.3103448275861" y1="270" x2="429.3103448275861" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="455.51724137931023" y1="270" x2="455.51724137931023" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="481.72413793103436" y1="270" x2="481.72413793103436" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="507.9310344827585" y1="270" x2="507.9310344827585" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="534.1379310344827" y1="270" x2="534.1379310344827" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="560.3448275862069" y1="270" x2="560.3448275862069" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="586.551724137931" y1="270" x2="586.551724137931" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="612.7586206896552" y1="270" x2="612.7586206896552" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="638.9655172413794" y1="270" x2="638.9655172413794" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="665.1724137931036" y1="270" x2="665.1724137931036" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="691.3793103448278" y1="270" x2="691.3793103448278" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="717.586206896552" y1="270" x2="717.586206896552" y2="235" stroke="#339999" stroke-width="3px" />
+								<line x1="743.7931034482761" y1="270" x2="743.7931034482761" y2="235" stroke="#339999" stroke-width="3px" />
+
+							</g>
+						  
+							<rect x="0" y="0" width="780px" height="315px" fill="black" stroke="#339999" stroke-width="5px" />
+							<text x="10" y="35" font-size="36">
+								<tspan fill="#339999"><tspan>E</tspan><tspan dx="2.5px">n</tspan><tspan dx="2.5px">c</tspan><tspan dx="2.5px">o</tspan><tspan dx="2.5px">d</tspan><tspan dx="2.5px">i</tspan><tspan dx="2.5px">n</tspan><tspan dx="2.5px">g</tspan><tspan dx="2.5px">:</tspan><tspan dx="2.5px"> </tspan> </tspan>
+								<tspan fill="#EBD594"><tspan>C</tspan><tspan dx="2.5px">o</tspan><tspan dx="2.5px">u</tspan><tspan dx="2.5px">n</tspan><tspan dx="2.5px">t</tspan><tspan dx="2.5px"> </tspan><tspan dx="2.5px">T</tspan><tspan dx="2.5px">o</tspan><tspan dx="2.5px"> </tspan><tspan dx="2.5px">M</tspan><tspan dx="2.5px">a</tspan><tspan dx="2.5px">x</tspan><tspan dx="2.5px">i</tspan><tspan dx="2.5px">m</tspan><tspan dx="2.5px">u</tspan><tspan dx="2.5px">m</tspan><tspan dx="2.5px"> </tspan><tspan dx="2.5px">L</tspan><tspan dx="2.5px">i</tspan><tspan dx="2.5px">f</tspan><tspan dx="2.5px">e</tspan><tspan dx="2.5px"> </tspan><tspan dx="2.5px">S</tspan><tspan dx="2.5px">p</tspan><tspan dx="2.5px">a</tspan><tspan dx="2.5px">n</tspan> </tspan>
+							</text>
+							<line x1="0px" y1="45px" x2="780px" y2="45px" stroke="#339999" stroke-width="5px" />
+							<line x1="135px" y1="45px" x2="135px" y2="72.5px" stroke="#339999" stroke-width="5px" />
+							<line x1="250px" y1="45px" x2="250px" y2="72.5px" stroke="#339999" stroke-width="5px" />
+							<line x1="555px" y1="45px" x2="555px" y2="72.5px" stroke="#339999" stroke-width="5px" />
+							<rect x="50" y="72.5" width="680px" height="195px" fill="black" stroke="#339999" stroke-width="5px" />
+
+							<line x1="12px" y1="77.5px" x2="19px" y2="77.5px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="12px" y1="90.71428571428571px" x2="19px" y2="90.71428571428571px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="12px" y1="103.92857142857141px" x2="19px" y2="103.92857142857141px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="12px" y1="117.14285714285712px" x2="19px" y2="117.14285714285712px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="12px" y1="130.35714285714283px" x2="19px" y2="130.35714285714283px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="12px" y1="143.57142857142855px" x2="19px" y2="143.57142857142855px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="12px" y1="156.78571428571428px" x2="19px" y2="156.78571428571428px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="12px" y1="170px" x2="19px" y2="170px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="12px" y1="183.21428571428572px" x2="19px" y2="183.21428571428572px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="12px" y1="196.42857142857144px" x2="19px" y2="196.42857142857144px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="12px" y1="209.64285714285717px" x2="19px" y2="209.64285714285717px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="12px" y1="222.8571428571429px" x2="19px" y2="222.8571428571429px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="12px" y1="236.0714285714286px" x2="19px" y2="236.0714285714286px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="12px" y1="249.28571428571433px" x2="19px" y2="249.28571428571433px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="12px" y1="262.50000000000005px" x2="19px" y2="262.50000000000005px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+
+							<g transform="translate(50 72.5)" fill="#EBD594">
+								<g transform="translate(20 15)">
+									<rect x="0" y="0" width="200px" height="165px" fill="black" stroke="#339999" stroke-width="5px" />
+									<text id="part1" class="time" x="100" y="142.5" font-size="180px" text-anchor="middle">00</text>
+								</g>
+								<g transform="translate(240 15)">
+									<rect x="0" y="0" width="200px" height="165px" fill="black" stroke="#339999" stroke-width="5px" />
+									<text id="part2" class="time" x="100" y="142.5" font-size="180px" text-anchor="middle">00</text>
+								</g>
+								<g transform="translate(460 15)">
+									<rect x="0" y="0" width="200px" height="165px" fill="black" stroke="#339999" stroke-width="5px" />
+									<text id="part3" class="time" x="100" y="142.5" font-size="180px" text-anchor="middle">00</text>
+								</g>
+							</g>
+
+							<line x1="768px" y1="77.5px" x2="761px" y2="77.5px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="768px" y1="90.71428571428571px" x2="761px" y2="90.71428571428571px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="768px" y1="103.92857142857141px" x2="761px" y2="103.92857142857141px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="768px" y1="117.14285714285712px" x2="761px" y2="117.14285714285712px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="768px" y1="130.35714285714283px" x2="761px" y2="130.35714285714283px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="768px" y1="143.57142857142855px" x2="761px" y2="143.57142857142855px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="768px" y1="156.78571428571428px" x2="761px" y2="156.78571428571428px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="768px" y1="170px" x2="761px" y2="170px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="768px" y1="183.21428571428572px" x2="761px" y2="183.21428571428572px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="768px" y1="196.42857142857144px" x2="761px" y2="196.42857142857144px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="768px" y1="209.64285714285717px" x2="761px" y2="209.64285714285717px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="768px" y1="222.8571428571429px" x2="761px" y2="222.8571428571429px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="768px" y1="236.0714285714286px" x2="761px" y2="236.0714285714286px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="768px" y1="249.28571428571433px" x2="761px" y2="249.28571428571433px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+							<line x1="768px" y1="262.50000000000005px" x2="761px" y2="262.50000000000005px" stroke="#339999" stroke-width="3px" stroke-linecap="round" />
+
+							<line x1="0px" y1="285px" x2="780px" y2="285px" stroke="#339999" stroke-width="5px" />
+							<line x1="170px" y1="285px" x2="170px" y2="315px" stroke="#339999" stroke-width="5px" />
+							<line x1="390px" y1="285px" x2="390px" y2="315px" stroke="#339999" stroke-width="5px" />
+							<line x1="460px" y1="285px" x2="460px" y2="315px" stroke="#339999" stroke-width="5px" />
+							  
+						</g>
+					</g>
+				</g>
+				<g style="display: none">
+					<rect x="0" y="0" width="1322" height="1012" fill="black" stroke-width="0" />
+					<text class="text-container" x="661" y="55px" font-weight="bold" fill="#009999" text-anchor="middle">
+						<tspan font-size="50px">SYSTEM GLYPHS</tspan> <tspan font-size="40px">/ FILE ARCHIVE</span><tspan font-size="30px"> / DISPLAY COMPLETE</span>
+					</text>
+					<text class="text-container" x="123" y="105px" font-size="42px" font-weight="bold" fill="#009999" text-anchor="middle">1</text>
+					<text class="text-container" x="269" y="105px" font-size="42px" font-weight="bold" fill="#009999" text-anchor="middle">2</text>
+					<text class="text-container" x="415" y="105px" font-size="42px" font-weight="bold" fill="#009999" text-anchor="middle">3</text>
+					<text class="text-container" x="561" y="105px" font-size="42px" font-weight="bold" fill="#009999" text-anchor="middle">4</text>
+					<text class="text-container" x="707" y="105px" font-size="42px" font-weight="bold" fill="#009999" text-anchor="middle">5</text>
+					<text class="text-container" x="853" y="105px" font-size="42px" font-weight="bold" fill="#009999" text-anchor="middle">6</text>
+					<text class="text-container" x="999" y="105px" font-size="42px" font-weight="bold" fill="#009999" text-anchor="middle">7</text>
+					<text class="text-container" x="1072" y="105px" font-size="45px" font-weight="bold" fill="#009999" text-anchor="start">PROFILE</text>
+					<g>
+						<g transform="translate(50 150)">
+							<g>
+								<rect x="0" y="0" width="146" height="196" fill="black" stroke-width="4px" stroke="#009999" />
+								<g transform="translate(0 146)">
+									<line x1="0" y1="0" x2="146px" y2="0" stroke="#339999" stroke-width="4px" stroke-linecap="butt" />
+									<text class="text-container" x="73" y="40px" font-size="30px" font-weight="bold" fill="#E2E9C0" text-anchor="middle">GLYPH</text>
+								</g>
+							</g>
+							<g transform="translate(146 0)">
+								<rect x="0" y="0" width="146" height="196" fill="black" stroke-width="4px" stroke="#009999" />
+								<g transform="translate(0 146)">
+									<line x1="0" y1="0" x2="146px" y2="0" stroke="#339999" stroke-width="4px" stroke-linecap="butt" />
+									<text class="text-container" x="73" y="40px" font-size="30px" font-weight="bold" fill="#E2E9C0" text-anchor="middle">GLYPH12.</text>
+								</g>
+							</g>
+							<g transform="translate(292 0)">
+								<rect x="0" y="0" width="146" height="196" fill="black" stroke-width="4px" stroke="#009999" />
+								<g transform="translate(0 146)">
+									<line x1="0" y1="0" x2="146px" y2="0" stroke="#339999" stroke-width="4px" stroke-linecap="butt" />
+									<text class="text-container" x="73" y="40px" font-size="30px" font-weight="bold" fill="#E2E9C0" text-anchor="middle">GLYPH</text>
+								</g>
+							</g>
+							<g transform="translate(438 0)">
+								<rect x="0" y="0" width="146" height="196" fill="black" stroke-width="4px" stroke="#009999" />
+								<g transform="translate(0 146)">
+									<line x1="0" y1="0" x2="146px" y2="0" stroke="#339999" stroke-width="4px" stroke-linecap="butt" />
+									<text class="text-container" x="73" y="40px" font-size="30px" font-weight="bold" fill="#E2E9C0" text-anchor="middle">GLYPH</text>
+								</g>
+							</g>
+							<g transform="translate(584 0)">
+								<rect x="0" y="0" width="146" height="196" fill="black" stroke-width="4px" stroke="#009999" />
+								<g transform="translate(0 146)">
+									<line x1="0" y1="0" x2="146px" y2="0" stroke="#339999" stroke-width="4px" stroke-linecap="butt" />
+									<text class="text-container" x="73" y="40px" font-size="30px" font-weight="bold" fill="#E2E9C0" text-anchor="middle">GLYPH</text>
+								</g>
+							</g>
+							<g transform="translate(730 0)">
+								<rect x="0" y="0" width="146" height="196" fill="black" stroke-width="4px" stroke="#009999" />
+								<g transform="translate(0 146)">
+									<line x1="0" y1="0" x2="146px" y2="0" stroke="#339999" stroke-width="4px" stroke-linecap="butt" />
+									<text class="text-container" x="73" y="40px" font-size="30px" font-weight="bold" fill="#E2E9C0" text-anchor="middle">GLYPH</text>
+								</g>
+							</g>
+							<g transform="translate(876 0)">
+								<rect x="0" y="0" width="146" height="196" fill="black" stroke-width="4px" stroke="#009999" />
+								<g transform="translate(0 146)">
+									<line x1="0" y1="0" x2="146px" y2="0" stroke="#339999" stroke-width="4px" stroke-linecap="butt" />
+									<text class="text-container" x="73" y="40px" font-size="30px" font-weight="bold" fill="#E2E9C0" text-anchor="middle">GLYPH</text>
+								</g>
+							</g>
+							<g transform="translate(1022 0)">
+								<text class="text-container" y="40px" font-size="45px" font-weight="bold" fill="#E2E9C0" text-anchor="start">Name</text>
+								<text class="text-container" y="80px" font-size="32px" font-weight="bold" fill="#E2E9C0" text-anchor="start">STATUS</text>
+								<text class="text-container" y="120px" font-size="25px" font-weight="bold" fill="#339999" text-anchor="start">MALP:</text>
+								<text class="text-container" x="85px" y="120px" font-size="25px" font-weight="bold" fill="#339999" text-anchor="start">YES</text>
+								<text class="text-container" x="150px" y="120px" font-size="25px" font-weight="bold" fill="#339999" text-anchor="start">V1:</text>
+								<text class="text-container" x="195px" y="120px" font-size="25px" font-weight="bold" fill="#339999" text-anchor="start">1</text>
+								<text class="text-container" y="150px" font-size="25px" font-weight="bold" fill="#339999" text-anchor="start">EXPD:</text>
+								<text class="text-container" x="85px" y="150px" font-size="25px" font-weight="bold" fill="#339999" text-anchor="start">YES</text>
+								<text class="text-container" x="150px" y="150px" font-size="25px" font-weight="bold" fill="#339999" text-anchor="start">TC:</text>
+								<text class="text-container" x="195px" y="150px" font-size="25px" font-weight="bold" fill="#339999" text-anchor="start">1</text>
+								<text class="text-container" y="180px" font-size="25px" font-weight="bold" fill="#339999" text-anchor="start">HSTL:</text>
+								<text class="text-container" x="85px" y="180px" font-size="25px" font-weight="bold" fill="#339999" text-anchor="start">YES</text>
+								<text class="text-container" x="150px" y="180px" font-size="25px" font-weight="bold" fill="#339999" text-anchor="start">XA:</text>
+								<text class="text-container" x="195px" y="180px" font-size="25px" font-weight="bold" fill="#339999" text-anchor="start">1</text>
+							</g>
+						</g>
+					</g>
+				</g>
+				<path d="M 3 976 l 0 -963 a 10 10 0 0 1 10 -10 l 1288 0" stroke="#009999" stroke-width="6px" fill="none" />
+				<path d="M 3 1006 l 1288 0 a 10 10 0 0 0 10 -10 l 0 -963" stroke="#009999" stroke-width="6px" fill="none" />
+				
+				<g id="base-alert">
+					<rect x="5" y="5" width="1295" height="1000" fill="black" stroke="#ff3333" stroke-width="10" />
+					<text class="text-container" x="652" y="220px" font-size="200px" font-weight="bold" fill="#ea2e2e" text-anchor="middle" style="opacity: 0;">BASE</text>
+					<text class="text-container" x="652" y="530px" font-size="200px" font-weight="bold" fill="#ea2e2e" text-anchor="middle" style="opacity: 0;">ALERT</text>
+					<g class="text-container" transform="translate(134 690)" style="opacity: 0;">
+						<rect x="0" y="0" width="1028" height="250" fill="#ea2e2e" stroke="none" stroke-width="0" />
+						<rect x="15" y="15" width="998" height="220" fill="none" stroke="#420303" stroke-width="4" />
+						<text id="text-code" x="514" y="200px" font-size="200px" font-weight="bold" fill="#420303" text-anchor="middle"><tspan>C</tspan><tspan dx="2.5px">O</tspan><tspan dx="2.5px">D</tspan><tspan dx="2.5px">E</tspan><tspan dx="2.5px"> </tspan><tspan dx="2.5px">9</tspan></text>
+					</g>
+				</g>
+				<g id="base-evac">
+					<rect x="5" y="5" width="1295" height="1000" fill="black" stroke="#ff3333" stroke-width="10" />
+					<text class="text-container" x="190" y="657.5px" font-size="450px" font-weight="bold" fill="#ea2e2e" text-anchor="middle" style="opacity: 0;"><tspan>E</tspan></text>
+					<text class="text-container" x="492.5" y="657.5px" font-size="450px" font-weight="bold" fill="#ea2e2e" text-anchor="middle" style="opacity: 0;"><tspan>V</tspan></text>
+					<text class="text-container" x="774.25" y="657.5px" font-size="450px" font-weight="bold" fill="#ea2e2e" text-anchor="middle" style="opacity: 0;"><tspan>A</tspan></text>
+					<text class="text-container" x="1101.5" y="657.5px" font-size="450px" font-weight="bold" fill="#ea2e2e" text-anchor="middle" style="opacity: 0;"><tspan>C</tspan></text>
+				</g>
+			</g>
+			<text id="event" class="text-container" x="10px" y="22.5px" font-size="20px" fill="#fff" text-anchor="begin"></text>
+		</svg>
+	</body>
+</html>

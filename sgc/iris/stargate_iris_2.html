@@ -1,0 +1,903 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="generator" content="PSPad editor, www.pspad.com">
+		<meta name="author" content="Michael Vodák">
+		<title>Stargate Iris 2</title>
+		<style>
+		
+			body {
+				background-color: #000000;
+				color: #EBD594;
+				font-size: 30px;
+			}
+
+			svg {
+				width: 1100px;
+				height: 800px;
+				z-index: 0;
+			}
+
+			.chevron {
+				stroke: #AC0000;
+				stroke-width:3;
+			}
+
+			.chevron-off {
+				stroke: #216363;
+				stroke-width:3;
+			}
+
+			.line-chev-sym {
+				stroke-width: 2px;
+				stroke: #669999;
+				fill: none;
+			}
+
+			.chev-sym {
+				stroke: #669999;
+				stroke-width: 2;
+			}
+
+			.text-chev {
+				font-weight: bold;
+			}
+			
+			.list-no-marks {
+				list-style-type: none;
+			}
+
+			.no-margin {
+				margin: 0;
+			}
+
+			.no-padding {
+				padding: 0;
+			}
+			
+		</style>
+      <script>
+			
+			var angleIris = 61;
+			
+			window.addEventListener("load", function() {
+				const eventElement = document.getElementById("event");
+				var handler = null;
+				const irisSegments = document.getElementsByClassName("iris-segment");
+				const irisSegmentsEnd = document.getElementsByClassName("iris-segment-end");
+				const irisSegment1S = document.getElementById("iris-segment-1-s");
+				const maskIrisSegment = document.getElementById("mask-iris-segment");
+				const maskIrisSegment2 = document.getElementById("mask-iris-segment-2");
+				const maskIrisSegment3 = document.getElementById("mask-iris-segment-3");
+				const clipPath = document.getElementById("clip-path");
+				const clipPath2 = document.getElementById("clip-path-2");
+				const clipPathEnd = document.getElementById("clip-path-end");
+				const clipPath2Segment = document.getElementById("clip-path-2-segment");
+				const  clipPathEndSegment = document.getElementById("clip-path-end-segment");
+				window.addEventListener("keydown", function(event) {
+					if(!event.altKey && !event.ctrlKey && !event.metaKey) {
+						switch(event.keyCode) {
+							case 39:
+								event.preventDefault();
+								angleIris++;
+								refreshIrisAngle();
+								for(var i = 0; i < irisSegments.length; i++) {
+									var transform = irisSegments[i].getAttribute("transform");
+									var ind = transform.indexOf(" rotate(");
+									transform = (ind > -1 ? transform.replace(" rotate(" + (angleIris-1), " rotate(" + angleIris) : transform + " rotate(" + angleIris + " 477.25424859373686 162.23587092621162");
+									irisSegments[i].setAttribute("transform", transform);
+								}
+								for(var i = 0; i < irisSegmentsEnd.length; i++) {
+									var transform = irisSegmentsEnd[i].getAttribute("transform");
+									var ind = transform.indexOf(" rotate(");
+									transform = (ind > -1 ? transform.replace(" rotate(" + (angleIris-1), " rotate(" + angleIris) : transform + " rotate(" + angleIris + " 477.25424859373686 162.23587092621162");
+									irisSegmentsEnd[i].setAttribute("transform", transform);
+								}
+								clipPath.setAttribute("transform", angleIris == 0 ? "" : "rotate(" + (-angleIris) + " 477.25424859373686 162.23587092621162)");
+								clipPath2.setAttribute("transform", angleIris == 0 ? "" : "rotate(" + (-angleIris) + " 477.25424859373686 162.23587092621162)");
+								clipPathEnd.setAttribute("transform", angleIris == 0 ? "" : "rotate(" + (-angleIris) + " 477.25424859373686 162.23587092621162)");
+								clipPath2Segment.setAttribute("transform", "rotate(18 400 400) rotate(" + angleIris + " 477.25424859373686 162.23587092621162)");
+								clipPathEndSegment.setAttribute("transform", "rotate(18 400 400) rotate(" + angleIris + " 477.25424859373686 162.23587092621162)");
+								break;
+							case 37:
+								event.preventDefault();
+								angleIris--;
+								refreshIrisAngle();
+								for(var i = 0; i < irisSegments.length; i++) {
+									var transform = irisSegments[i].getAttribute("transform");
+									var ind = transform.indexOf(" rotate(");
+									transform = (ind > -1 ? transform.replace(" rotate(" + (angleIris+1), " rotate(" + angleIris) : transform + " rotate(" + angleIris + " 477.25424859373686 162.23587092621162");
+									irisSegments[i].setAttribute("transform", transform);
+								}
+								for(var i = 0; i < irisSegmentsEnd.length; i++) {
+									var transform = irisSegmentsEnd[i].getAttribute("transform");
+									var ind = transform.indexOf(" rotate(");
+									transform = (ind > -1 ? transform.replace(" rotate(" + (angleIris+1), " rotate(" + angleIris) : transform + " rotate(" + angleIris + " 477.25424859373686 162.23587092621162");
+									irisSegmentsEnd[i].setAttribute("transform", transform);
+								}
+								clipPath.setAttribute("transform", angleIris == 0 ? "" : "rotate(" + (-angleIris) + " 477.25424859373686 162.23587092621162)");
+								clipPath2.setAttribute("transform", angleIris == 0 ? "" : "rotate(" + (-angleIris) + " 477.25424859373686 162.23587092621162)");
+								clipPathEnd.setAttribute("transform", angleIris == 0 ? "" : "rotate(" + (-angleIris) + " 477.25424859373686 162.23587092621162)");
+								clipPath2Segment.setAttribute("transform", "rotate(18 400 400) rotate(" + angleIris + " 477.25424859373686 162.23587092621162)");
+								clipPathEndSegment.setAttribute("transform", "rotate(18 400 400) rotate(" + angleIris + " 477.25424859373686 162.23587092621162)");
+								break;
+						}
+					}
+					const key = event.key.toLowerCase();
+					const isControl = key === "control";
+					const isShift = key === "shift";
+					const isAlt = key === "alt";
+					eventElement.innerHTML = (event.ctrlKey ? "Ctrl" + (isControl ? "" : " + ") : "") + (event.shiftKey ? "Shift" + (isShift ? "" : " + ") : "") + (event.altKey ? "Alt" + (isAlt ? "" : " + ") : "") + (isControl || isShift || isAlt ? "" : key) + " down";
+					eventElement.style.display = "";
+					if(handler != null)
+						window.clearTimeout(handler);
+					handler = window.setTimeout(function() {
+						eventElement.style.display = "none";
+						handler = null;
+					}, 2500);
+				});
+				refreshIrisAngle();
+			});
+			
+			function refreshIrisAngle() {
+				document.getElementById("angleIris").innerHTML = "iris: " + angleIris + "°";
+			}
+
+			function showIrisSegments() {
+				const inputs = event.target.parentNode.parentNode.getElementsByTagName("input");
+				for(var i = 1; i < inputs.length; i++) {
+					if(event.target.checked)
+						inputs[i].setAttribute("checked", "");
+					else
+						inputs[i].removeAttribute("checked");
+					inputs[i].checked = event.target.checked;
+					inputs[i].dispatchEvent(new Event("change"));
+				}
+			}
+
+			function highlightIrisSegemnts() {
+				var parent = event.target.parentNode;
+				while(parent.getElementsByTagName("h3").length < 1) {
+					parent = parent.parentNode;
+				}
+				const mouseOver = new MouseEvent(
+					"mouseover",
+					{
+						bubbles: true,
+						cancelable: true,
+						view: window
+					}
+				);
+				const inputs = parent.getElementsByTagName("input");
+				for(var i = 1; i < inputs.length; i++) {
+					inputs[i].dispatchEvent(mouseOver);
+				}
+			}
+
+			function dehighlightIrisSegemnts() {
+				var parent = event.target.parentNode;
+				while(parent.getElementsByTagName("h3").length < 1) {
+					parent = parent.parentNode;
+				}
+				const mouseOut = new MouseEvent(
+					"mouseout",
+					{
+						bubbles: true,
+						cancelable: true,
+						view: window
+					}
+				);
+				const inputs = parent.getElementsByTagName("input");
+				for(var i = 1; i < inputs.length; i++) {
+					inputs[i].dispatchEvent(mouseOut);
+				}
+			}
+
+			function showIrisSegment() {
+				const value = event.target.getAttribute("value");
+				if(value != null && value !== undefined)
+					document.getElementById("iris-segment-" + value).style.display = event.target.checked ? "block" : "none";
+				}
+
+				const elements = new Array();
+
+				function highlightIrisSegemnt() {
+				var parent = event.target;
+				while(parent.nodeName.toLowerCase() !== "li") {
+					parent = parent.parentNode;
+				}
+				const inputs = parent.getElementsByTagName("input");
+				if(inputs.length > 0) {
+					const value = inputs[0].getAttribute("value");
+					const state = elements[value];
+					if(value != null && value !== undefined && (state == null || state === undefined || !state)) {
+						const element = document.getElementById("iris-segment-" + value);
+						const fill = element.getAttribute("fill");
+						element.setAttribute("fill", element.getAttribute("stroke"));
+						element.setAttribute("stroke", fill);
+						elements[value] = true;
+					}
+				}
+			}
+
+			function dehighlightIrisSegemnt() {
+				var parent = event.target;
+				while(parent.nodeName.toLowerCase() !== "li") {
+					parent = parent.parentNode;
+				}
+				const inputs = parent.getElementsByTagName("input");
+				if(inputs.length > 0) {
+					const value = inputs[0].getAttribute("value");
+					const state = elements[value];
+					if(value != null && value !== undefined && state) {
+						const element = document.getElementById("iris-segment-" + value);
+						const fill = element.getAttribute("fill");
+						element.setAttribute("fill", element.getAttribute("stroke"));
+						element.setAttribute("stroke", fill);
+						elements[value] = false;
+					}
+				}
+			}
+
+			function showGate() {
+				const value = event.target.checked ? "block" : "none";
+				const elements = document.getElementsByClassName("gate");
+				for(var i = 0; i < elements.length; i++) {
+					elements[i].style.display = value;
+				}
+			}
+
+			function useClipping(clipping) {
+				const input = event.target;
+				const segment = document.getElementById("iris-segment-" + input.value);
+				if(input.checked)
+					segment.setAttribute("clip-path", "url(#" + clipping + ")");
+				else
+					segment.removeAttribute("clip-path");
+			}
+			
+		</script>
+	</head>
+	<body>
+		<svg>
+			<defs>
+				<clipPath id="clip-path" transform="rotate(-61 477.25424859373686 162.23587092621162)">
+					<circle cx="400" cy="400" r="248.5px" stroke-width="0" />
+				</clipPath>
+				<clipPath id="clip-path-2" transform="rotate(-61 477.25424859373686 162.23587092621162)">
+					<path id="clip-path-2-segment" d="M 399.25055831420207 148.5011166284041 A 251.5 251.5 0 0 0 448.9614346645643 501.0960014058293 L 451.03866340761937 498.9039220342613 A 239.95142874054397 239.95142874054397 0 0 1 480.2522068646372 161.64766983862842 A 251.5 251.5 0 1 1 399.25055831420207 148.5011166284041 Z" transform="rotate(18 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="none" stroke-width="0" fill="none" stroke-linecap="butt" />
+				</clipPath>
+				<clipPath id="clip-path-end" transform="rotate(-61 477.25424859373686 162.23587092621162)">
+					<path id="clip-path-end-segment" d="M 1000 0 L 1000 1000 L 451.03866340761937 498.9039220342613 A 239.95142874054397 239.95142874054397 0 0 1 480.2522068646372 161.64766983862842 A 251.5 251.5 0 1 0 " transform="rotate(18 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="none" stroke-width="0" fill="none" stroke-linecap="butt" />
+				</clipPath>
+			</defs>
+			<text id="angleIris" x="0" y="30" fill="white">iris: 0°</text>
+			<g class="gate">
+				<circle cx="400" cy="400" r="350px" stroke="#66CCCC" stroke-width="5" fill="none" />
+				<circle id="inner-circle" cx="400" cy="400" r="250px" stroke="none" stroke-width="3" fill="none" />
+			</g>
+			<g id="iris-segments">
+				<path id="iris-segment-20-2" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(342 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="none" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-2)" />
+				<path id="iris-segment-1" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(0 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-2" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(18 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-3" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(36 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-4" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(54 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-5" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(72 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-6" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(90 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-7" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(108 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-8" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(126 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-9" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(144 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-10" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(162 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-11" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(180 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-12" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(198 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-13" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(216 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-14" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(234 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-15" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(252 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-16" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(270 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path)" />
+				<path id="iris-segment-17" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(288 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-2)" />
+				<path id="iris-segment-18" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(306 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-2)" />
+				<path id="iris-segment-19" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(324 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-2)" />
+				<path id="iris-segment-20" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(342 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-2)" />
+				<path id="iris-segment-1-end" class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(0 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end)" />
+				<path id="iris-segment-2-end" class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(18 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end)" />
+				<path id="iris-segment-3-end" class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(36 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end)" />
+				<path id="iris-segment-4-end" class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(54 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end)" />
+				<path id="iris-segment-5-end" class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(72 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end)" />
+				<path id="iris-segment-6-end" class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(90 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end)" />
+				<path id="iris-segment-7-end" class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(108 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end)" />
+				<path id="iris-segment-8-end" class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(126 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end)" />
+				<path id="iris-segment-9-end" class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(144 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end)" />
+				<path id="iris-segment-10-end" class="iris-segment-end" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(162 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#50A2A9" fill="#2B586B" stroke-width="3" clip-path="url(#clip-path-end)" />
+				<g>
+					<path id="iris-segment-1-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(0 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#ff0000" fill="none" stroke-width="3" />
+					<path id="iris-segment-2-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(18 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#ff3f00" fill="none" stroke-width="3" />
+					<path id="iris-segment-3-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(36 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#ff7f00" fill="none" stroke-width="3" />
+					<path id="iris-segment-4-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(54 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#ffbf00" fill="none" stroke-width="3" />
+					<path id="iris-segment-5-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(72 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#ffff00" fill="none" stroke-width="3" />
+					<path id="iris-segment-6-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(90 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#bfff00" fill="none" stroke-width="3" />
+					<path id="iris-segment-7-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(108 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#7fff00" fill="none" stroke-width="3" />
+					<path id="iris-segment-8-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(126 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#3fff00" fill="none" stroke-width="3" />
+					<path id="iris-segment-9-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(144 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#00ff00" fill="none" stroke-width="3" />
+					<path id="iris-segment-10-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(162 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#00ff3f" fill="none" stroke-width="3" />
+					<path id="iris-segment-11-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(180 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#00ff7f" fill="none" stroke-width="3" />
+					<path id="iris-segment-12-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(198 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#00ffbf" fill="none" stroke-width="3" />
+					<path id="iris-segment-13-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(216 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#00ffff" fill="none" stroke-width="3" />
+					<path id="iris-segment-14-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(234 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#00bfff" fill="none" stroke-width="3" />
+					<path id="iris-segment-15-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(252 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#007fff" fill="none" stroke-width="3" />
+					<path id="iris-segment-16-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(270 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#003fff" fill="none" stroke-width="3" />
+					<path id="iris-segment-17-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(288 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#0000ff" fill="none" stroke-width="3" />
+					<path id="iris-segment-18-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(306 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#3f00ff" fill="none" stroke-width="3" />
+					<path id="iris-segment-19-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(324 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#7f00ff" fill="none" stroke-width="3" />
+					<path id="iris-segment-20-t" class="iris-segment" d="M 400 150 A 250 250 0 0 0 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162 A 250 250 0 0 0 400 150 Z" transform="rotate(342 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="#bf00ff" fill="none" stroke-width="3" />
+				</g>
+			</g>
+			<g class="gate">
+				<path d="M 60 400 A 340 340 0 0 0 740 400 A 340 340 0 0 0 60 400 Z M 90 400 A 310 310 0 0 0 710 400 A 310 310 0 0 0 90 400 Z" stroke="#669999" stroke-width="1" fill="black" fill-rule="evenodd" />
+				<path d="M 90 400 A 310 310 0 0 0 710 400 A 310 310 0 0 0 90 400 Z M 100 400 A 300 300 0 0 0 700 400 A 300 300 0 0 0 100 400 Z" fill="black" fill-rule="evenodd" />
+				<circle cx="400" cy="400" r="310px" stroke="#669999" stroke-width="1" fill="none" />        
+				<path d="M 140 400 A 260 260 0 0 0 660 400 A 260 260 0 0 0 140 400 Z M 150 400 A 250 250 0 0 0 650 400 A 250 250 0 0 0 150 400 Z" fill="black" fill-rule="evenodd" />
+				<circle cx="400" cy="400" r="250px" stroke="#669999" stroke-width="3" fill="none" />
+				<g id="stargate-ring">
+					<path d="M 100 400 A 300 300 0 0 0 700 400 A 300 300 0 0 0 100 400 Z M 140 400 A 260 260 0 0 0 660 400 A 260 260 0 0 0 140 400 Z" stroke="#669999" stroke-width="3" fill="black" fill-rule="evenodd" />
+					<polygon points="400,140 400,100" style="stroke:#669999;stroke-width:3" />
+					<polygon points="441.70693302301765,143.36693171414265 448.12338425732804,103.88492120862614" style="stroke:#669999;stroke-width:3" />
+					<polygon points="482.33367838838285,153.38052509374214 495.00039814044174,115.43906741585631" style="stroke:#669999;stroke-width:3" />
+					<polygon points="520.8280247313797,169.7814333301654 539.4169516131304,134.363192304037" style="stroke:#669999;stroke-width:3" />
+					<polygon points="556.1929887018745,192.14488151508965 580.2226792713936,160.1671709789496" style="stroke:#669999;stroke-width:3" />
+					<polygon points="587.5126363093917,219.89166808750411 616.3607342031443,192.18269394712013" style="stroke:#669999;stroke-width:3" />
+					<polygon points="613.9758051323506,252.30316584989941 646.8951597680968,229.58057598065318" style="stroke:#669999;stroke-width:3" />
+					<polygon points="634.8971129986994,288.5399340352058 671.0351303831147,271.3922315790836" style="stroke:#669999;stroke-width:3" />
+					<polygon points="649.7347090241568,327.6634593817222 688.1554334894117,316.5347608250641" style="stroke:#669999;stroke-width:3" />
+					<polygon points="658.1043072654941,368.6604631336159 697.8126622294162,363.838995923403" style="stroke:#669999;stroke-width:3" />
+					<polygon points="659.7891395246081,410.4691444284478 699.7566994514709,412.07978203282437" style="stroke:#669999;stroke-width:3" />
+					<polygon points="654.7455695309896,452.00668038177144 693.9371956126804,460.0077081328132" style="stroke:#669999;stroke-width:3" />
+					<polygon points="643.1042230982078,492.19727063105915 680.5048728056245,506.38146611276056" style="stroke:#669999;stroke-width:3" />
+					<polygon points="625.1666049839541,529.9999999999999 659.8076211353317,549.9999999999999" style="stroke:#669999;stroke-width:3" />
+					<polygon points="601.3972900751903,564.435797654798 632.3814885482965,589.733612678613" style="stroke:#669999;stroke-width:3" />
+					<polygon points="572.4118911426069,594.6127945244862 598.9367974722387,624.5532244513301" style="stroke:#669999;stroke-width:3" />
+					<polygon points="538.9611147932284,619.7494222413866 560.3397478383405,653.5570256631383" style="stroke:#669999;stroke-width:3" />
+					<polygon points="501.9113185636197,639.1946553512942 517.5899829580228,675.9938330976471" style="stroke:#669999;stroke-width:3" />
+					<polygon points="462.2220727147652,652.4448725307735 471.79469928626753,691.2825452278156" style="stroke:#669999;stroke-width:3" />
+					<polygon points="420.9213078663489,659.1569001148946 424.139970615018,699.027192440263" style="stroke:#669999;stroke-width:3" />
+					<polygon points="379.0786921336515,659.1569001148946 375.8600293849825,699.027192440263" style="stroke:#669999;stroke-width:3" />
+					<polygon points="337.77792728523525,652.4448725307736 328.205300713733,691.2825452278157" style="stroke:#669999;stroke-width:3" />
+					<polygon points="298.08868143638074,639.1946553512944 282.41001704197776,675.9938330976473" style="stroke:#669999;stroke-width:3" />
+					<polygon points="261.0388852067719,619.7494222413868 239.66025216165988,653.5570256631386" style="stroke:#669999;stroke-width:3" />
+					<polygon points="227.5881088573934,594.6127945244864 201.0632025277616,624.5532244513305" style="stroke:#669999;stroke-width:3" />
+					<polygon points="198.6027099248099,564.4357976547982 167.6185114517037,589.7336126786133" style="stroke:#669999;stroke-width:3" />
+					<polygon points="174.83339501604598,530.0000000000001 140.19237886466845,550.0000000000001" style="stroke:#669999;stroke-width:3" />
+					<polygon points="156.89577690179217,492.1972706310593 119.49512719437558,506.38146611276073" style="stroke:#669999;stroke-width:3" />
+					<polygon points="145.2544304690104,452.00668038177156 106.06280438731969,460.0077081328133" style="stroke:#669999;stroke-width:3" />
+					<polygon points="140.21086047539188,410.4691444284479 100.2433005485291,412.07978203282454" style="stroke:#669999;stroke-width:3" />
+					<polygon points="141.89569273450598,368.66046313361596 102.18733777058382,363.83899592340304" style="stroke:#669999;stroke-width:3" />
+					<polygon points="150.26529097584321,327.66345938172224 111.84456651058832,316.53476082506415" style="stroke:#669999;stroke-width:3" />
+					<polygon points="165.10288700130064,288.53993403520576 128.96486961688535,271.39223157908355" style="stroke:#669999;stroke-width:3" />
+					<polygon points="186.02419486764944,252.30316584989936 153.1048402319032,229.5805759806531" style="stroke:#669999;stroke-width:3" />
+					<polygon points="212.48736369060836,219.891668087504 183.6392657968558,192.18269394712001" style="stroke:#669999;stroke-width:3" />
+					<polygon points="243.80701129812567,192.14488151508954 219.77732072860655,160.16717097894946" style="stroke:#669999;stroke-width:3" />
+					<polygon points="279.17197526862043,169.78143333016527 260.58304838686973,134.36319230403686" style="stroke:#669999;stroke-width:3" />
+					<polygon points="317.6663216116175,153.38052509374205 304.99960185955865,115.43906741585621" style="stroke:#669999;stroke-width:3" />
+					<polygon points="358.2930669769827,143.3669317141426 351.87661574267235,103.88492120862608" style="stroke:#669999;stroke-width:3" /> 
+				</g>
+				<g stroke-width="0" transform="">
+					<path d="M 400 150 A 250 250 0 0 0 400 400 A 250 250 0 0 1 470.43313921035746 160.12675659637566 A 250 250 0 0 0 400 150 Z" stroke="white" fill="none" />
+					<path d="M 470.43313921035746 160.12675659637566 A 250 250 0 0 0 400 400 A 250 250 0 0 1 535.1602043638994 189.68661679220472 A 250 250 0 0 0 470.43313921035746 160.12675659637566 Z" stroke="green" fill="none" />
+					<path d="M 535.1602043638994 189.68661679220472 A 252.5 252.5 0 0 0 400 400 A 250 250 0 0 1 588.9373935885646 236.28481651367878 A 250 250 0 0 0 535.1602043638994 189.68661679220472 Z" stroke="yellow" fill="none" />
+					<path d="M 588.9373935885646 236.28481651367878 A 250 252.5 0 0 0 400 400 A 250 250 0 0 1 627.4079988386296 296.1462467495285 A 250 250 0 0 0 588.9373935885646 236.28481651367878 Z" stroke="orange" fill="none" />
+				</g>
+				<path class="line-chev-sym" d="M 628.18960143872146084453841051708 128.05422269276279750315060905283 L 676.35622418031582491557161695208 75 L 840 75" />
+				<path id="line-chev-sym-1" class="line-chev-sym" d="M 628.18960143872146084453841051708 128.05422269276279750315060905283 L 676.35622418031582491557161695208 75 L 840 75" />
+				<path class="line-chev-sym" d="M 749.60675231933386107519377372928 336.6184151515704226691234312292 l 32.498655849402865959102519811454 -5.7303898630087015121066486833874 L 807 165 L 840 165" />
+				<path id="line-chev-sym-2" class="line-chev-sym" d="M 749.60675231933386107519377372928 336.6184151515704226691234312292 l 32.498655849402865959102519811454 -5.7303898630087015121066486833874 L 807 165 L 840 165" />
+				<path class="line-chev-sym" d="M 707.43901834347571960112172561729 577.5 l 50 0 L 820 255 L 840 255" />
+				<path id="line-chev-sym-3" class="line-chev-sym" d="M 707.43901834347571960112172561729 577.5 l 50 0 L 820 255 L 840 255" />
+				<path class="line-chev-sym" d="M 92.56098165652428039887827438271 577.5 l -90 0 l 0 -467.5 l 160 -108 l 850 0 l 0 345 L 960 345" />
+				<path id="line-chev-sym-4" class="line-chev-sym" d="M 92.56098165652428039887827438271 577.5 l -90 0 l 0 -467.5 l 160 -108 l 850 0 l 0 345 L 960 345" />
+				<path class="line-chev-sym" d="M 50.39324768066613892480622627072 336.6184151515704226691234312292 l -35 0 l 0 -227.5 l 150 -98 l 840 0 l 0 424 L 960 435" />
+				<path id="line-chev-sym-5" class="line-chev-sym" d="M 50.39324768066613892480622627072 336.6184151515704226691234312292 l -35 0 l 0 -227.5 l 150 -98 l 840 0 l 0 424 L 960 435" />
+				<path class="line-chev-sym" d="M 171.81039856127853915546158948292 128.05422269276279750315060905283 l -25 -25 l 0 -50.5 l 40 -31 l 810 0 l 0 504 L 960 525" />
+				<path id="line-chev-sym-6" class="line-chev-sym" d="M 171.81039856127853915546158948292 128.05422269276279750315060905283 l -25 -25 l 0 -50.5 l 40 -31 l 810 0 l 0 504 L 960 525" />
+				<path class="line-chev-sym" d="M 400 45 l 0 -15 l 587 0 l 0 585 L 960 615" />
+				<path id="line-chev-sym-9" class="line-chev-sym" d="M 400 45 l 0 -15 l 587 0 l 0 585 L 960 615" />
+				<g id="ch9">
+					<polygon id="ch9-move1" class="chevron" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+					<g id="ch9-move2">
+						<polygon class="chevron" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+						<polygon class="chevron ch9-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+						<polygon class="chevron ch9-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+						<polygon class="chevron ch9-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+						<polygon class="chevron ch9-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+						<polygon class="chevron ch9-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+						<polygon class="chevron ch9-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+					</g>
+				</g>
+				<g id="ch1" transform="rotate(40 400 400)" >
+					<polygon id="ch1-move1" class="chevron" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+					<g id="ch1-move2">
+						<polygon class="chevron" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+						<polygon class="chevron ch1-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+						<polygon class="chevron ch1-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+						<polygon class="chevron ch1-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+						<polygon class="chevron ch1-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+						<polygon class="chevron ch1-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+						<polygon class="chevron ch1-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+					</g>
+				</g>
+				<g id="ch2" transform="rotate(80 400 400)" >
+					<polygon id="ch2-move1" class="chevron" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+					<g id="ch2-move2">
+						<polygon class="chevron" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+						<polygon class="chevron ch2-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+						<polygon class="chevron ch2-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+						<polygon class="chevron ch2-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+						<polygon class="chevron ch2-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+						<polygon class="chevron ch2-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+						<polygon class="chevron ch2-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+					</g>
+				</g>
+				<g id="ch3" transform="rotate(120 400 400)" >
+					<polygon id="ch3-move1" class="chevron" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+					<g id="ch3-move2">
+						<polygon class="chevron" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+						<polygon class="chevron ch3-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+						<polygon class="chevron ch3-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+						<polygon class="chevron ch3-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+						<polygon class="chevron ch3-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+						<polygon class="chevron ch3-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+						<polygon class="chevron ch3-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+					</g>
+				</g>
+				<g id="ch7" transform="rotate(160 400 400)" >
+					<polygon id="ch7-move1" class="chevron-off" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+					<g id="ch7-move2">
+						<polygon class="chevron-off" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+						<polygon class="chevron-off ch7-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+						<polygon class="chevron-off ch7-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+						<polygon class="chevron-off ch7-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+						<polygon class="chevron-off ch7-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+						<polygon class="chevron-off ch7-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+						<polygon class="chevron-off ch7-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+					</g>
+				</g>
+				<g id="ch8" transform="rotate(200 400 400)" >
+					<polygon id="ch8-move1" class="chevron-off" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+					<g id="ch8-move2">
+						<polygon class="chevron-off" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+						<polygon class="chevron-off ch8-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+						<polygon class="chevron-off ch8-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+						<polygon class="chevron-off ch8-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+						<polygon class="chevron-off ch8-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+						<polygon class="chevron-off ch8-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+						<polygon class="chevron-off ch8-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+					</g>
+				</g>
+				<g id="ch4" transform="rotate(240 400 400)" >
+					<polygon id="ch4-move1" class="chevron" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+					<g id="ch4-move2">
+						<polygon class="chevron" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+						<polygon class="chevron ch4-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+						<polygon class="chevron ch4-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+						<polygon class="chevron ch4-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+						<polygon class="chevron ch4-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+						<polygon class="chevron ch4-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+						<polygon class="chevron ch4-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+					</g>
+				</g>
+				<g id="ch5" transform="rotate(280 400 400)" >
+					<polygon id="ch5-move1" class="chevron" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+					<g id="ch5-move2">
+						<polygon class="chevron" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+						<polygon class="chevron ch5-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+						<polygon class="chevron ch5-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+						<polygon class="chevron ch5-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+						<polygon class="chevron ch5-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+						<polygon class="chevron ch5-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+						<polygon class="chevron ch5-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+					</g>
+				</g>
+				<g id="ch6" transform="rotate(320 400 400)" >
+					<polygon id="ch6-move1" class="chevron" points="382,45 418,45 418,53 408,93 392,93 382,53" />
+					<g id="ch6-move2">
+						<polygon class="chevron" points="372,45 392,108 408,108 428,45 443,45 418,118 382,118 357,45" />
+						<polygon class="chevron ch6-lefts" points="359.73972602739724,53 374.53968253968253,53 377.07936507936506,61 362.47945205479453,61" />
+						<polygon class="chevron ch6-rights" points="440.26027397260276,53 425.46031746031747,53 422.92063492063494,61 437.52054794520546,61" />
+						<polygon class="chevron ch6-lefts" points="365.2191780821918,69 379.6190476190476,69 382.1587301587302,77 367.958904109589,77" />
+						<polygon class="chevron ch6-rights" points="434.7808219178082,69 420.3809523809524,69 417.8412698412698,77 432.041095890411,77" />
+						<polygon class="chevron ch6-lefts" points="370.6986301369863,85 384.6984126984127,85 387.23809523809524,93 373.43835616438355,93" />
+						<polygon class="chevron ch6-rights" points="429.3013698630137,85 415.3015873015873,85 412.76190476190476,93 426.56164383561645,93" />
+					</g>
+				</g>
+				<g id="chev-syms" fill="none">
+					<rect class="chev-sym" x="840" y="35" width="120" height="80" />
+					<rect id="chev-sym-1" class="chev-sym" x="840" y="35" width="120" height="80" />
+					<rect class="chev-sym" x="840" y="125" width="120" height="80" />
+					<rect id="chev-sym-2" class="chev-sym" x="840" y="125" width="120" height="80" />
+					<rect class="chev-sym" x="840" y="215" width="120" height="80" />
+					<rect id="chev-sym-3" class="chev-sym" x="840" y="215" width="120" height="80" />
+					<rect class="chev-sym" x="840" y="305" width="120" height="80" />
+					<rect id="chev-sym-4" class="chev-sym" x="840" y="305" width="120" height="80" />
+					<rect class="chev-sym" x="840" y="395" width="120" height="80" />
+					<rect id="chev-sym-5" class="chev-sym" x="840" y="395" width="120" height="80" />
+					<rect class="chev-sym" x="840" y="485" width="120" height="80" />
+					<rect id="chev-sym-6" class="chev-sym" x="840" y="485" width="120" height="80" />
+					<rect class="chev-sym" x="840" y="575" width="120" height="80" />
+					<rect id="chev-sym-9" class="chev-sym" x="840" y="575" width="120" height="80" />
+				</g>
+				<text id="text-chev-1" class="text-chev" x="820" y="110">1</text>
+				<text id="text-chev-2" class="text-chev" x="820" y="200">2</text>
+				<text id="text-chev-3" class="text-chev" x="820" y="290">3</text>
+				<text id="text-chev-4" class="text-chev" x="820" y="380">4</text>
+				<text id="text-chev-5" class="text-chev" x="820" y="470">5</text>
+				<text id="text-chev-6" class="text-chev" x="820" y="560">6</text>
+				<text id="text-chev-9" class="text-chev" x="820" y="650">7</text>
+				<g transform="rotate(20 400 400)">
+					<rect x="370" y="53" rx="5" ry="5" width="60" height="22.5" style="fill:black;stroke:#E2E9C0;stroke-width:2;" />
+					<path d="M 388 43 l 0 25 q 0 8 8 8 l 8 0 q 8 0 8 -8 l 0 -25" style="fill:none;stroke:#E2E9C0;stroke-width:2;" />
+				</g>
+				<g transform="rotate(-20 400 400)">
+					<rect x="370" y="53" rx="5" ry="5" width="60" height="22.5" style="fill:black;stroke:#E2E9C0;stroke-width:2;" />
+					<path d="M 388 43 l 0 25 q 0 8 8 8 l 8 0 q 8 0 8 -8 l 0 -25" style="fill:none;stroke:#E2E9C0;stroke-width:2;" />
+				</g>
+				<g transform="rotate(140 400 400)">
+					<rect x="370" y="53" rx="5" ry="5" width="60" height="22.5" style="fill:black;stroke:#E2E9C0;stroke-width:2;" />
+					<path d="M 388 43 l 0 25 q 0 8 8 8 l 8 0 q 8 0 8 -8 l 0 -25" style="fill:none;stroke:#E2E9C0;stroke-width:2;" />
+				</g>
+				<g transform="rotate(-140 400 400)">
+					<rect x="370" y="53" rx="5" ry="5" width="60" height="22.5" style="fill:black;stroke:#E2E9C0;stroke-width:2;" />
+					<path d="M 388 43 l 0 25 q 0 8 8 8 l 8 0 q 8 0 8 -8 l 0 -25" style="fill:none;stroke:#E2E9C0;stroke-width:2;" />
+				</g>
+				<g transform="rotate(180 400 400)">
+					<rect x="370" y="53" rx="5" ry="5" width="60" height="22.5" style="fill:black;stroke:#E2E9C0;stroke-width:2;" />
+					<path d="M 388 43 l 0 25 q 0 8 8 8 l 8 0 q 8 0 8 -8 l 0 -25" style="fill:none;stroke:#E2E9C0;stroke-width:2;" />
+				</g>
+				<polygon stroke-linejoin="round" points="380 15 420 15" transform="rotate(60 400 400)" style="fill:none;stroke:#E2E9C0;stroke-width:5;" />
+				<polygon stroke-linejoin="round" points="380 15 420 15" transform="rotate(-60 400 400)" style="fill:none;stroke:#E2E9C0;stroke-width:5;" />
+				<polygon stroke-linejoin="round" points="380 15 420 15" transform="rotate(140 400 400)" style="fill:none;stroke:#E2E9C0;stroke-width:5;" />
+				<polygon stroke-linejoin="round" points="380 15 420 15" transform="rotate(-140 400 400)" style="fill:none;stroke:#E2E9C0;stroke-width:5;" />
+				<g transform="translate(220.72330470336311889978890947379 223.22330470336311889978890947379)" stroke="none">
+					<path stroke-linejoin="round" d="m 179.7669529663688110021109052621 100 l -163.56601717798212866012665431573 227.56601717798212866012665431573 l 120 0 l -30 -45 l 73.56601717798212866012665431573 -117.56601717798212866012665431573 l 73.56601717798212866012665431573 117.56601717798212866012665431573 l -30 45 l 120 0 Z" style="fill:none;stroke-width:5;" />
+					<circle cx="179.7669529663688110021109052621" cy="14.7669529663688110021109052621" r="50px" stroke-width="5" fill="none" />
+					<circle cx="179.7669529663688110021109052621" cy="14.7669529663688110021109052621" r="22.5px" stroke-width="5" fill="none" />
+				</g>
+				<rect x="2.5" y="2.5" width="353.55339059327376220042218105242" height="353.55339059327376220042218105242" style="fill:none;stroke:white;stroke-width:0;" />
+				<text id="event" x="0" y="50px" font-size="20px" fill="#fff" text-anchor="begin"></text>
+			</g>
+		</svg>
+		<div style="position: absolute; top: 0; left: 800px; background: black;">
+			<h3>Iris segments</h3>
+			<div onmouseover="highlightIrisSegemnts();" onmouseout="dehighlightIrisSegemnts();"><input id="show-segments-all" type="checkbox" checked value="" onchange="showIrisSegments();"> <label for="show-segments-all">show all segments</label></div>
+			<div style="width: 300px; height: 270px; overflow: auto;">
+				<ul class="list-no-marks no-margin no-padding">
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-1" type="checkbox" checked value="1" onchange="showIrisSegment();"> <label for="show-segment-1">Show segment 1</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-1" type="checkbox" checked value="1" onchange="useClipping('clip-path');"> <label for="use-clipping-1">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-2" type="checkbox" checked value="2" onchange="showIrisSegment();"> <label for="show-segment-2">Show segment 2</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-2" type="checkbox" checked value="2" onchange="useClipping('clip-path');"> <label for="use-clipping-2">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-3" type="checkbox" checked value="3" onchange="showIrisSegment();"> <label for="show-segment-3">Show segment 3</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-3" type="checkbox" checked value="3" onchange="useClipping('clip-path');"> <label for="use-clipping-3">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-4" type="checkbox" checked value="4" onchange="showIrisSegment();"> <label for="show-segment-4">Show segment 4</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-4" type="checkbox" checked value="4" onchange="useClipping('clip-path');"> <label for="use-clipping-4">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-5" type="checkbox" checked value="5" onchange="showIrisSegment();"> <label for="show-segment-5">Show segment 5</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-5" type="checkbox" checked value="5" onchange="useClipping('clip-path');"> <label for="use-clipping-5">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-6" type="checkbox" checked value="6" onchange="showIrisSegment();"> <label for="show-segment-6">Show segment 6</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-6" type="checkbox" checked value="6" onchange="useClipping('clip-path');"> <label for="use-clipping-6">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-7" type="checkbox" checked value="7" onchange="showIrisSegment();"> <label for="show-segment-7">Show segment 7</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-7" type="checkbox" checked value="7" onchange="useClipping('clip-path');"> <label for="use-clipping-7">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-8" type="checkbox" checked value="8" onchange="showIrisSegment();"> <label for="show-segment-8">Show segment 8</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-8" type="checkbox" checked value="8" onchange="useClipping('clip-path');"> <label for="use-clipping-8">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-9" type="checkbox" checked value="9" onchange="showIrisSegment();"> <label for="show-segment-9">Show segment 9</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-9" type="checkbox" checked value="9" onchange="useClipping('clip-path');"> <label for="use-clipping-9">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-10" type="checkbox" checked value="10" onchange="showIrisSegment();"> <label for="show-segment-10">Show segment 10</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-10" type="checkbox" checked value="10" onchange="useClipping('clip-path');"> <label for="use-clipping-10">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-11" type="checkbox" checked value="11" onchange="showIrisSegment();"> <label for="show-segment-11">Show segment 11</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-11" type="checkbox" checked value="11" onchange="useClipping('clip-path');"> <label for="use-clipping-11">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-12" type="checkbox" checked value="12" onchange="showIrisSegment();"> <label for="show-segment-12">Show segment 12</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-12" type="checkbox" checked value="12" onchange="useClipping('clip-path');"> <label for="use-clipping-12">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-13" type="checkbox" checked value="13" onchange="showIrisSegment();"> <label for="show-segment-13">Show segment 13</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-13" type="checkbox" checked value="13" onchange="useClipping('clip-path');"> <label for="use-clipping-13">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-14" type="checkbox" checked value="14" onchange="showIrisSegment();"> <label for="show-segment-14">Show segment 14</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-14" type="checkbox" checked value="14" onchange="useClipping('clip-path');"> <label for="use-clipping-14">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-15" type="checkbox" checked value="15" onchange="showIrisSegment();"> <label for="show-segment-15">Show segment 15</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-15" type="checkbox" checked value="15" onchange="useClipping('clip-path');"> <label for="use-clipping-15">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-16" type="checkbox" checked value="16" onchange="showIrisSegment();"> <label for="show-segment-16">Show segment 16</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-16" type="checkbox" checked value="16" onchange="useClipping('clip-path');"> <label for="use-clipping-16">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-17" type="checkbox" checked value="17" onchange="showIrisSegment();"> <label for="show-segment-17">Show segment 17</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-17" type="checkbox" checked value="17" onchange="useClipping('clip-path-2');"> <label for="use-clipping-17">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-18" type="checkbox" checked value="18" onchange="showIrisSegment();"> <label for="show-segment-18">Show segment 18</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-18" type="checkbox" checked value="18" onchange="useClipping('clip-path-2');"> <label for="use-clipping-18">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-19" type="checkbox" checked value="19" onchange="showIrisSegment();"> <label for="show-segment-19">Show segment 19</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-19" type="checkbox" checked value="19" onchange="useClipping('clip-path-2');"> <label for="use-clipping-19">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-20" type="checkbox" checked value="20" onchange="showIrisSegment();"> <label for="show-segment-20">Show segment 20</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-20" type="checkbox" checked value="20" onchange="useClipping('clip-path-2');"> <label for="use-clipping-20">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-20-2" type="checkbox" checked value="20-2" onchange="showIrisSegment();"> <label for="show-segment-20-2">Show segment 20 - 2</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-20-2" type="checkbox" checked value="20-2" onchange="useClipping('clip-path');"> <label for="use-clipping-20-2">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div style="position: absolute; top: 410px; left: 800px; background: black;">
+			<h3>Iris segment ends</h3>
+			<div onmouseover="highlightIrisSegemnts();" onmouseout="dehighlightIrisSegemnts();"><input id="show-segments-all-end" type="checkbox" checked value="" onchange="showIrisSegments();"> <label for="show-segments-all-end">show all end segments</label></div>
+			<div style="width: 350px; height: 270px; overflow: auto;">
+				<ul class="list-no-marks no-margin no-padding">
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-1-end" type="checkbox" checked value="1-end" onchange="showIrisSegment();"> <label for="show-segment-1-end">Show segment 1 end</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-1-end" type="checkbox" checked value="1-end" onchange="useClipping('clip-path-end');"> <label for="use-clipping-1-end">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-2-end" type="checkbox" checked value="2-end" onchange="showIrisSegment();"> <label for="show-segment-2-end">Show segment 2 end</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-2-end" type="checkbox" checked value="2-end" onchange="useClipping('clip-path-end');"> <label for="use-clipping-2-end">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-3-end" type="checkbox" checked value="3-end" onchange="showIrisSegment();"> <label for="show-segment-3-end">Show segment 3 end</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-3-end" type="checkbox" checked value="3-end" onchange="useClipping('clip-path-end');"> <label for="use-clipping-3-end">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-4-end" type="checkbox" checked value="4-end" onchange="showIrisSegment();"> <label for="show-segment-4-end">Show segment 4 end</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-4-end" type="checkbox" checked value="4-end" onchange="useClipping('clip-path-end');"> <label for="use-clipping-4-end">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-5-end" type="checkbox" checked value="5-end" onchange="showIrisSegment();"> <label for="show-segment-5-end">Show segment 5 end</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-5-end" type="checkbox" checked value="5-end" onchange="useClipping('clip-path-end');"> <label for="use-clipping-5-end">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-6-end" type="checkbox" checked value="6-end" onchange="showIrisSegment();"> <label for="show-segment-6-end">Show segment 6 end</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-6-end" type="checkbox" checked value="6-end" onchange="useClipping('clip-path-end');"> <label for="use-clipping-6-end">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-7-end" type="checkbox" checked value="7-end" onchange="showIrisSegment();"> <label for="show-segment-7-end">Show segment 7 end</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-7-end" type="checkbox" checked value="7-end" onchange="useClipping('clip-path-end');"> <label for="use-clipping-7-end">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-8-end" type="checkbox" checked value="8-end" onchange="showIrisSegment();"> <label for="show-segment-8-end">Show segment 8 end</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-8-end" type="checkbox" checked value="8-end" onchange="useClipping('clip-path-end');"> <label for="use-clipping-8-end">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-9-end" type="checkbox" checked value="9-end" onchange="showIrisSegment();"> <label for="show-segment-9-end">Show segment 9 end</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-9-end" type="checkbox" checked value="9-end" onchange="useClipping('clip-path-end');"> <label for="use-clipping-9-end">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-10-end" type="checkbox" checked value="10-end" onchange="showIrisSegment();"> <label for="show-segment-10-end">Show segment 10 end</label>
+						<ul class="list-no-marks">
+							<li>
+								<input id="use-clipping-10-end" type="checkbox" checked value="10-end" onchange="useClipping('clip-path-end');"> <label for="use-clipping-10-end">Use clipping</label>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div style="position: absolute; top: 0; left: 1200px; background: black;">
+			<h3>Iris segment ts</h3>
+			<div onmouseover="highlightIrisSegemnts();" onmouseout="dehighlightIrisSegemnts();"><input id="show-segment-ts-all" type="checkbox" checked value="" onchange="showIrisSegments();"> <label for="show-segment-ts-all">show all segment ts</label></div>
+			<div style="width: 300px; height: 270px; overflow: auto;">
+				<ul class="list-no-marks no-margin no-padding">
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-1-t" type="checkbox" checked value="1-t" onchange="showIrisSegment();"> <label for="show-segment-1-t">Show segment 1 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-2-t" type="checkbox" checked value="2-t" onchange="showIrisSegment();"> <label for="show-segment-2-t">Show segment 2 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-3-t" type="checkbox" checked value="3-t" onchange="showIrisSegment();"> <label for="show-segment-3-t">Show segment 3 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-4-t" type="checkbox" checked value="4-t" onchange="showIrisSegment();"> <label for="show-segment-4-t">Show segment 4 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-5-t" type="checkbox" checked value="5-t" onchange="showIrisSegment();"> <label for="show-segment-5-t">Show segment 5 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-6-t" type="checkbox" checked value="6-t" onchange="showIrisSegment();"> <label for="show-segment-6-t">Show segment 6 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-7-t" type="checkbox" checked value="7-t" onchange="showIrisSegment();"> <label for="show-segment-7-t">Show segment 7 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-8-t" type="checkbox" checked value="8-t" onchange="showIrisSegment();"> <label for="show-segment-8-t">Show segment 8 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-9-t" type="checkbox" checked value="9-t" onchange="showIrisSegment();"> <label for="show-segment-9-t">Show segment 9 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-10-t" type="checkbox" checked value="10-t" onchange="showIrisSegment();"> <label for="show-segment-10-t">Show segment 10 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-11-t" type="checkbox" checked value="11-t" onchange="showIrisSegment();"> <label for="show-segment-11-t">Show segment 11 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-12-t" type="checkbox" checked value="12-t" onchange="showIrisSegment();"> <label for="show-segment-12-t">Show segment 12 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-13-t" type="checkbox" checked value="13-t" onchange="showIrisSegment();"> <label for="show-segment-13-t">Show segment 13 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-14-t" type="checkbox" checked value="14-t" onchange="showIrisSegment();"> <label for="show-segment-14-t">Show segment 14 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-15-t" type="checkbox" checked value="15-t" onchange="showIrisSegment();"> <label for="show-segment-15-t">Show segment 15 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-16-t" type="checkbox" checked value="16-t" onchange="showIrisSegment();"> <label for="show-segment-16-t">Show segment 16 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-17-t" type="checkbox" checked value="17-t" onchange="showIrisSegment();"> <label for="show-segment-17-t">Show segment 17 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-18-t" type="checkbox" checked value="18-t" onchange="showIrisSegment();"> <label for="show-segment-18-t">Show segment 18 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-19-t" type="checkbox" checked value="19-t" onchange="showIrisSegment();"> <label for="show-segment-19-t">Show segment 19 t</label>
+					</li>
+					<li onmouseover="highlightIrisSegemnt();" onmouseout="dehighlightIrisSegemnt();">
+						<input id="show-segment-20-t" type="checkbox" checked value="20-t" onchange="showIrisSegment();"> <label for="show-segment-20-t">Show segment 20 t</label>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div style="position: absolute; top: 425px; left: 1200px;">
+			<input id="show-gate" type="checkbox" checked onchange="showGate();"> <label for="show-gate">Show gate</label>
+	  </div>
+	</body>
+</html>

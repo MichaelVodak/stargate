@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="generator" content="PSPad editor, www.pspad.com">
+		<meta name="author" content="Michael Vodák">
+		<title>SGC EVAC - SVG</title>
+		<link rel="stylesheet" href="../../styles/style.css">
+		<script src="../../scripts/media.js"></script>
+		<script src="sgc_evac.js"></script>
+		<script type="text/javascript">
+
+			window.addEventListener("load", function() {
+				const LETTERS = {
+					false: [
+						{
+							letter: "E",
+							x: 47.07293701171875
+						}, {
+							letter: "V",
+							x: 347.2187805175781
+						}, {
+							letter: "A",
+							x: 613.3646240234375
+						}, {
+							letter: "C",
+							x: 938.3437805175781
+						}
+					], true: [
+						{
+							letter: "C",
+							x: 47.07293701171875
+						}, {
+							letter: "A",
+							x: 372.0520935058594
+						}, {
+							letter: "V",
+							x: 663.03125
+						}, {
+							letter: "E",
+							x: 963.1770935058594
+						}
+					]
+				};
+				const elements = document.getElementsByTagName("text");
+				const evacBase = new SGCEvacBase(
+					document.getElementsByTagName("svg")[0],
+					phase => {
+						for(var i = 0; i < LETTERS[phase].length; i++) {
+							elements[i].setAttribute("x", LETTERS[phase][i].x);
+							elements[i].innerHTML = LETTERS[phase][i].letter;
+						}
+					},
+					info => {
+						elements[0].style.opacity = info.firstPart;
+						elements[1].style.opacity = info.secondPart;
+						elements[2].style.opacity = info.thirdPart;
+						elements[3].style.opacity = info.fourthPart;
+					}
+				);
+			});
+		</script>
+	</head>
+  <body class="nonselectable">
+        <svg>
+			<g>
+				<rect x="5" y="5" width="1301" height="1001" fill="none" stroke="#ff3333" stroke-width="10" />
+				<text class="text-container" x="190" y="657.5px" font-size="450px" font-weight="bold" fill="#ea2e2e" text-anchor="left" style="opacity: 0;"><tspan>E</tspan></text>
+				<text class="text-container" x="492.5" y="657.5px" font-size="450px" font-weight="bold" fill="#ea2e2e" text-anchor="left" style="opacity: 0;"><tspan>V</tspan></text>
+				<text class="text-container" x="774.25" y="657.5px" font-size="450px" font-weight="bold" fill="#ea2e2e" text-anchor="left" style="opacity: 0;"><tspan>A</tspan></text>
+				<text class="text-container" x="1101.5" y="657.5px" font-size="450px" font-weight="bold" fill="#ea2e2e" text-anchor="left" style="opacity: 0;"><tspan>C</tspan></text>
+			</g>
+        </svg>
+  </body>
+</html>

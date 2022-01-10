@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="generator" content="PSPad editor, www.pspad.com">
+		<meta name="author" content="Michael Vodák">
+		<title>SGC EVAC - Canvas</title>
+		<link rel="stylesheet" href="../../styles/style.css">
+		<script src="../../scripts/media.js"></script>
+		<script src="sgc_evac.js"></script>
+		<script type="text/javascript">
+
+			window.addEventListener("load", function() {
+				const LETTERS = {
+					false: function(info) {
+						context2D.globalAlpha = info.firstPart;
+						context2D.fillText("E", 47.07293701171875, 657.5);
+						context2D.globalAlpha = info.secondPart;
+						context2D.fillText("V", 347.2187805175781, 657.5);
+						context2D.globalAlpha = info.thirdPart;
+						context2D.fillText("A", 613.3646240234375, 657.5);
+						context2D.globalAlpha = info.fourthPart;
+						context2D.fillText("C", 938.3437805175781, 657.5);
+					}, true: function(info) {
+						context2D.globalAlpha = info.firstPart;
+						context2D.fillText("C", 47.07293701171875, 657.5);
+						context2D.globalAlpha = info.secondPart;
+						context2D.fillText("A", 372.0520935058594, 657.5);
+						context2D.globalAlpha = info.thirdPart;
+						context2D.fillText("V", 663.03125, 657.5);
+						context2D.globalAlpha = info.fourthPart;
+						context2D.fillText("E", 963.1770935058594, 657.5);
+					}
+				};
+				const canvas = document.getElementsByTagName("canvas")[0];
+				const context2D = canvas.getContext("2d");
+				var text;
+				const evacBase = new SGCEvacBase(
+					canvas,
+					phase => {
+						text = LETTERS[phase];
+					},
+					info => {
+						context2D.scale(info.ratio, info.ratio);
+						context2D.strokeStyle = "#f33";
+						context2D.lineWidth = 10;
+						context2D.strokeRect(5, 5, 1301, 1001);
+						context2D.font = "bold 450px arial";
+						context2D.fillStyle = "#ea2e2e";
+						context2D.textAlign = "left";
+						text(info);
+					}
+				);
+			});
+			
+		</script>
+	</head>
+  <body class="nonselectable">
+        <canvas></canvas>
+  </body>
+</html>

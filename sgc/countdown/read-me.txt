@@ -1,0 +1,2 @@
+Key
+	f - show/hide FPS label

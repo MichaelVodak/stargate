@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="generator" content="PSPad editor, www.pspad.com">
+		<meta name="author" content="Michael Vodák">
+		<title>SGC ALERT - SVG</title>
+		<link rel="stylesheet" href="../../styles/style.css">
+		<script src="sgc_alert.js"></script>
+		<script src="../../scripts/media.js"></script>
+		<script type="text/javascript">
+			window.addEventListener("load", function() {
+				const svg = document.getElementsByTagName("svg")[0];
+				const elements = svg.getElementsByClassName("text-container");
+				const baseAlert = new SGCAlertBase(
+					svg,
+					function(type) {
+						elements[2].getElementsByTagName("text")[0].innerHTML = type ? "<tspan>C</tspan><tspan dx=\"10px\">O</tspan><tspan dx=\"10px\">V</tspan><tspan dx=\"10px\">I</tspan><tspan dx=\"10px\">D</tspan><tspan dx=\"10px\" dy=\"-15px\">-</tspan><tspan dx=\"10px\" dy=\"15px\">1</tspan><tspan dx=\"10px\">9</tspan>" : "<tspan>C</tspan><tspan dx=\"2.5px\">O</tspan><tspan dx=\"2.5px\">D</tspan><tspan dx=\"2.5px\">E</tspan><tspan dx=\"2.5px\"> </tspan><tspan dx=\"2.5px\">9</tspan>";
+					}, function(info) {
+						elements[0].style.opacity = info.firstPart;
+						elements[1].style.opacity = info.secondPart;
+						elements[2].style.opacity = info.thirdPart;
+					}
+				);
+			});
+		</script>
+	</head>
+	<body>
+        <svg class="nonselectable">
+			<g>
+				<rect x="5" y="5" width="1301" height="1001" fill="none" stroke="#ff3333" stroke-width="10" />
+				<text class="text-container" x="652" y="220px" font-size="200px" font-weight="bold" fill="#ea2e2e" text-anchor="middle" style="opacity: 0;">BASE</text>
+				<text class="text-container" x="652" y="530px" font-size="200px" font-weight="bold" fill="#ea2e2e" text-anchor="middle" style="opacity: 0;">ALERT</text>
+				<g class="text-container" transform="translate(134 690)" style="opacity: 0;">
+					<rect x="0" y="0" width="1028" height="250" fill="#ea2e2e" stroke="none" stroke-width="0" />
+					<rect x="15" y="15" width="998" height="220" fill="none" stroke="#420303" stroke-width="4" />
+					<text id="text-code" x="514" y="200px" font-size="200px" font-weight="bold" fill="#420303" text-anchor="middle"><tspan>C</tspan><tspan dx="2.5px">O</tspan><tspan dx="2.5px">D</tspan><tspan dx="2.5px">E</tspan><tspan dx="2.5px"> </tspan><tspan dx="2.5px">9</tspan></text>
+				</g>
+			</g>
+        </svg>
+	</body>
+</html>

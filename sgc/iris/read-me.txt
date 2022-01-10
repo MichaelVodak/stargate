@@ -1,0 +1,3 @@
+Keyboard shortcuts
+	Shift + → - rotate the iris parts clockwise 
+	Shift + ← - rotate the iris parts counterclockwise

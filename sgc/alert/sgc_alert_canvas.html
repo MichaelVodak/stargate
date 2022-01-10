@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="generator" content="PSPad editor, www.pspad.com">
+		<meta name="author" content="Michael Vodák">
+		<title>SGC ALERT - Canvas</title>
+		<link rel="stylesheet" href="../../styles/style.css">
+		<script src="sgc_alert.js"></script>
+		<script src="../../scripts/media.js"></script>
+		<script type="text/javascript">
+			window.addEventListener("load", function() {
+				const canvas = document.getElementsByTagName("canvas")[0];
+				const context2D = canvas.getContext("2d");
+				const code = function() {
+					context2D.fillText("C", 135.4375, 200);
+					context2D.fillText("O", 282.375, 200);
+					context2D.fillText("D", 440.4375, 200);
+					context2D.fillText("E", 587.375, 200);
+					context2D.fillText(" ", 723.2708282470703, 200);
+					context2D.fillText("9", 781.3333282470703, 200);
+				};
+				const covid = function() {
+					context2D.fillText("C", 17.770843505859375, 200);
+					context2D.fillText("O", 172.20834350585938, 200);
+					context2D.fillText("V", 337.7708435058594, 200);
+					context2D.fillText("I", 481.1666717529297, 200);
+					context2D.fillText("D", 546.7291717529297, 200);
+					context2D.fillText("-", 701.1666717529297, 185);
+					context2D.fillText("1", 777.7708358764648, 200);
+					context2D.fillText("9", 899, 200);
+				};
+				var text;
+				const baseAlert = new SGCAlertBase(
+					canvas,
+					function(type) {
+						text = type ? covid : code;
+					}, function(info) {
+						context2D.scale(info.ratio, info.ratio);
+						context2D.strokeStyle = "#f33";
+						context2D.lineWidth = 10;
+						context2D.strokeRect(5, 5, 1301, 1001);
+						context2D.font = "bold 200px arial";
+						context2D.fillStyle = "#ea2e2e";
+						context2D.textAlign = "center";
+						context2D.globalAlpha = info.firstPart;
+						context2D.fillText("BASE", 652, 220);
+						context2D.globalAlpha = info.secondPart;
+						context2D.fillText("ALERT", 652, 530);
+						context2D.translate(134, 690);
+						context2D.globalAlpha = info.thirdPart;
+						context2D.fillRect(0, 0, 1028, 250);
+						context2D.strokeStyle = "#420303";
+						context2D.lineWidth = 4;
+						context2D.strokeRect(15, 15, 998, 220);
+						context2D.fillStyle = "#420303";
+						context2D.textAlign = "left";
+						text();
+						context2D.translate(-134, -690);
+					}
+				);
+			});
+		</script>
+	</head>
+	<body>
+        <canvas></canvas>
+		
+        <svg class="nonselectable">
+			<g>
+				<text id="text-code" x="514" y="200px" font-size="200px" font-weight="bold" fill="#420303" text-anchor="middle"><tspan>C</tspan><tspan dx="2.5px">O</tspan><tspan dx="2.5px">D</tspan><tspan dx="2.5px">E</tspan><tspan dx="2.5px"> </tspan><tspan dx="2.5px">9</tspan></text>
+				<text id="text-code" x="514" y="200px" font-size="200px" font-weight="bold" fill="#420303" text-anchor="middle"><tspan>C</tspan><tspan dx="10px">O</tspan><tspan dx="10px">V</tspan><tspan dx="10px">I</tspan><tspan dx="10px">D</tspan><tspan dx="10px" dy="-15px">-</tspan><tspan dx="10px" dy="15px">1</tspan><tspan dx="10px">9</tspan></text>
+        </svg>
+	</body>
+</html>

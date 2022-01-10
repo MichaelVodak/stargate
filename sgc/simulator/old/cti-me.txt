@@ -1,0 +1,27 @@
+Shift + I        - zobrazí/zavøe databázi planet
+Shift + R        - zobrazí/schová odpoèet délky aktivity brány
+Shift + O        - spustí aktivaci z venèí
+Mezerník         - spustí/schová poplach základny Code 9
+Shift + Mezerník - spustí/schová upravený poplach základny Covid-19
+Esc				 - spustí/schová výzvu k evakuaci základny
+Shift + Esc		 - spustí/schová upravenou výzvu k evakuaci základny
+Shift + S		 - zobrazí/schová výpis poslední stisknuté klávesy nebo klávesové zkratky
+
+Šipky
+    Nahoru - spustí/pozastaví zadavací sekvenci
+    Dolù   - pøeruší zadavací sekvenci nebo zavøe odchozí èerví díru
+    Pravo  - otevøe/zavøe Iris brány
+    
+Adresy se stavem
+    Active   - normální prùbìh zadání sekvence znakù až po vytvoøení stabilního rozhraní èerví díry
+    Inactive - vcelku normální prùbìh zadání sekvence znakù s vyjímkou posledního výchozího bodu s výpisem chybové hlášky
+    Locked   - nelze provést zadávání
+    
+Procházení v databázi planet pomocí
+    tlaèítek nahoru a dolù nacházejících se na stavovém sloupci pro procházení,
+    posuvníku stavového sloupce,
+    koleèka myši
+    a kláves PageUp a PageDown
+    
+Hodnì štìstí pøi hraní si se simulátorem pøeje Michael Vodák.
+P.S.: Program mùže obsahovat chyby (bugy), které se musí doladit.
