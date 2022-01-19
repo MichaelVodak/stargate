@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -7,6 +7,7 @@
 		<title>SGCSim - base - Canvas</title>
 		<link rel="stylesheet" href="../../../styles/style.css">
 		<script src="../../../scripts/media.js"></script>
+		<script src="../../../scripts/math.js"></script>
 		<style>
 
 			body {
@@ -26,11 +27,28 @@
 			window.addEventListener("load", function() {
 				const canvas = document.getElementsByTagName("canvas")[0];
 				const context2D = canvas.getContext("2d");
+				/**/
+				const IRIS_SEGMENTS = 20;
+				const IRIS_END_SEGMENTS = 10;
+				const IRIS_INDEX = 16;
+				const IRIS_DIFFERENCE_ANGLE = 2*Math.PI/IRIS_SEGMENTS;
+				const IRIS_SEGMENT = new Path2D();
+				const IRIS_SEGMENT_END_CLIP = new Path2D();
+				IRIS_SEGMENT.moveTo(0, 0);
+				IRIS_SEGMENT.arc(200, 150, 250, 3.7850937623830774, 2.214297435588181, true);
+				IRIS_SEGMENT.arc(235.0929174262664, 194.95354128686677, 241.45142874054397, 2.444301518800821, 3.999915267520392);
+				IRIS_SEGMENT.arc(0, 250, 250, 5.026548245743669, 4.71238898038469, true);
+				IRIS_SEGMENT.closePath();
+				IRIS_SEGMENT_END_CLIP.moveTo(600, -150);
+				IRIS_SEGMENT_END_CLIP.lineTo(600, 850);
+				IRIS_SEGMENT_END_CLIP.lineTo(50, 350);
+				IRIS_SEGMENT_END_CLIP.arc(235.0929174262664, 194.95354128686677, 241.45142874054397, 2.444301518800821, 3.999915267520392);
 				const simulator = new SGCSimulatorBase(
 					canvas,
 					info => {
 						context2D.clearRect(0, 0, 1100, 1000);
 						context2D.scale(info.ratio, info.ratio);
+						context2D.miterLimit = 4;
 						context2D.strokeStyle = "#009999";
 						context2D.lineCap = "butt";
 						context2D.lineWidth = 6;
@@ -67,6 +85,7 @@
 							context2D.fillText("" + (i+1), 147.5, y + 15);
 						}
 						context2D.translate(255, -540);
+						
 						context2D.strokeStyle = "#66cccc";
 						context2D.lineWidth = 5;
 						context2D.beginPath();
@@ -99,9 +118,152 @@
 						context2D.fillStyle = blink;
 						context2D.beginPath();
 						context2D.arc(400, 400, 250, 0, 2*Math.PI);
+						
 						context2D.closePath();
 						context2D.fill();
 						context2D.stroke();
+						context2D.translate(400, 150);
+						context2D.strokeStyle = "#50a2a9";
+						context2D.fillStyle = "#2b586b";
+						context2D.save();
+						context2D.lineWidth = 0;
+						context2D.beginPath();
+						context2D.arc(0, 250, 248.5, 0, 2*Math.PI);
+						context2D.clip();
+						context2D.lineWidth = 3;
+						/**/
+						for(var i = 0; i < IRIS_SEGMENTS; i++) {
+							if(i >= IRIS_INDEX) {
+								context2D.save();
+								context2D.lineWidth = 0;
+								context2D.translate(0, 250);
+								context2D.rotate(IRIS_DIFFERENCE_ANGLE);
+								context2D.translate(0, -250);
+								context2D.translate(77.25424859373686, 12.23587092621162);
+								context2D.rotate(toRadians(info.irisAngle));
+								context2D.translate(-77.25424859373686, -12.23587092621162);
+								context2D.beginPath();
+								context2D.moveTo(0, 0);
+								context2D.arc(200, 150, 250, 3.7850937623830774, 2.214297435588181, true);
+								context2D.arc(235.0929174262664, 194.95354128686677, 241.45142874054397, 2.444301518800821, 3.999915267520392);
+								context2D.arc(0, 250, 250, 5.026548245743669, 4.71238898038469);
+								context2D.clip();
+								context2D.translate(77.25424859373686, 12.23587092621162);
+								context2D.rotate(-toRadians(info.irisAngle));
+								context2D.translate(-77.25424859373686, -12.23587092621162);
+								context2D.translate(0, 250);
+								context2D.rotate(-IRIS_DIFFERENCE_ANGLE);
+								context2D.translate(0, -250);
+								context2D.lineWidth = 3;
+							}
+							context2D.beginPath();
+							context2D.translate(77.25424859373686, 12.23587092621162);
+							context2D.rotate(toRadians(info.irisAngle));
+							context2D.translate(-77.25424859373686, -12.23587092621162);
+							context2D.fill(IRIS_SEGMENT);
+							context2D.stroke(IRIS_SEGMENT);
+							context2D.translate(77.25424859373686, 12.23587092621162);
+							context2D.rotate(-toRadians(info.irisAngle));
+							context2D.translate(-77.25424859373686, -12.23587092621162);
+							if(i >= IRIS_INDEX)
+								context2D.restore();
+							context2D.translate(0, 250);
+							context2D.rotate(IRIS_DIFFERENCE_ANGLE);
+							context2D.translate(0, -250);
+						}
+						/**/
+						context2D.translate(77.25424859373686, 12.23587092621162);
+						context2D.rotate(toRadians(info.irisAngle));
+						context2D.translate(-77.25424859373686, -12.23587092621162);
+						context2D.beginPath();
+						context2D.moveTo(0, 0);
+						context2D.arc(200, 150, 250, 3.7850937623830774, 2.214297435588181, true);
+						context2D.stroke();
+						context2D.translate(77.25424859373686, 12.23587092621162);
+						context2D.rotate(-toRadians(info.irisAngle));
+						context2D.translate(-77.25424859373686, -12.23587092621162);
+						/**/
+						for(var i = 0; i < IRIS_END_SEGMENTS; i++) {
+							context2D.save();
+							context2D.lineWidth = 0;
+							context2D.translate(0, 250);
+							context2D.rotate(IRIS_DIFFERENCE_ANGLE);
+							context2D.translate(0, -250);
+							context2D.translate(77.25424859373686, 12.23587092621162);
+							context2D.rotate(toRadians(info.irisAngle));
+							context2D.translate(-77.25424859373686, -12.23587092621162);
+							context2D.beginPath();
+							if(i < IRIS_END_SEGMENTS-1)
+								context2D.clip(IRIS_SEGMENT_END_CLIP);
+							else {
+								context2D.moveTo(600, -150);
+								context2D.lineTo(600, 850);
+								context2D.lineTo(51.03866340761937, 348.9039220342613);
+								context2D.arc(235.0929174262664, 194.95354128686677, 239.95142874054397, 2.4450236042847497, 4.010972763358826);
+								context2D.clip();
+							}
+							context2D.lineWidth = 3;
+							context2D.translate(77.25424859373686, 12.23587092621162);
+							context2D.rotate(-toRadians(info.irisAngle));
+							context2D.translate(-77.25424859373686, -12.23587092621162);
+							context2D.translate(0, 250);
+							context2D.rotate(-IRIS_DIFFERENCE_ANGLE);
+							context2D.translate(0, -250);
+							context2D.beginPath();
+							context2D.translate(77.25424859373686, 12.23587092621162);
+							context2D.rotate(toRadians(info.irisAngle));
+							context2D.translate(-77.25424859373686, -12.23587092621162);
+							context2D.fill(IRIS_SEGMENT);
+							context2D.stroke(IRIS_SEGMENT);
+							context2D.translate(77.25424859373686, 12.23587092621162);
+							context2D.rotate(-toRadians(info.irisAngle));
+							context2D.translate(-77.25424859373686, -12.23587092621162);
+							context2D.restore();
+							if(i+1 < IRIS_END_SEGMENTS) {
+								context2D.translate(0, 250);
+								context2D.rotate(IRIS_DIFFERENCE_ANGLE);
+								context2D.translate(0, -250);
+							}
+						}
+						context2D.save();
+						context2D.lineWidth = 0;
+						context2D.beginPath();
+						context2D.translate(0, 250);
+						context2D.rotate(IRIS_DIFFERENCE_ANGLE);
+						context2D.translate(0, -250);
+						context2D.translate(77.25424859373686, 12.23587092621162);
+						context2D.rotate(toRadians(info.irisAngle));
+						context2D.translate(-77.25424859373686, -12.23587092621162);
+						context2D.clip(IRIS_SEGMENT_END_CLIP);
+						context2D.translate(77.25424859373686, 12.23587092621162);
+						context2D.rotate(-toRadians(info.irisAngle));
+						context2D.translate(-77.25424859373686, -12.23587092621162);
+						context2D.translate(0, 250);
+						context2D.rotate(-IRIS_DIFFERENCE_ANGLE);
+						context2D.translate(0, -250);
+						context2D.translate(77.25424859373686, 12.23587092621162);
+						context2D.rotate(toRadians(info.irisAngle));
+						context2D.translate(-77.25424859373686, -12.23587092621162);
+						context2D.lineWidth = 3;
+						context2D.beginPath();
+						context2D.moveTo(50, 350);
+						context2D.arc(235.0929174262664, 194.95354128686677, 241.45142874054397, 2.444301518800821, 3.999915267520392)
+						context2D.stroke();
+						context2D.translate(77.25424859373686, 16.23587092621162);
+						context2D.rotate(-toRadians(info.irisAngle));
+						context2D.translate(-77.25424859373686, -16.23587092621162);
+						context2D.translate(0, 250);
+						context2D.rotate(-10*IRIS_DIFFERENCE_ANGLE);
+						context2D.translate(0, -250);
+						context2D.fillStyle = "#50a2a9";
+						/**/
+						if(info.irisCenter)
+							context2D.fillRect(-0.5, 249.5, 1, 1);
+						context2D.restore();
+						/**/
+						context2D.restore();
+						context2D.translate(-400, -150);
+						context2D.strokeStyle = "#669999";
 						const number = 39;
 						const angle = 2*Math.PI/number;
 						context2D.translate(400, 400);

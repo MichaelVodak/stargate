@@ -1,0 +1,5 @@
+Šipky
+    Pravo  - otevøe/zavøe Iris brány
+    
+Hodnì štìstí pøi hraní si se simulátorem pøeje Michael Vodák.
+P.S.: Program mùže obsahovat chyby (bugy), které se musí doladit.

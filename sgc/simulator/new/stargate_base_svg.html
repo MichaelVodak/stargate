@@ -332,14 +332,45 @@
 		<script src="simulator_base.js"></script>
 		<script type="text/javascript">
 			window.addEventListener("load", function() {
+				const irisSegments = document.getElementsByClassName("iris-segment");
+				const irisSegmentEnds = document.getElementsByClassName("iris-segment-end");
+				const irisCenter = document.getElementById("iris-center");
+				const clipPath = document.getElementById("clip-path");
+				const clipPath2 = document.getElementById("clip-path-2");
+				const clipPath3 = document.getElementById("clip-path-3");
+				const clipPathEnd = document.getElementById("clip-path-end");
+				const clipPathEnd2 = document.getElementById("clip-path-end-2");
+				const clipPath2Segment = document.getElementById("clip-path-2-segment");
+				const clipPath3Segment = document.getElementById("clip-path-3-segment");
+				const clipPathEndSegment = document.getElementById("clip-path-end-segment");
+				const clipPathEnd2Segment = document.getElementById("clip-path-end-2-segment");
 				const stargateStatus = document.getElementById("stargate-status");
 				const stargateBlinkFillStops = document.getElementById("stargate-blink-fill").getElementsByTagName("stop");
+				const change = (element, angle) => {
+					const a = element.getAttribute("transform").substring(element.getAttribute("transform").lastIndexOf("(") + 1, element.getAttribute("transform").indexOf(" ", element.getAttribute("transform").lastIndexOf("(") + 1));
+					element.setAttribute("transform", element.getAttribute("transform").replace(" rotate(" + a, " rotate(" + angle));
+				};
 				const simulator = new SGCSimulatorBase(
 					document.getElementsByTagName("svg")[0],
 					info => {
 						stargateStatus.style.opacity = info.opacity;
 						stargateBlinkFillStops[1].setAttribute("offset", info.percent + "%");
 						stargateBlinkFillStops[2].setAttribute("offset", (info.percent*2) + "%");
+						for(var i = 0; i < irisSegments.length; i++) {
+							change(irisSegments[i], info.irisAngle);
+							if(i < irisSegmentEnds.length)
+								change(irisSegmentEnds[i], info.irisAngle);
+						}
+						clipPath.setAttribute("transform", clipPath.getAttribute("transform").replace(clipPath.getAttribute("transform").substring(clipPath.getAttribute("transform").indexOf("(")+1, clipPath.getAttribute("transform").indexOf(" ")), (-info.irisAngle) + ""));
+						clipPath2.setAttribute("transform", clipPath2.getAttribute("transform").replace(clipPath2.getAttribute("transform").substring(clipPath2.getAttribute("transform").indexOf("(")+1, clipPath2.getAttribute("transform").indexOf(" ")), (-info.irisAngle) + ""));
+						clipPath3.setAttribute("transform", clipPath3.getAttribute("transform").replace(clipPath3.getAttribute("transform").substring(clipPath3.getAttribute("transform").indexOf("(")+1, clipPath3.getAttribute("transform").indexOf(" ")), (-info.irisAngle) + ""));
+						clipPathEnd.setAttribute("transform", clipPathEnd.getAttribute("transform").replace(clipPathEnd.getAttribute("transform").substring(clipPathEnd.getAttribute("transform").indexOf("(")+1, clipPathEnd.getAttribute("transform").indexOf(" ")), (-info.irisAngle) + ""));
+						clipPathEnd2.setAttribute("transform", clipPathEnd2.getAttribute("transform").replace(clipPathEnd2.getAttribute("transform").substring(clipPathEnd2.getAttribute("transform").indexOf("(")+1, clipPathEnd2.getAttribute("transform").indexOf(" ")), (-info.irisAngle) + ""));
+						irisCenter.style.display = info.irisCenter ? "inline" : "";
+						change(clipPath2Segment, info.irisAngle);
+						change(clipPath3Segment, info.irisAngle);
+						change(clipPathEndSegment, info.irisAngle);
+						change(clipPathEnd2Segment, info.irisAngle);
 					}
 				);
 				simulator.start();
@@ -648,7 +679,7 @@
 					<path id="clip-path-end-segment" d="M 1000 0 L 1000 1000 L 451.03866340761937 498.9039220342613 A 239.95142874054397 239.95142874054397 0 0 1 480.2522068646372 161.64766983862842" transform="rotate(18 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="none" stroke-width="0" fill="none" stroke-linecap="butt" />
 				</clipPath>
 				<clipPath id="clip-path-end-2" transform="rotate(-61 477.25424859373686 162.23587092621162)">
-					<path id="clip-path-end-segment-2" d="M 1000 0 L 1000 1000 L 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162" transform="rotate(18 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="none" stroke-width="0" fill="none" stroke-linecap="butt" />
+					<path id="clip-path-end-2-segment" d="M 1000 0 L 1000 1000 L 450 500 A 241.45142874054397 241.45142874054397 0 0 1 477.25424859373686 162.23587092621162" transform="rotate(18 400 400) rotate(61 477.25424859373686 162.23587092621162)" stroke="none" stroke-width="0" fill="none" stroke-linecap="butt" />
 				</clipPath>
 			</defs>
 			<g id="graphics">

@@ -1,0 +1,5 @@
+Arrow keys
+    Right  	- opens/closes Iris gates
+    
+Good luck playing with the simulator Michael Vodák.
+P.S.: The program may contain bugs that must be debugged.

@@ -787,6 +787,10 @@ function SGCSimulatorBase(element, render) {
 			address: [29, 5, 23, 11, 13, 18, 0]
 		}
 	];
+	const SOUND_IRISI_CLOSE = new Audio("../../sounds/iris_close.mp3");
+	const SOUND_IRISI_OPEN = new Audio("../../sounds/iris_open.mp3");
+	const IRIS_SPEED = 0.02033333333333333333333333333333;
+	const IRIS_ANGLE_MAXIMUM = 61;
 	var running = false;
 	var run = false;
 	var abort = false;
@@ -801,6 +805,8 @@ function SGCSimulatorBase(element, render) {
 	var written = false;
 	var opacity = 0;
 	var percent = 0;
+	var irisAngle = IRIS_ANGLE_MAXIMUM;
+	var irisAction = null;
 	var percentPause = null;
 	var opacityType = 1;
 	var percentType = 1;
@@ -835,7 +841,16 @@ function SGCSimulatorBase(element, render) {
 				percentPause = null;
 			}
 		}
-		
+		if(irisAction != null) {
+			irisAngle += (irisAction ? -1 : 1)*delta*IRIS_SPEED;
+			if(irisAngle <= 0) {
+				irisAngle = 0;
+				irisAction = null;
+			} else if(irisAngle >= IRIS_ANGLE_MAXIMUM) {
+				irisAngle = IRIS_ANGLE_MAXIMUM;
+				irisAction = null;
+			}
+		}
 		ratio = window.devicePixelRatio;
 		var windowWidth = window.innerWidth;
 		var windowHeight = window.innerHeight;
@@ -859,13 +874,38 @@ function SGCSimulatorBase(element, render) {
 			requestAnimationFrame(animation);
 		}
 	};
+	
 	const animation = function(now) {
 		update(now);
 		renderFunction({
 			opacity: opacity,
 			percent: percent,
-			ratio: ratio
+			ratio: ratio,
+			irisAngle: irisAngle,
+			irisCenter: irisAngle%360 == 0
 		});
 		requestAnimationFrame(animation);
 	};
+	
+	window.addEventListener("keydown", event => {
+		if(!event.ctrlKey && !event.altKey && !event.metaKey) {
+			switch(event.key) {
+				case "ArrowRight":
+					if(irisAction == null)
+						irisAction = irisAngle == IRIS_ANGLE_MAXIMUM;
+					else
+						irisAction = !irisAction;
+					if(irisAction) {
+						stopSound(SOUND_IRISI_OPEN);
+						SOUND_IRISI_CLOSE.currentTime = (IRIS_ANGLE_MAXIMUM - irisAngle)/IRIS_ANGLE_MAXIMUM*SOUND_IRISI_CLOSE.duration;
+						SOUND_IRISI_CLOSE.play();
+					} else {
+						stopSound(SOUND_IRISI_CLOSE);
+						SOUND_IRISI_OPEN.currentTime = irisAngle/IRIS_ANGLE_MAXIMUM*SOUND_IRISI_OPEN.duration;
+						SOUND_IRISI_OPEN.play();
+					}
+					break;
+			}
+		}
+	});
 }
